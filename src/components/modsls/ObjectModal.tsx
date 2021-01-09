@@ -22,11 +22,11 @@ interface ProductFormModalProps {
     inputPlaceHolder: string;
     okText: string;
     //   onConfirm: (values: Values) => void;
-    onConfirm: (productTitle: string, isAqua: boolean, isEat: boolean, unit: string) => void;
+    onConfirm: (name: string) => void;
     onCancel: () => void;
 }
 
-export const ProductFormModal: React.FC<ProductFormModalProps> = ({
+export const ObjectModal: React.FC<ProductFormModalProps> = ({
     visible,
     onConfirm,
     onCancel,
@@ -36,21 +36,10 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
 }) => {
     const [form] = Form.useForm();
 
-    function onChangeAqua(e) {
-        setIsAqua(e.target.checked);
-        
-    }
-
-    function onChangeEat(e) {
-        setIsEat(e.target.checked);
-    }
-
     function handleChange(value) {
         
     }
 
-    const [isAqua, setIsAqua] = useState(false);
-    const [isEat, setIsEat] = useState(false);
 
     return (
         <Modal
@@ -66,7 +55,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
                     .then((values) => {
                         form.resetFields();
                         console.log(values);
-                        onConfirm(values.title, isAqua, isEat, values.unit);
+                        onConfirm(values.title);
                     })
                     .catch(info => {
                     });

@@ -2,14 +2,16 @@ import React, { FunctionComponent, useState, useEffect } from 'react'
 import { Table, Tag, Space, Select } from 'antd';
 import { Button } from 'antd';
 import { infoMessage, successMessage, errorMessage } from '../../utils/Notifications';
-import { CreateProduct, GetProductsList, CreateIncomeArray, GetStorageList } from '../../actions/get';
+import { CreateProduct, GetProductsList, CreateIncomeArray, CreateConsumptionArray } from '../../actions/get';
 import { IncomeModal } from '../modsls/IncomeModal';
 import { AddIncomeBody, CreateIncomeBody } from '../../entities/Income';
 import { Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
 import { StorageEntity } from '../../entities/Storage';
 import { ProductEntity } from '../../entities/Product';
+import { CreateConsumptionBody } from '../../entities/Consumption';
+import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'
 import { User } from '../../entities/User';
-import { useLocation, useHistory } from 'react-router';
 const { Option } = Select;
 
 
@@ -60,26 +62,22 @@ const EditableCell: React.FC<EditableCellProps> = ({
 };
 
 interface Item {
-   amount: string;
+    amount: string;
     title: string;
 }
 
 
 
-const EditableTable = () => {
+const EditableTable = (RouteComponentProps) => {
+    let history = useHistory();
+    let location = useLocation();
+
     const [form] = Form.useForm();
     const [data, setData] = useState<any[]>([]);
     const [editingKey, setEditingKey] = useState('');
     const [isLoading, setisLoading] = useState(true);
     const [products, setProducts] = useState<any[]>([])
-
-    const [storage, setStorage] = useState<any[]>([]);
-
     const [user, setUser] = useState<User>();
-    let history = useHistory();
-    let location = useLocation();
-
-
 
     useEffect(() => {
         setisLoading(true);
@@ -91,25 +89,21 @@ const EditableTable = () => {
                 history.push('/login');
             }
 
-
             let resp = await GetProductsList(user?.token!);
             setProducts(resp)
-
-            let st = await GetStorageList(user?.token!);
-            setStorage(st);
             setisLoading(false);
         }
         fetchMyAPI()
     }, [])
 
 
-    const isEditing = (record: StorageEntity)  =>  {
-        return record.product.title === editingKey ? true : false;
+    const isEditing = (record: Item) => {
+        return record.title === editingKey ? true : false;
     }
 
-    const edit = (record: Partial<StorageEntity> ) => {
-        form.setFieldsValue({ ...record });
-        setEditingKey(record.product!.title);
+    const edit = (record: Partial<Item>) => {
+        form.setFieldsValue({ amount: "", ...record });
+        setEditingKey(record.title!);
     };
 
     const cancel = () => {
@@ -118,19 +112,19 @@ const EditableTable = () => {
 
     const save = async (key: React.Key) => {
         try {
-            const row = (await form.validateFields()) as any;
-            console.log("row", row);
-            storage.map(p => {
-                if (p.product.title == key) {
-                    p.income = parseInt(row.income, 10);
-                    p.amount = 10000
+            const row = (await form.validateFields()) as Item;
+            console.log("KEY", key);
+
+            products.map(p => {
+                if (p.title == key) {
+                    p.amount = parseInt(row.amount, 10);
                 }
             })
 
             setProducts(products)
-            setStorage(storage);
             setEditingKey('');
 
+            console.log("products", products);
             // const newData = [...products];
             // const index = newData.findIndex(item => key === item.key);
             // if (index > -1) {
@@ -153,11 +147,12 @@ const EditableTable = () => {
 
 
 
-    const createIncome = async (products: any[]) => {
-        
-        let dtos: CreateIncomeBody[] = [];
-        products.forEach( p => {
-            let dto: CreateIncomeBody = {
+    const createConsumption = async (products: any[]) => {
+        console.log(products);
+
+        let dtos: CreateConsumptionBody[] = [];
+        products.forEach(p => {
+            let dto: CreateConsumptionBody = {
                 amount: p.amount,
                 product_id: p.id,
                 user_id: user?.id!,
@@ -173,18 +168,18 @@ const EditableTable = () => {
 
         console.log(body);
 
-        CreateIncomeArray(user?.token!, body);
+        CreateConsumptionArray(user?.token!, body);
 
     }
 
 
-const Footer =() => {
-    return (
-        <div>
-            <Button type="primary" onClick={() => createIncome(products)}> Сохранить все изменения</Button> 
-        </div>
-    )
-}
+    const Footer = () => {
+        return (
+            <div>
+                <Button type="primary" onClick={() => createConsumption(products)}> Сохранить все изменения</Button>
+            </div>
+        )
+    }
 
 
 
@@ -192,38 +187,32 @@ const Footer =() => {
     const columns = [
         {
             title: 'Позиция',
-            // dataIndex: 'title',
+            dataIndex: 'title',
             width: '25%',
             editable: false,
-            render: (storage: StorageEntity) => (
-                storage.product.title
-            )
         },
         {
             title: 'Количество (склад)',
-            dataIndex: "amount",
             key: 'storage.amount',
             width: '15%',
             editable: false,
-            // render: (product: ProductEntity) => (
-            //     product.storage[0].amount || "xui"
-            // )
+            // render: (product: ProductEntity) => (product.storage?.amount || "Отсутвует позиция на складе")
         },
         {
-            title: 'Приход',
-            // dataIndex: 'amount',
-            key:"income", 
+            title: 'Расход',
+            dataIndex: 'amount',
+            key: "amount",
             width: '15%',
             editable: true,
         },
         {
             title: 'Действия',
             dataIndex: 'operation',
-            render: (_: any, record: StorageEntity) => {
+            render: (_: any, record: Item) => {
                 const editable = isEditing(record);
                 return editable ? (
                     <span>
-                        <a href="javascript:;" onClick={() => save(record.product.title)} style={{ marginRight: 8 }}>
+                        <a href="javascript:;" onClick={() => save(record.title)} style={{ marginRight: 8 }}>
                             Сохранить
               </a>
                         <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
@@ -245,12 +234,12 @@ const Footer =() => {
         }
         return {
             ...col,
-            onCell: (record: StorageEntity) => ({
+            onCell: (record: Item) => ({
                 record,
                 inputType: col.dataIndex === 'age' ? 'number' : 'text',
                 dataIndex: col.dataIndex,
                 title: col.title,
-                amount: 0,
+                amount: record.amount,
                 editing: isEditing(record),
             }),
         };
@@ -267,7 +256,7 @@ const Footer =() => {
                             },
                         }}
                         bordered
-                        dataSource={storage}
+                        dataSource={products}
                         columns={mergedColumns}
                         rowClassName="editable-row"
                         pagination={{
@@ -283,39 +272,20 @@ const Footer =() => {
 };
 
 
-
-const columns = [
-    {
-        title: 'Наименование',
-        dataIndex: 'product_title',
-        key: 'product_title',
-    },
-    {
-        title: 'Приход (количество)',
-        dataIndex: 'amount',
-        key: 'amount',
-    },
-];
-
-
-
-interface IncomeProps {
+interface ConsumptionProps {
     isModalVisible: boolean;
 }
 
 
-export const Income: FunctionComponent<IncomeProps> = (props: IncomeProps) => {
+export const Consumption: FunctionComponent<ConsumptionProps> = (props: ConsumptionProps) => {
     const [visible, setVisible] = useState(false);
     const [isLoading, setisLoading] = useState(true);
-    const [storage, setStorage] = useState<any>(null)
-
+    const [products, setProducts] = useState<any>(null)
     const [income, setIncome] = useState<AddIncomeBody[]>([])
-
 
     const [user, setUser] = useState<User>();
     let history = useHistory();
     let location = useLocation();
-
 
     useEffect(() => {
         setisLoading(true);
@@ -327,14 +297,11 @@ export const Income: FunctionComponent<IncomeProps> = (props: IncomeProps) => {
                 history.push('/login');
             }
 
-
-            let resp = await GetStorageList(user?.token!);
-            setStorage(resp)
+            let resp = await GetProductsList(user?.token!);
+            setProducts(resp)
             setisLoading(false);
         }
-
         fetchMyAPI()
-
     }, [])
 
 
@@ -349,7 +316,7 @@ export const Income: FunctionComponent<IncomeProps> = (props: IncomeProps) => {
 
 
     function saveIncome() {
-        storage.map(p => {
+        products.map(p => {
 
             income.map(i => {
                 if (p.title === i.product_title) {
@@ -357,11 +324,6 @@ export const Income: FunctionComponent<IncomeProps> = (props: IncomeProps) => {
                 }
             })
         })
-
-
-
-
-
     }
 
     return (
@@ -370,17 +332,9 @@ export const Income: FunctionComponent<IncomeProps> = (props: IncomeProps) => {
             {isLoading ? "loading" : (
                 <>
                     <h1>
-                        Создание прихода
-                    {/* <Button type="primary" onClick={() => setVisible(true)} style={{ float: 'right' }}>Добавить приход</Button> */}
-                        {/* <IncomeModal visible={visible} inputPlaceHolder="Кола" onConfirm={(product_title, amount) => handleChange(product_title, amount)} onCancel={() => setVisible(false)} title="Добавление прихода" okText={"Добавить"} products={products} /> */}
+                        Создание расхода
                     </h1>
-
-                    {/* <div>
-                        <Table dataSource={income} columns={columns} />;
-                    <Button type="primary" onClick={() => saveIncome()} style={{ float: 'right' }}>Сохранить</Button>
-                    </div> */}
-
-                    <EditableTable  />
+                    <EditableTable />
                 </>
             )}
 

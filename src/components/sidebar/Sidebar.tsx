@@ -1,17 +1,9 @@
 import React from 'react'
 import { Layout, Menu } from 'antd';
 import {
-  AppstoreOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  ShopOutlined,
-  TeamOutlined,
   UserOutlined,
-  UploadOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Product } from './product/Product';
-import WrapperStatistic from 'antd/lib/statistic/Statistic';
 import { Wrapper } from '../menu/Wrapper';
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -75,6 +67,12 @@ handleMenuClick(event: any) {
         <Menu.Item key="3" icon={<VideoCameraOutlined />}>
           Расход
         </Menu.Item>
+        <Menu.Item key="4" icon={<VideoCameraOutlined />}>
+          Склад
+        </Menu.Item>
+        <Menu.Item key="5" icon={<VideoCameraOutlined />}>
+          Точки
+        </Menu.Item>
       </Menu>
     </Sider>
     <Layout className="site-layout" style={{ marginLeft: 200 }}>
@@ -83,14 +81,10 @@ handleMenuClick(event: any) {
       </Header>
       <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
         <div className="site-layout-background" style={{ padding: 24 }}>
-          {/* <Product> 
-
-          </Product> */}
-
           <Wrapper state={this.state.state} title={this.state.title}/>              
         </div>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>Villa ©2021 </Footer>
+      <Footer style={{ textAlign: 'center' }}>Villa © 2021 </Footer>
     </Layout>
   </Layout>
     );

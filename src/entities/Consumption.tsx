@@ -5,7 +5,7 @@ export interface AddIncomeBody {
 }
 
 
-export interface CreateIncomeBody {
+export interface CreateConsumptionBody {
     product_id: number;
     amount: number;
     user_id: number;
