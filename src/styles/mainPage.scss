@@ -1,0 +1,46 @@
+.main {
+    display: inline-block;
+    .main-title {
+        position: fixed;
+        height: 36px;
+        left: 11.46%;
+        right: 54.24%;
+        top: 100px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 30px;
+        line-height: 36px;
+        letter-spacing: -0.4px;
+        color: #171717;
+    }
+
+    .main-search-input {
+        position: absolute;
+        width: 1110px;
+        height: 80px;
+        left: 165px;
+        top: 180px;
+        background: yellow;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.04);
+        border-radius: 24px;
+        .search-content {
+            position: absolute;
+            left: 2.5%;
+            right: 8.33%;
+            top: 25.5%;
+            bottom: 8.33%;
+        }
+        .search-icon {
+            position: absolute;
+            left: 2.5%;
+            top: 35%;
+            bottom: 8.33%;
+        }
+    }
+    .main-search-icon {
+        display: flex;  
+  align-items: center;
+  justify-content: center;
+    }
+}

@@ -1,36 +1,30 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Sidebar } from './components/sidebar/Sidebar';
 import "antd/dist/antd.css";
 import 'ant-design-pro/dist/ant-design-pro.css'; // Import whole style
-import { Login } from './components/login/Login';
 import {
   BrowserRouter as Router,
   Link,
   Switch,
   Route
 } from 'react-router-dom';
+import Header from './components/header/Header';
+// import './styles/index.scss';
+import { MainPage } from './components/mainPage/MainPage';
+import HeaderTemp from './components/header-temp/HeaderTemp';
 
 function App() {
   return (
     <Router>
-      <div>
-
+      {/* <Header user={ {} as any} cityId={2} /> */}
+      {/* <HeaderTemp user={ {} as any} cityId={2} /> */}
+{/*  */}
+      <MainPage />
         <div>
-          <div className="wrapper">
-            <Switch>
-              <Route exact path="/" component={Sidebar} />
-
-              <div className="auth-wrapper">
-                <div className="auth-inner">
-                  <Route exact path="/login" component={Login} />
-                </div>
-              </div>
-            </Switch>
-          </div>
+          <Switch>
+          </Switch>
         </div>
-      </div>
     </Router>
 
   );
