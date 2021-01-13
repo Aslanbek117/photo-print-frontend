@@ -13,6 +13,7 @@ import Header from './components/header/Header';
 // import './styles/index.scss';
 import { MainPage } from './components/mainPage/MainPage';
 import HeaderTemp from './components/header-temp/HeaderTemp';
+import { TreeView } from './components/tree-nav/TreeNav';
 
 function App() {
   return (
@@ -20,9 +21,10 @@ function App() {
       {/* <Header user={ {} as any} cityId={2} /> */}
       {/* <HeaderTemp user={ {} as any} cityId={2} /> */}
 {/*  */}
-      <MainPage />
+      {/* <MainPage /> */}
         <div>
           <Switch>
+            <Route exact path="/nav" component={TreeView} />
           </Switch>
         </div>
     </Router>

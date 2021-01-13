@@ -67,7 +67,7 @@ export const MainPage = (props: any) => {
 
                 <div className="title">
                     Поиск по категориям
-            <div className="access">
+                  <div className="access">
 
                     </div>
                     <div className="access">
@@ -75,8 +75,6 @@ export const MainPage = (props: any) => {
                     </div>
                     <Category />
                 </div>
-
-
             </div>
             {/* <div className="container"> 
 
