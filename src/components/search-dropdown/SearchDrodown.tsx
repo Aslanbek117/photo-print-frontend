@@ -16,13 +16,13 @@ export const SearchDropdown = (props: SearchDropdownProps) => {
                 {props.items.map(i => (
                     // <div className="search-arrow-icon">
                     <>
-                    <div className="on-hover" style={{paddingLeft: '35px' }}>
+                    <div className="on-hover" style={{paddingLeft: '35px', paddingBottom: '15px' }}>
                         <i> 
                             <img src={ArrowIcon} />
                         </i>
                         
-                        <span style={{paddingLeft: '20px'}}>
-                        {i.text}
+                        <span style={{paddingLeft: '20px', fontWeight: 500, fontSize: 16,  color: '#171717'}}>
+                        {i}
                         </span>
                         </div>    
                         </>
