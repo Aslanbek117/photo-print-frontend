@@ -21,10 +21,10 @@ function App() {
       {/* <Header user={ {} as any} cityId={2} /> */}
       {/* <HeaderTemp user={ {} as any} cityId={2} /> */}
 {/*  */}
-      {/* <MainPage /> */}
+      <MainPage />
         <div>
           <Switch>
-            <Route exact path="/nav" component={TreeView} />
+            {/* <Route exact path="/nav" component={TreeView} /> */}
           </Switch>
         </div>
     </Router>

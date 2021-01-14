@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { AutoComplete, Form } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -41,16 +41,16 @@ export const SearchTop = (props: any) => {
 
     return (
         <>
-            <div className="search-title">
-                Добро пожаловать в "Базу знаний"
+            {/* <div className="search-title">
+                Добро пожаловать в "Базу знаний" */}
     
             <div className="search-input">
-                    <i className="search-icon fas fa-search fa-xs" />
+                    <i className="search-icon fas fa-search fa-lg" />
                     {/* <input className="search-input-field" placeholder="Напишите вопрос или проблему"/> */}
 
                     <AutoComplete
                         options={options}
-                        style={{ width: 300 }}
+                        // style={{ width: 300 }}
                         onSelect={onSelect}
                         onSearch={onSearch}
                         bordered={false}
@@ -63,7 +63,7 @@ export const SearchTop = (props: any) => {
                     </span>
                     </button>
                 </div>
-            </div>
+            {/* </div> */}
         </>
     )
 }

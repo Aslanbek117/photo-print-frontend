@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Form, Input, Button, AutoComplete, Space } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -8,6 +8,17 @@ import "./main.css";
 import HeaderTemp from '../header-temp/HeaderTemp';
 import { SearchTop } from '../search/Search';
 import { Category } from '../category/Category';
+import HalykLogo from './halyk-logo.png';
+import { Layout, Menu, Breadcrumb, Typography } from 'antd';
+import Title from 'antd/lib/typography/Title';
+import { useHistory, useLocation } from "react-router-dom";
+import { TreeView } from '../tree-nav/TreeNav';
+import { TreeContent } from '../tree-content/TreeContent';
+
+
+const { Header, Content, Footer } = Layout;
+const { Text, Link } = Typography;
+
 
 const mockVal = (str: string[], repeat: number = 1) => {
 
@@ -18,6 +29,10 @@ const mockVal = (str: string[], repeat: number = 1) => {
 
 
 export const MainPage = (props: any) => {
+    let history = useHistory();
+    let location = useLocation();
+
+
     const [form] = Form.useForm();
 
     const [value, setValue] = useState('');
@@ -54,50 +69,55 @@ export const MainPage = (props: any) => {
         };
     };
 
+    useEffect(() => {
+        console.log("location", location.pathname);
+        // setTreeData(props.treeData)
+    }, [])
+
 
     return (
         <>
-            <HeaderTemp user={{} as any} cityId={2} />
-            <div className="container">
+            <Layout className="layout" >
+                <Header style={{ background: '#fff' }}>
+                    <div className="logo" >
+                        <a>
+                            <img
+                                alt="halyk-wiki"
+                                src={HalykLogo} />
+                        </a>
+                    </div>
+                    <Button type="primary" shape="round" size={'large'} style={{
+                        float: 'right', marginTop: '13px', backgroundColor: 'rgb(237,237,239)', color: 'black', fontFamily: 'Roboto',
+                        fontSize: '14px;',
+                        lineHeight: '18px;'
+                    }}>
+                        <Text strong>Филиалы</Text>
+                    </Button>
+                </Header>
+                <Content style={{ padding: '0 50px' }}>
+                    <div className="site-layout-content">
 
-                <SearchTop />
-                <div className="access">
+                        {location.pathname == "/" ? (
+                            <div>
+                                <Typography>
+                                    <Title>Добро пожаловать в "Базу знаний"</Title>
+                                </Typography>
+                                <SearchTop />
+                                <div style={{ paddingTop: "50px" }}>
+                                </div>
+                                <Typography>
+                                    <Title>Поиск по категориям</Title>
+                                </Typography>
+                                <Category />
+                            </div>
+                        ) : (
 
-                </div>
-
-                <div className="title">
-                    Поиск по категориям
-                  <div className="access">
+                            <TreeContent />
+                        )}
 
                     </div>
-                    <div className="access">
-
-                    </div>
-                    <Category />
-                </div>
-            </div>
-            {/* <div className="container"> 
-
-            <div className="main">
-                <div className="main-title">
-                    Добро пожаловать в "Базу знаний"
-                </div>
-                <div className="main-search-input">
-                    <div className="search-content">
-
-                        <i className="fas fa-search" />
-                        <input id="username"
-                            placeholder="Напишите вопрос или проблему"
-                            className="" style={{ border: 0, marginLeft: '20px' }}
-                            size={100} />
-                        <button className="header-button1" style={{ float: 'right' }}>
-                            Поиск
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-         </div>  */}
+                </Content>
+            </Layout>
         </>
     )
 }

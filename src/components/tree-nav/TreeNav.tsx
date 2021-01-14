@@ -1,13 +1,10 @@
 
 import React, { Component, FunctionComponent, useState, useEffect } from 'react';
 import { Tree, Popover, Tooltip, Layout } from 'antd';
-import { DownOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import { DataNode } from 'antd/lib/tree';
 import { GetAllDirs } from '../backend-api/api'
 import './tree-nav.css'
-import HeaderTemp from '../header-temp/HeaderTemp';
 
-const { Header, Content, Footer, Sider } = Layout;
 
 
 interface TreeViewProps {
@@ -22,7 +19,7 @@ const renderTreeNodes = (data: any) =>
     data.length > 0 ? data.map((item: any) =>
         item.children ? (
             <Tree.TreeNode
-                title={item.title} key={item.path}
+                title={item.title} key={item.path} style={{fontFamily: 'Roboto', fontSize: "14px", lineHeight: '20px !important', letterSpacing: "-0.4px/"}}
             >
                 {renderTreeNodes(item.children)}
             </Tree.TreeNode>
@@ -77,38 +74,15 @@ export const TreeView: FunctionComponent<TreeViewProps> =  (props: TreeViewProps
     }, [])
 
     return (
-        <>
-        
-            <HeaderTemp user={{} as any} cityId={2} />
-            <div className="container content">
-
-            <Layout>
-
-
-
-            <Sider >
-            <span style={{backgroundColor: 'white'}}>
-                Вернуться на главную
-            </span>
-
-            {loading ? null : (
-                <Tree
-                    // height={1000}
-                    showIcon={true}
-                    loadData={onLoadData as any}
-                    // switcherIcon={<DownOutlined style={{ fontSize: '1.2em', color: 'red' }} />}
-                    onSelect={props.onSelect}
-                >
-                    {renderTreeNodes(treeData)}
-                </Tree>
-            )}
-            </Sider>
-            <Content style={{ padding: '0 24px', minHeight: 280 }}>Content</Content>
-
-            </Layout>
-            </div>
-      </>
-
+        <Tree
+            // height={1000}
+            showIcon={true}
+            loadData={onLoadData as any}
+            // switcherIcon={<DownOutlined style={{ fontSize: '1.2em', color: 'red' }} />}
+            onSelect={props.onSelect}
+        >
+            {renderTreeNodes(treeData)}
+        </Tree>
     )
 
 }
