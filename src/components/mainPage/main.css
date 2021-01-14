@@ -13,7 +13,7 @@
   }
   
 
-  .title{
+  .title-temp{
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
@@ -24,6 +24,7 @@
     padding-top: 60px;
     /* background-color: rgb(243,246,248); */
 }
+
 
 .site-layout-content {
     min-height: 280px;
@@ -45,5 +46,20 @@
   .logo {
     /* margin: 16px 24px 16px 0; */
     float: left;
+  }
+
+
+  .title {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 36px;
+    /* identical to box height, or 120% */
+    letter-spacing: -0.4px;
+    
+    /* Black/B100 */
+    
+    color: #171717;
   }
   

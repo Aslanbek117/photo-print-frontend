@@ -28,8 +28,6 @@ export const TreeContent = (props: any) => {
                 </span>
                     {/* <span > */}
             {/* </span> */}
-                
-
                     {loading ? null : (
                         <TreeView onSelect={{} as any} treeData={[]} token="" />
                     )}
@@ -40,7 +38,7 @@ export const TreeContent = (props: any) => {
                 <Content style={{ padding: '0 24px', minHeight: 280, backgroundColor: 'white', paddingTop: '15px', borderTopRightRadius: '24px'}} >
                 <Typography>
                         <Title>Кредитные карты</Title>
-                        <Text  strong={true} style={{backgroundColor:"rgb(249,250,250)", color:"black !important"}}>найдено: 23 хуя</Text>
+                        <Text  strong={true} style={{backgroundColor:"rgb(249,250,250)", color:"black !important"}}>найдено: 3 статьи</Text>
                 </Typography>
 
                 <Divider type="horizontal"/>

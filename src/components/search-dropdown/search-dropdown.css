@@ -1,0 +1,29 @@
+.search-input {
+    position: relative !important;
+    margin-top: 20px;
+    min-height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    top: 0px;
+    left: 0;
+    background: #FFFFFF;
+    border-radius: 24px;
+    transition: all 0.3s ease-in;
+}
+
+.search-arrow-icon {
+    /* position: absolute; */
+    position: relative;
+    left: 35px;
+    width: 19px;
+    height: 19px;
+    top: 31px;
+}
+
+
+div.on-hover:hover {
+    background-color: rgba(250, 174, 23, 0.05);
+    /* opacity: 0.05; */
+    
+}

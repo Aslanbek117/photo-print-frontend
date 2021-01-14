@@ -77,7 +77,7 @@ export const MainPage = (props: any) => {
 
     return (
         <>
-            <Layout className="layout" >
+            <Layout className="layout" style={{backgroundColor: 'rgb(243,246,248)'}} >
                 <Header style={{ background: '#fff' }}>
                     <div className="logo" >
                         <a>
@@ -89,7 +89,8 @@ export const MainPage = (props: any) => {
                     <Button type="primary" shape="round" size={'large'} style={{
                         float: 'right', marginTop: '13px', backgroundColor: 'rgb(237,237,239)', color: 'black', fontFamily: 'Roboto',
                         fontSize: '14px;',
-                        lineHeight: '18px;'
+                        lineHeight: '18px;',
+                        border: 'none'
                     }}>
                         <Text strong>Филиалы</Text>
                     </Button>
@@ -98,18 +99,17 @@ export const MainPage = (props: any) => {
                     <div className="site-layout-content">
 
                         {location.pathname == "/" ? (
-                            <div>
-                                <Typography>
-                                    <Title>Добро пожаловать в "Базу знаний"</Title>
-                                </Typography>
+                            <>
+                                <span className="title">Добро пожаловать в "Базу знаний"</span>
                                 <SearchTop />
                                 <div style={{ paddingTop: "50px" }}>
                                 </div>
-                                <Typography>
-                                    <Title>Поиск по категориям</Title>
-                                </Typography>
+                                <span className="title">Поиск по категориям</span>
+
+                                <div style={{ paddingTop: "20px" }}>
+                                </div>
                                 <Category />
-                            </div>
+                            </>
                         ) : (
 
                             <TreeContent />

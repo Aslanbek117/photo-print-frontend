@@ -53,7 +53,7 @@ export const ItemList = (props: any) => {
                                         <a href="">Кредитные карты</a>
                                     </Breadcrumb.Item>
                                     <Breadcrumb.Item>
-                                        <a href="">Секс шоп</a>
+                                        <a href="">Кредитные карты 2</a>
                                     </Breadcrumb.Item>
                                 </Breadcrumb>
                             </>}
