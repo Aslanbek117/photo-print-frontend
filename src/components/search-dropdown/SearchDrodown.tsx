@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './search-dropdown.css';
 import ArrowIcon from './arrow-icon.png'
+import { SearchModel } from '../../models/search/Search';
 
 
 interface SearchDropdownProps {
-    items: any[];
+    items: SearchModel[];
 }
 
 export const SearchDropdown = (props: SearchDropdownProps) => {
@@ -22,7 +23,7 @@ export const SearchDropdown = (props: SearchDropdownProps) => {
                         </i>
                         
                         <span style={{paddingLeft: '20px', fontWeight: 500, fontSize: 16,  color: '#171717'}}>
-                        {i}
+                        {i.title}
                         </span>
                         </div>    
                         </>

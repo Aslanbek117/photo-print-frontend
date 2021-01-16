@@ -14,19 +14,17 @@ import Header from './components/header/Header';
 import { MainPage } from './components/mainPage/MainPage';
 import HeaderTemp from './components/header-temp/HeaderTemp';
 import { TreeView } from './components/tree-nav/TreeNav';
+import { ArticlePage } from './components/articlePage.tsx/ArticlePage';
 
 function App() {
   return (
     <Router>
-      {/* <Header user={ {} as any} cityId={2} /> */}
-      {/* <HeaderTemp user={ {} as any} cityId={2} /> */}
-{/*  */}
-      <MainPage />
-        <div>
-          <Switch>
-            {/* <Route exact path="/nav" component={TreeView} /> */}
-          </Switch>
-        </div>
+      <Switch>
+        <Route exact path="/" component={MainPage} />
+        <Route exact path="/nav/:search" component={MainPage} />
+
+        {/* <Route exact path="/nav/:search/:article" component={ArticlePage} /> */}
+      </Switch>
     </Router>
 
   );

@@ -1,0 +1,64 @@
+.title {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 30px;
+    letter-spacing: -0.4px;
+    color: #171717;
+}
+
+.short-description {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    /* or 157% */
+
+    letter-spacing: -0.4px;
+
+    /* Gray/G100 */
+
+    color: #8F92A1;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.long-description {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    /* or 157% */
+
+    letter-spacing: -0.4px;
+
+    /* Black/B100 */
+
+    color: #171717;
+    mix-blend-mode: normal;
+    opacity: 0.8;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+    padding-bottom: 20px;
+}
+.button {
+    background: #FFFFFF;
+    border: 1px solid #DFE3E8;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+.button-clicked {
+    background: rgba(250, 174, 23, 0.1);
+/* Primary / Brand */
+    border: 1px solid #FAAE17;
+}
+
+*:focus {outline:none !important}

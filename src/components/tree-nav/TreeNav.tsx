@@ -11,6 +11,7 @@ interface TreeViewProps {
     onSelect: (selectedKeys: any, info: any) => void;
     treeData: any[];
     token: string;
+    items: any[];
 }
 
 
@@ -74,15 +75,20 @@ export const TreeView: FunctionComponent<TreeViewProps> =  (props: TreeViewProps
     }, [])
 
     return (
-        <Tree
-            // height={1000}
-            showIcon={true}
-            loadData={onLoadData as any}
-            // switcherIcon={<DownOutlined style={{ fontSize: '1.2em', color: 'red' }} />}
-            onSelect={props.onSelect}
-        >
-            {renderTreeNodes(treeData)}
-        </Tree>
+        <>
+        {props.items.length > 0 ? (
+             <Tree
+             // height={1000}
+             showIcon={true}
+             loadData={onLoadData as any}
+             // switcherIcon={<DownOutlined style={{ fontSize: '1.2em', color: 'red' }} />}
+             onSelect={props.onSelect}
+         >
+             {renderTreeNodes(treeData)}
+         </Tree>
+        ) : (<p>LOADING</p>)}
+       
+        </>
     )
 
 }

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
 import { AutoComplete, Form, Select } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, PropertySafetyOutlined } from '@ant-design/icons';
 import { Search } from '../backend-api/api';
-import { SearchResponseDTO } from '../../models/search/Search';
+import { SearchResponseDTO, SearchModel } from '../../models/search/Search';
 import HeaderTemp from '../header-temp/HeaderTemp';
 import './search.css';
 import { SearchDropdown } from '../search-dropdown/SearchDrodown';
 import  SearchIcon  from './search-icon.png';
+import { useHistory } from 'react-router-dom';
+
 const mockVal = (str: string[], repeat: number = 1) => {
 
     return {
@@ -32,13 +34,20 @@ const items: any[] = [
     },
 ]
 
-export const SearchTop = (props: any) => {
+interface SearchProps {
+    onClick: (searchInput: string) => void;
+}
+
+export const SearchTop = (props: SearchProps) => {
+
+    const history = useHistory()
+
 
     const [form] = Form.useForm();
 
     const [searchText, setSearchText] = useState<string>('');
     const [searchValue, setSearchValue] = useState<string>('');
-    const [suggest, setSuggest] = useState<string[]>([]);
+    const [suggest, setSuggest] = useState<SearchModel[]>([]);
 
     const onInputChange = async (event: any) => {
         const response: SearchResponseDTO = await Search("", event.target.value);
@@ -57,12 +66,15 @@ export const SearchTop = (props: any) => {
         //     return [];
         // }
 
-        if (suggest.length > 0) {
-            return suggest;
-        } else {
-            return [];
+        if (suggest !== null) {
+            if (suggest.length > 0) {
+                return suggest;
+            } else {
+                return [];
+            }
         }
 
+        return [];
     }
 
     return (
@@ -83,7 +95,10 @@ export const SearchTop = (props: any) => {
 
                 />
                 <SearchDropdown items={filteredItems()} />
-                <button className="search-button" >
+                <button className="search-button" onClick={() => {
+                    props.onClick(searchValue)
+                    history.push("/nav/" + searchValue)
+                }} >
                     <span className="search-button-text">
                         Поиск
                     </span>

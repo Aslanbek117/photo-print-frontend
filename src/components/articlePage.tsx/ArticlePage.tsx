@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
-import { Form, Input, Button, AutoComplete, Space } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Form, Button } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import { Search, GetAllDirs } from '../backend-api/api';
 import { SearchResponseDTO, SearchModel } from '../../models/search/Search';
 import "./main.css";
-import HeaderTemp from '../header-temp/HeaderTemp';
 import { SearchTop } from '../search/Search';
 import { Category } from '../category/Category';
 import HalykLogo from './halyk-logo.png';
-import { Layout, Menu, Breadcrumb, Typography } from 'antd';
-import Title from 'antd/lib/typography/Title';
+import { Layout, Typography } from 'antd';
 import { useHistory, useLocation } from "react-router-dom";
-import { TreeView } from '../tree-nav/TreeNav';
 import { TreeContent } from '../tree-content/TreeContent';
-import { Modal } from 'antd';
-import { YandexMap } from '../departments/Department';
-import { DepartmentModal } from '../modals/DepartmentModal';
 import { Article } from '../article/Article';
 
-const { Header, Content, Footer } = Layout;
-const { Text, Link } = Typography;
+const { Header, Content } = Layout;
+const { Text } = Typography;
 
 
 const mockVal = (str: string[], repeat: number = 1) => {
@@ -34,7 +28,7 @@ function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
 
-export const MainPage = (props: any) => {
+export const ArticlePage = (props: any) => {
     let history = useHistory();
     let location = useLocation();
 
@@ -125,6 +119,7 @@ export const MainPage = (props: any) => {
 
     return (
         <>
+        article page
         {!loading ? (
              <Layout className="layout" style={{ backgroundColor: 'rgb(243,246,248)' }} >
              <Header style={{ background: '#fff' }}>
@@ -152,28 +147,9 @@ export const MainPage = (props: any) => {
              <Content style={{ padding: '0 50px' }}>
                  <div className="site-layout-content">
 
-                     {location.pathname == "/" ? (
-                         <>
-                             <span className="title">Добро пожаловать в "Базу знаний"</span>
-                             <SearchTop onClick={() => console.log} />
-                             <div style={{ paddingTop: "50px" }}>
-                             </div>
-                             <span className="title">Поиск по категориям</span>
+                    <Article />
 
-                             <div style={{ paddingTop: "20px" }}>
-                             </div>
-                             <Category />
-                         </>
-                     ) : (
-                         <>
-                          <TreeContent items={suggest} treeData={treeData} />
-                         </>
-                         )}
-
-                        {/* <Article /> */}
                  </div>
-
-
              </Content>
 
              {/* <DepartmentModal title={"Филиалы"} isVisible={isModalVisible} onOk={handleOk} onCancel={handleCancel} /> */}

@@ -1,0 +1,14 @@
+.text {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+    /* identical to box height, or 129% */
+
+    letter-spacing: -0.4px;
+
+    /* Gray/G100 */
+
+    color: #8F92A1;
+}

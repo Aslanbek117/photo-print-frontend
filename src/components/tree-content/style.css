@@ -1,0 +1,14 @@
+.title {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 30px;
+    /* identical to box height, or 136% */
+
+    letter-spacing: -0.4px;
+
+    /* Black/B100 */
+
+    color: #171717;
+}

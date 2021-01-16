@@ -17,11 +17,11 @@ export const MainContent = (props: any) => {
             <Typography>
                 <Title>Добро пожаловать в "Базу знаний"</Title>
             </Typography>
-            <SearchTop />
+            <SearchTop onClick={() => null} />
             <div style={{ paddingTop: "50px" }}>
             </div>
             <Typography>
-                <Title>Поиск по категориям</Title>
+                <Title>Поиск по категориям ыы</Title>
             </Typography>
             <Category />
         </>
