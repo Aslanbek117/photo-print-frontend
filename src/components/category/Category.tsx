@@ -53,7 +53,9 @@ export const Category = (props: any) => {
                                 )}
                             >
                             </List>
-                            Все разделы
+                            <a href="/nav/search=empty" >
+                                Все разделы
+                            </a>
                          </Card>
                     </Col>
                     <Col span={8}>
@@ -74,7 +76,9 @@ export const Category = (props: any) => {
                                 )}
                             >
                             </List>
-                            Все разделы
+                            <a href="/nav/search=empty" >
+                                Все разделы
+                            </a>
                          </Card>
                     </Col>
                     <Col span={8}>
@@ -95,7 +99,9 @@ export const Category = (props: any) => {
                                 )}
                             >
                             </List>
-                            Все разделы
+                            <a href="/nav/search=empty" >
+                                Все разделы
+                            </a>
                          </Card>
                     </Col>
                 </Row>

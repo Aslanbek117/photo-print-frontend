@@ -16,6 +16,8 @@ const { Text } = Typography;
 interface TreeContentProps {
     treeData: any[];
     items: SearchModel[];
+    loading: boolean;
+    searchText: string;
 }
 
 export const TreeContent = (props: TreeContentProps) => {
@@ -23,6 +25,10 @@ export const TreeContent = (props: TreeContentProps) => {
 
 
     const [selectedNavItem, setSelectedNavItem] = useState<string>('');
+
+    const [navItemClicked, setNavItemClicked] = useState<boolean>(false);
+
+    const [navMenuClicked, setNavMenuClicked] = useState<boolean>(false);
 
 
     const [searchText, setSearchText] = useState('');
@@ -34,6 +40,7 @@ export const TreeContent = (props: TreeContentProps) => {
         let navItem = selectedKeys.toString().slice(index, selectedKeys.toString().length);
         console.log("category", navItem);
         setSelectedNavItem(navItem)
+        setNavItemClicked(true);
         setArticleClicked(false);
     };
 
@@ -46,35 +53,36 @@ export const TreeContent = (props: TreeContentProps) => {
         <>
             <Layout>
 
-                <Sider theme='light' style={{ borderTopLeftRadius: '24px', paddingTop: '20px' }}>
-                    <span style={{ fontFamily: 'Roboto', fontSize: "14px", lineHeight: '20px !important', letterSpacing: "-0.4px/" }}>
+                <Sider theme='light' width={300} style={{ borderTopLeftRadius: '24px', paddingTop: '20px' }}>
+                    <span style={{ fontFamily: 'Roboto', fontSize: "16px", lineHeight: '20px !important', letterSpacing: "-0.4px/" }}>
                         {/* <ArrowLeftOutlined style={{ paddingLeft: '5px', marginRight: '10px' }} /> */}
                         <img src={ArrowLeft} style={{ paddingLeft: '5px', width: 18, height: 12 }} />
                         <span style={{ paddingLeft: '5px' }}>
-                            Вернуться на главную
+                            <a href="/">
+                                Вернуться на главную
+                            </a>
                         </span>
                     </span>
-                    <div style={{paddingTop: '15px'}}>
-                        {loading ? null : (
-                            <TreeView onSelect={onSelect} treeData={[]} token="" items={props.treeData} />
+                    <div style={{ paddingTop: '15px' }}>
+                        {props.loading ? 'loading xui' : (
+                            <TreeView loading={props.loading} onSelect={onSelect} treeData={props.treeData} token="" items={props.treeData} />
                         )}
                     </div>
                 </Sider>
 
                 <Divider type="vertical" style={{ height: "100%", margin: "0 0px" }} />
                 <Content style={{ padding: '0 24px', minHeight: 280, backgroundColor: 'white', paddingTop: '15px', borderTopRightRadius: '24px' }} >
-
-
-
                     {articleClicked ? (
                         <Article />
                     ) : (
                             <>
                                 <Typography>
                                     {props.items.length == 0 ? (
-                                        <span className="title">
-                                            В Базе знаний нет статьи по запросу "{searchText}"
-                            </span>
+                                        props.searchText == "empty" ? null : (
+                                            <span className="title">
+                                                В Базе знаний нет статьи по запросу "{props.searchText}"
+                                             </span>
+                                        )
                                     ) : ''}
 
                                     <Title> {selectedNavItem} </Title>
@@ -84,15 +92,20 @@ export const TreeContent = (props: TreeContentProps) => {
                                             найдена: 1 статья
                             </Text>
                                     ) : (
-
-                                            <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
-                                                найдено: {props.items.length} статьи
-                                </Text>
+                                            props.items.length == 0 ? (
+                                                <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
+                                                    найдено: {props.items.length} статей
+                                             </Text>
+                                            ) : (
+                                                    <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
+                                                        найдено: {props.items.length} статьи
+                                                </Text>
+                                                )
                                         )}
                                 </Typography>
                                 <Divider type="horizontal" />
-
-                                <ItemList items={props.items} onClick={onArticleClick} />
+                                
+                                <ItemList items={props.items} onClick={onArticleClick}  navItemClicked={navItemClicked} />
                             </>
                         )}
 

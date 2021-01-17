@@ -18,6 +18,7 @@ import { Modal } from 'antd';
 import { YandexMap } from '../departments/Department';
 import { DepartmentModal } from '../modals/DepartmentModal';
 import { Article } from '../article/Article';
+const queryString = require('query-string')
 
 const { Header, Content, Footer } = Layout;
 const { Text, Link } = Typography;
@@ -44,7 +45,7 @@ export const MainPage = (props: any) => {
 
     let query = useQuery();
 
-    const [treeData, setTreeData] = useState(props.treeData);
+    const [treeData, setTreeData] = useState<any[]>([]);
 
 
     const [form] = Form.useForm();
@@ -94,15 +95,17 @@ export const MainPage = (props: any) => {
     async function fetch() {
         const response = await GetAllDirs(props.token, "../");
         setTreeData(response.result)
+        console.log("response.result", response.result)
+        setLoading(false);
     }
 
     useEffect(() => {
-        console.log("query", location);
         fetch();
-        let query = location.pathname.slice(location.pathname.lastIndexOf("/") + 1, location.pathname.length)
+        let query = location.pathname.slice(location.pathname.lastIndexOf("=") + 1, location.pathname.length)
         setQueryParam(query);
+        console.log("query", query)
         // if (location.pathname='/')
-        if (location.pathname != "/") {
+        if (location.pathname != "/" && query != "empty") {
             console.log("search")
             searchArticles(query)    
         } else {
@@ -127,7 +130,7 @@ export const MainPage = (props: any) => {
         <>
         {!loading ? (
              <Layout className="layout" style={{ backgroundColor: 'rgb(243,246,248)' }} >
-             <Header style={{ background: '#fff' }}>
+             <Header style={{ background: '#fff', paddingLeft: 160, paddingRight: 160 }}>
                  <div className="logo" >
                      <a href="/">
                          <img
@@ -149,7 +152,7 @@ export const MainPage = (props: any) => {
                      <Text strong>Филиалы</Text>
                  </Button>
              </Header>
-             <Content style={{ padding: '0 50px' }}>
+             <Content style={{ padding: '0 50px', paddingLeft: 160, paddingRight: 160 }}>
                  <div className="site-layout-content">
 
                      {location.pathname == "/" ? (
@@ -166,7 +169,7 @@ export const MainPage = (props: any) => {
                          </>
                      ) : (
                          <>
-                          <TreeContent items={suggest} treeData={treeData} />
+                          <TreeContent loading={loading} items={suggest} treeData={treeData} searchText={queryParam} />
                          </>
                          )}
 
@@ -176,8 +179,9 @@ export const MainPage = (props: any) => {
 
              </Content>
 
-             {/* <DepartmentModal title={"Филиалы"} isVisible={isModalVisible} onOk={handleOk} onCancel={handleCancel} /> */}
+             <DepartmentModal title={"Филиалы"} isVisible={isModalVisible} onOk={handleOk} onCancel={handleCancel} />
          </Layout>
+        
         ) : 'loading'}
            
         </>

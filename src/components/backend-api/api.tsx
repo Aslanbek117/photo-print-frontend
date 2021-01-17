@@ -19,3 +19,13 @@ export const GetAllDirs = async (token: string, dir: string): Promise<any> =>  {
         return {} as any;
     }
 }
+
+
+export const GetAllDirs1 = async (token: string, dir: string): Promise<any> =>  {
+    try {
+        const response = await (await httpClient(token)).get("http://localhost:3005/directories/list")
+        return response.data;
+    } catch (err) {
+        return {} as any;
+    }
+}

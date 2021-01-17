@@ -4,10 +4,9 @@ import { AutoComplete, Form, Select } from 'antd';
 import { UserOutlined, LockOutlined, PropertySafetyOutlined } from '@ant-design/icons';
 import { Search } from '../backend-api/api';
 import { SearchResponseDTO, SearchModel } from '../../models/search/Search';
-import HeaderTemp from '../header-temp/HeaderTemp';
-import './search.css';
+import './style.css';
 import { SearchDropdown } from '../search-dropdown/SearchDrodown';
-import  SearchIcon  from './search-icon.png';
+import  SearchIcon  from './search-header-icon.png';
 import { useHistory } from 'react-router-dom';
 
 const mockVal = (str: string[], repeat: number = 1) => {
@@ -38,7 +37,7 @@ interface SearchProps {
     onClick: (searchInput: string) => void;
 }
 
-export const SearchTop = (props: SearchProps) => {
+export const SearchHeader = (props: SearchProps) => {
 
     const history = useHistory()
 
@@ -79,11 +78,11 @@ export const SearchTop = (props: SearchProps) => {
 
     return (
         <>
-            <div className="search-input" style={{ boxShadow: filteredItems().length > 0 ? '0px 4px 20px rgba(0, 0, 0, 0.16)' : 'none' }}>
-                <i className="search-icon">
+            <div className="search-input-header" style={{ boxShadow: filteredItems().length > 0 ? '0px 4px 20px rgba(0, 0, 0, 0.16)' : 'none' }}>
+                <i className="search-icon-header">
                     <img src={SearchIcon} />
                 </i>
-                <input className="search-input-field" placeholder="Напишите вопрос или проблему" value={searchValue} onChange={(event) => {
+                <input className="search-input-field-header" placeholder="Напишите вопрос или проблему" value={searchValue} onChange={(event) => {
                     if (event.target.value == "") {
                         setSuggest([]);
                     } else {
@@ -92,13 +91,14 @@ export const SearchTop = (props: SearchProps) => {
                     setSearchValue(event.target.value);
                     
                 }}
+
                 />
                 <SearchDropdown items={filteredItems()} />
-                <button className="search-button" onClick={() => {
+                <button className="search-button-header" onClick={() => {
                     props.onClick(searchValue)
-                    history.push("/nav/search=" + searchValue)
+                    history.push("/nav/" + searchValue)
                 }} >
-                    <span className="search-button-text">
+                    <span className="search-button-text-header">
                         Поиск
                     </span>
                 </button>

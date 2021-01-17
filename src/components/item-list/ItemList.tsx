@@ -21,66 +21,70 @@ for (let i = 0; i < 23; i++) {
 
 }
 
-interface ItemProps { 
+interface ItemProps {
     items: SearchModel[];
     onClick: (title: string) => void;
+    navItemClicked: boolean;
 }
 
 export const ItemList = (props: ItemProps) => {
-
+    
     return (
+        
         <>
-
-            {props.items.length == 0  ? (
+            {props.items.length == 0  && props.navItemClicked != true ? (
                 <>
-                <div>
-                <img src={NotFound} />
-                  <span className="text" style={{paddingLeft: 20}}>
-                  Попробуйте еще раз! Либо найдите нужную статью в категории
-                </span>
-                </div>
+
+                    <div>
+                        <img src={NotFound} />
+                        <span className="text" style={{ paddingLeft: 20 }}>
+                            Попробуйте еще раз! Либо найдите нужную статью в категории
+                    </span>
+                    </div>
+
                 </>
             ) : (
-                <List
-                itemLayout="vertical"
-                size="small"
-                pagination={
-                    {
-                    onChange: page => {
-                        console.log(page);
-                    },
-                    
-                    pageSize: 3,
-                }
-                // <Pagination defaultCurrent={1} total={50} />
-            }
-                
-                dataSource={props.items}
-                renderItem={item => (
-                    <List.Item
-                        key={item.title}
-                        style={{ paddingLeft: '0' }}
-                    >
-                        <List.Item.Meta
-                            title={<a style={{color: 'rgb(0,128,96)'}} onClick={ () => props.onClick(item.title)}>{item.title}</a>}
-                            description={<>
-                                <Breadcrumb>
-                                    <Breadcrumb.Item> {item.entity_name} </Breadcrumb.Item>
-                                    <Breadcrumb.Item>
-                                        <a href=""> {item.category_name}  </a>
-                                    </Breadcrumb.Item>
-                                    <Breadcrumb.Item>
-                                        <a href=""> {item.subcategory_name} </a>
-                                    </Breadcrumb.Item>
-                                </Breadcrumb>
-                            </>}
-                        />
-                        {item.title}
-                    </List.Item>
-                )} />
-            )}
+                    <List
+                        itemLayout="vertical"
+                        size="small"
+                        pagination={
+                            {
+                                onChange: page => {
+                                    console.log(page);
+                                },
 
-           
+                                pageSize: 3,
+                            }
+                            // <Pagination defaultCurrent={1} total={50} />
+                        }
+
+                        dataSource={props.items}
+                        locale={{emptyText: "В данной категории отсутствуют статьи"}}
+                        renderItem={item => (
+                            <List.Item
+                                key={item.title}
+                                style={{ paddingLeft: '0' }}
+                            >
+                                <List.Item.Meta
+                                    title={<a style={{ color: 'rgb(0,128,96)' }} onClick={() => props.onClick(item.title)}>{item.title}</a>}
+                                    description={<>
+                                        <Breadcrumb>
+                                            <Breadcrumb.Item> {item.entity_name} </Breadcrumb.Item>
+                                            <Breadcrumb.Item>
+                                                <a href=""> {item.category_name}  </a>
+                                            </Breadcrumb.Item>
+                                            <Breadcrumb.Item>
+                                                <a href=""> {item.subcategory_name} </a>
+                                            </Breadcrumb.Item>
+                                        </Breadcrumb>
+                                    </>}
+                                />
+                                {item.title}
+                            </List.Item>
+                        )} />
+                )}
+
+
         </>
 
     )
