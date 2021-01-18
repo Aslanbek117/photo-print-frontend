@@ -71,14 +71,13 @@ export const TreeContent = (props: TreeContentProps) => {
                 </Sider>
 
                 <Divider type="vertical" style={{ height: "100%", margin: "0 0px" }} />
-                <Content style={{ padding: '0 24px', minHeight: 280, backgroundColor: 'white', paddingTop: '15px', borderTopRightRadius: '24px' }} >
+                <Content style={{ padding: '0 24px', minHeight: 700, backgroundColor: 'white', borderTopRightRadius: '24px' }} >
                     {articleClicked ? (
                         <Article />
                     ) : (
                             <>
                                 <Typography>
-                                    {props.items.length}
-                                    {props.items.length == 0  ? (
+                                    {props.items.length == 0 ? (
                                         props.searchText == "" ? null : (
                                             <span className="title">
                                                 В Базе знаний нет статьи по запросу "{props.searchText}"
@@ -87,11 +86,14 @@ export const TreeContent = (props: TreeContentProps) => {
                                     ) : ''}
 
                                     <Title> {selectedNavItem} </Title>
-                                   
+
                                     {(props.items.length == 1) ? (
-                                        <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
-                                            найдена: 1 статья
-                                        </Text>
+                                        <>
+                                            <Title> {props.searchText} </Title>
+                                            <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
+                                                найдена: 1 статья
+                                            </Text>
+                                        </>
                                     ) : (
                                             props.items.length == 0 ? (
                                                 <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
@@ -105,8 +107,8 @@ export const TreeContent = (props: TreeContentProps) => {
                                         )}
                                 </Typography>
                                 <Divider type="horizontal" />
-                                
-                                <ItemList items={props.items} onClick={onArticleClick}  navItemClicked={navItemClicked} />
+
+                                <ItemList items={props.items} onClick={onArticleClick} navItemClicked={navItemClicked} />
                             </>
                         )}
 
