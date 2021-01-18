@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Layout, Typography, Divider } from 'antd';
 import Title from 'antd/lib/typography/Title';
@@ -30,6 +30,8 @@ export const TreeContent = (props: TreeContentProps) => {
 
     const [navMenuClicked, setNavMenuClicked] = useState<boolean>(false);
 
+    const [items, setItems] = useState<any[]>([]);
+
 
     const [searchText, setSearchText] = useState('');
 
@@ -42,12 +44,17 @@ export const TreeContent = (props: TreeContentProps) => {
         setSelectedNavItem(navItem)
         setNavItemClicked(true);
         setArticleClicked(false);
+        
     };
 
     const onArticleClick = (title: string) => {
         console.log("article click", title);
         setArticleClicked(true);
     }
+
+    useEffect(() => {
+        setItems(props.items);
+    }, [])
 
     return (
         <>
