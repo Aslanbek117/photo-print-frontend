@@ -1,0 +1,56 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: halyk-main-frontend
+  namespace: kinokz
+  labels:
+    animal: halyk-main-frontend
+    part: halyk-main-frontend
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      animal: halyk-main-frontend
+      part: halyk-main-frontend
+  template:
+    metadata:
+      namespace: kinokz
+      labels:
+        animal: halyk-main-frontend
+        part: halyk-main-frontend
+    spec:
+      tolerations:
+        - key: "node.kubernetes.io/unreachable"
+          operator: "Exists"
+          effect: "NoExecute"
+          tolerationSeconds: 10
+        - key: "node.kubernetes.io/not-ready"
+          operator: "Exists"
+          effect: "NoExecute"
+          tolerationSeconds: 10
+      containers:
+        - name: halyk-main-frontend
+          image: 10.204.8.18:5000/halyk-main-frontend:TAG
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: halyk-main-frontend
+  namespace: kinokz
+spec:
+  ports:
+    - name: http
+      targetPort: 80
+      port: 80
+  selector:
+    animal: halyk-main-frontend
+    part: halyk-main-frontend
