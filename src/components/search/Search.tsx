@@ -55,6 +55,11 @@ export const SearchTop = (props: SearchProps) => {
         setSuggest(response.result);
     }
 
+    const getSearchValue = (title: string) => {
+        console.log("FINALLY SEARCH VALUE", title)
+        setSearchValue(title);
+    }
+
 
     const filteredItems = () => {
         // const response = await Search("", searchText);
@@ -93,7 +98,7 @@ export const SearchTop = (props: SearchProps) => {
                     
                 }}
                 />
-                <SearchDropdown items={filteredItems()} />
+                <SearchDropdown items={filteredItems()} onClick={(title) => getSearchValue(title)}/>
                 <button className="search-button" onClick={() => {
                     props.onClick(searchValue)
                     history.push("/nav/search=" + searchValue)

@@ -57,6 +57,8 @@ export const MainPage = (props: any) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
+    const [searchText, setSearchText] = useState('');
+
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -92,6 +94,11 @@ export const MainPage = (props: any) => {
         };
     };
 
+    const onSearchClick = (searchInput: string) => {
+        console.log("CLICKED", searchInput)
+        searchArticles(searchInput);
+        setSearchText(searchInput);
+    }
     async function fetch() {
         const response = await GetAllDirs(props.token, "../");
         setTreeData(response.result)
@@ -158,7 +165,7 @@ export const MainPage = (props: any) => {
                      {location.pathname == "/" ? (
                          <>
                              <span className="title">Добро пожаловать в "Базу знаний"</span>
-                             <SearchTop onClick={() => console.log} />
+                             <SearchTop onClick={(title) => onSearchClick(title) } />
                              <div style={{ paddingTop: "50px" }}>
                              </div>
                              <span className="title">Поиск по категориям</span>
@@ -169,7 +176,7 @@ export const MainPage = (props: any) => {
                          </>
                      ) : (
                          <>
-                          <TreeContent loading={loading} items={suggest} treeData={treeData} searchText={queryParam} />
+                          <TreeContent loading={loading} items={suggest} treeData={treeData} searchText={searchText} />
                          </>
                          )}
 

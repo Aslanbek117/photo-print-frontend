@@ -77,8 +77,9 @@ export const TreeContent = (props: TreeContentProps) => {
                     ) : (
                             <>
                                 <Typography>
-                                    {props.items.length == 0 ? (
-                                        props.searchText == "empty" ? null : (
+                                    {props.items.length}
+                                    {props.items.length == 0  ? (
+                                        props.searchText == "" ? null : (
                                             <span className="title">
                                                 В Базе знаний нет статьи по запросу "{props.searchText}"
                                              </span>
@@ -86,11 +87,11 @@ export const TreeContent = (props: TreeContentProps) => {
                                     ) : ''}
 
                                     <Title> {selectedNavItem} </Title>
+                                   
                                     {(props.items.length == 1) ? (
-
                                         <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
                                             найдена: 1 статья
-                            </Text>
+                                        </Text>
                                     ) : (
                                             props.items.length == 0 ? (
                                                 <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>

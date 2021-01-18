@@ -93,7 +93,7 @@ export const SearchHeader = (props: SearchProps) => {
                 }}
 
                 />
-                <SearchDropdown items={filteredItems()} />
+                {/* <SearchDropdown items={filteredItems()} /> */}
                 <button className="search-button-header" onClick={() => {
                     props.onClick(searchValue)
                     history.push("/nav/" + searchValue)

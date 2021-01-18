@@ -28,11 +28,9 @@ interface ItemProps {
 }
 
 export const ItemList = (props: ItemProps) => {
-    
     return (
-        
         <>
-            {props.items.length == 0  && props.navItemClicked != true ? (
+            {props.items.length == 0  && !props.navItemClicked ? (
                 <>
 
                     <div>
@@ -41,7 +39,6 @@ export const ItemList = (props: ItemProps) => {
                             Попробуйте еще раз! Либо найдите нужную статью в категории
                     </span>
                     </div>
-
                 </>
             ) : (
                     <List
@@ -55,9 +52,7 @@ export const ItemList = (props: ItemProps) => {
 
                                 pageSize: 3,
                             }
-                            // <Pagination defaultCurrent={1} total={50} />
                         }
-
                         dataSource={props.items}
                         locale={{emptyText: "В данной категории отсутствуют статьи"}}
                         renderItem={item => (
