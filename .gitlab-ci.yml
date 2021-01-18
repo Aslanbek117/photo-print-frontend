@@ -1,0 +1,40 @@
+stages:
+  - build
+  - deploy
+
+build-image:
+  image: docker:latest
+  stage: build
+  script:
+    - docker build --pull -t ${REGISTRY_URL}/${CI_PROJECT_NAME}:$CI_PIPELINE_IID .
+    - docker push "${REGISTRY_URL}/${CI_PROJECT_NAME}:$CI_PIPELINE_IID"
+  only:
+    - k8s
+
+deploy-dev:
+  stage: deploy
+  image: alpine:3.8
+  dependencies:
+    - build-image
+  before_script:
+    - env
+    - apk add --no-cache git curl bash
+    - curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+    - chmod +x ./kubectl
+    - mv ./kubectl /usr/local/bin/kubectl
+    - mkdir ~/.kube
+    - echo "$KUBE_CONFIG" | base64 -d > ~/.kube/config
+    - mkdir kub
+    - echo ${DEPLOY_TEMPLATE} | base64 -d > kub/deploy.yaml
+    - sed -i "s/BUILD-TAG/${CI_PIPELINE_IID}/g" kub/deploy.yaml
+    - sed -i "s/NAME-TAG/${CI_PROJECT_NAME}/g" kub/deploy.yaml
+    - sed -i "s/NAMESPACE-TAG/${CI_PROJECT_NAMESPACE}/g" kub/deploy.yaml
+    - sed -i "s/ANIMAL-TAG/${CI_PROJECT_NAMESPACE}/g" kub/deploy.yaml
+    - sed -i "s/PART-TAG/${CI_PROJECT_NAME}/g" kub/deploy.yaml
+    - sed -i "s/APP-PORT/${APP_PORT}/g" kub/deploy.yaml
+    - sed -i "s/REGISTRY-URL/${REGISTRY_URL}/g" kub/deploy.yaml
+  script:
+    - cat kub/deploy.yaml
+    - kubectl apply -f kub/
+  only:
+    - k8s
