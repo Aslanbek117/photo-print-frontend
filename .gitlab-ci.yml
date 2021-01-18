@@ -2,6 +2,10 @@ stages:
   - build
   - deploy
 
+variables:
+  APP_PORT: "80"
+
+
 build-image:
   image: docker:latest
   stage: build
@@ -19,6 +23,7 @@ deploy-dev:
   before_script:
     - env
     - apk add --no-cache git curl bash
+
     - curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
     - chmod +x ./kubectl
     - mv ./kubectl /usr/local/bin/kubectl
