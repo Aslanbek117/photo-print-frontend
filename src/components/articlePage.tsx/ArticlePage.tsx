@@ -147,7 +147,7 @@ export const ArticlePage = (props: any) => {
              <Content style={{ padding: '0 50px' }}>
                  <div className="site-layout-content">
 
-                    <Article />
+                    {/* <Article /> */}
 
                  </div>
              </Content>

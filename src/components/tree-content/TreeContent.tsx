@@ -5,10 +5,12 @@ import Title from 'antd/lib/typography/Title';
 import { TreeView } from '../tree-nav/TreeNav';
 import { ItemList } from '../item-list/ItemList';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { Article } from '../article/Article';
-import { SearchModel } from '../../models/search/Search';
+
+import { SearchModel, SubcategoryArticles, Article as ArticleModel } from '../../models/search/Search';
 import "./style.css";
 import ArrowLeft from './arrow-left.png';
+import { GetArticlesBySubcategory, GetArticleInfo } from '../backend-api/api';
+import { Article } from '../article/Article';
 const { Content, Sider } = Layout;
 
 const { Text } = Typography;
@@ -30,7 +32,16 @@ export const TreeContent = (props: TreeContentProps) => {
 
     const [navMenuClicked, setNavMenuClicked] = useState<boolean>(false);
 
-    const [items, setItems] = useState<any[]>([]);
+    const [subcategoryArticles, setSubcategoryArticles] = useState<ArticleModel[]>([]);
+
+
+    const [articleLoading, setArticleLoading] = useState<boolean>(false);
+
+    const [articleId, setArticleId] = useState<number>(1);
+
+    const [articleInfo, setArticleInfo] = useState<ArticleModel>();
+
+    const [articlePath, setArticlePath] = useState<string>("");
 
 
     const [searchText, setSearchText] = useState('');
@@ -44,17 +55,41 @@ export const TreeContent = (props: TreeContentProps) => {
         setSelectedNavItem(navItem)
         setNavItemClicked(true);
         setArticleClicked(false);
+        articlesBySubcategory(navItem);
         
     };
 
-    const onArticleClick = (title: string) => {
-        console.log("article click", title);
+    const onArticleClick = (article_id: number) => {
+        console.log("article click", article_id);
+        subcategoryArticles.map(s => {
+            if (s.id == article_id) {
+                setArticleId(s.id)
+                setArticlePath(s.path)
+            }
+        })
         setArticleClicked(true);
     }
 
     useEffect(() => {
-        setItems(props.items);
+        // setItems(props.items);
+        setArticleLoading(true);
     }, [])
+
+
+    const articlesBySubcategory = async (subcategory_title: string) => {
+        console.log("category title", subcategory_title)
+        let response = await GetArticlesBySubcategory("", subcategory_title);    
+        console.log("category articles", response);
+        if (!response.status ) {
+            setSubcategoryArticles([])
+        } else {
+            setSubcategoryArticles(response.result.articles)
+        }
+        
+        console.log(subcategoryArticles)
+        setArticleLoading(false);
+    }
+    
 
     return (
         <>
@@ -80,7 +115,7 @@ export const TreeContent = (props: TreeContentProps) => {
                 <Divider type="vertical" style={{ height: "100%", margin: "0 0px" }} />
                 <Content style={{ padding: '0 24px', minHeight: 700, backgroundColor: 'white', borderTopRightRadius: '24px' }} >
                     {articleClicked ? (
-                        <Article />
+                        <Article  article_id={articleId} path={articlePath} />
                     ) : (
                             <>
                                 <Typography>
@@ -94,28 +129,28 @@ export const TreeContent = (props: TreeContentProps) => {
 
                                     <Title> {selectedNavItem} </Title>
 
-                                    {(props.items.length == 1) ? (
+                                    {(subcategoryArticles.length == 1) ? (
                                         <>
                                             <Title> {props.searchText} </Title>
                                             <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
-                                                найдена: 1 статья
+                                                найдена: 1 статья 
                                             </Text>
                                         </>
                                     ) : (
                                             props.items.length == 0 ? (
                                                 <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
-                                                    найдено: {props.items.length} статей
+                                                    найдено: 0 статей
                                              </Text>
                                             ) : (
                                                     <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
-                                                        найдено: {props.items.length} статьи
+                                                        найдено: {subcategoryArticles.length} статьи
                                                 </Text>
                                                 )
                                         )}
                                 </Typography>
                                 <Divider type="horizontal" />
 
-                                <ItemList items={props.items} onClick={onArticleClick} navItemClicked={navItemClicked} />
+                                <ItemList isLoading={articleLoading} items={subcategoryArticles} onClick={onArticleClick} navItemClicked={navItemClicked} />
                             </>
                         )}
 

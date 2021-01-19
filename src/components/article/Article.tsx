@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { SearchTop } from '../search/Search';
 import { Category } from '../category/Category';
@@ -8,6 +8,8 @@ import Title from 'antd/lib/typography/Title';
 import './article.css';
 import { Conditions } from '../conditions/Conditions';
 import { Process } from '../process/Process';
+import { GetArticleInfo } from '../backend-api/api';
+import { Article as ArticleModel } from '../../models/search/Search';
 
 const listData: any[] = [];
 for (let i = 0; i < 23; i++) {
@@ -22,19 +24,41 @@ for (let i = 0; i < 23; i++) {
 
 }
 
-export const Article = (props: any) => {
+interface ArticleProps {
+    article_id: number;
+    path: string;
+}
+
+export const Article = (props: ArticleProps) => {
 
     const [conditionClicked, setConditionClicked] = useState(false);
     const [processClicked, setProcessClicked] = useState(false);
 
+    const [articleLoadind, setArticleLoading] = useState(true);
+
+    const [articleInfo, setArticleInfo] = useState<ArticleModel>();
+    
+
+    const getArticleInfo = async () => {
+        let response = await GetArticleInfo("", props.article_id);
+        setArticleInfo(response.result);
+        setArticleLoading(false)
+
+    }
+    useEffect(() => {
+        getArticleInfo();
+    }, [])
+
     return (
         <>
+        {articleLoadind ? 'loading' : (
+            <>
             <div className="title">
                 <span>
-                    Комиссия за организацию заема
+                    {articleInfo!.title}
                 </span>
 
-                <Breadcrumb style={{paddingTop: 10}}>
+                {/* <Breadcrumb style={{paddingTop: 10}}>
                     <Breadcrumb.Item>Кредиты</Breadcrumb.Item>
                     <Breadcrumb.Item>
                         <a href="">Кредитные карты</a>
@@ -42,12 +66,15 @@ export const Article = (props: any) => {
                     <Breadcrumb.Item>
                         <a href="">Кредитные карты 2</a>
                     </Breadcrumb.Item>
-                </Breadcrumb>
+                </Breadcrumb> */}
+                <div>
+                    {props.path}
+                </div>
             </div>
 
             <div className="short-description">
                 <span>
-                Идейные соображения высшего порядка, а также сложившаяся структура организации обеспечивает широкому кругу (специалистов) участие в формировании систем массового участия. Повседневная практика показывает, что начало повседневной работы по формированию позиции требуют от нас анализа модели развития.
+                {articleInfo?.description}
                 </span>
             </div>
 
@@ -70,6 +97,10 @@ export const Article = (props: any) => {
             {conditionClicked ? (
                 <Conditions />
             ) : (<Process />)}
+            </>
+            
+        )}
+        
             
 
         </>
