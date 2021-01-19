@@ -131,7 +131,7 @@ export const TreeContent = (props: TreeContentProps) => {
 
                                     {(subcategoryArticles.length == 1) ? (
                                         <>
-                                            <Title> {props.searchText} </Title>
+                                            {/* <Title> {props.searchText} </Title> */}
                                             <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
                                                 найдена: 1 статья 
                                             </Text>
