@@ -3,6 +3,26 @@ export interface SearchResponseDTO {
     result: SearchModel[];
     status: boolean;
 }
+export interface FileModel {
+    name: string;
+    full_directory: string;
+}
+
+export interface ConditionModel {
+    id: number;
+    title: string;
+    description: string;
+    short_description: string;
+    files: FileModel[];
+}
+
+export interface ProcessModel {
+    id: number;
+    title: string;
+    description: string;
+    short_description: string;
+    files: FileModel[];
+}
 
 export interface SearchModel {
     category_id: number;
@@ -23,6 +43,8 @@ export interface Article {
     sub_category_history_id: number;
     path: string;
     history_id: number;
+    conditions: ConditionModel[];
+    processes: ProcessModel[];
 }
 
 export interface SubcategoryArticles {
@@ -30,3 +52,4 @@ export interface SubcategoryArticles {
     article_count: number;
     articles: Article[];
 }
+

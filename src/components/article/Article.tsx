@@ -55,7 +55,7 @@ export const Article = (props: ArticleProps) => {
             <>
             <div className="title">
                 <span>
-                    {articleInfo!.title}
+                    {articleInfo?.title}
                 </span>
 
                 {/* <Breadcrumb style={{paddingTop: 10}}>
@@ -95,8 +95,8 @@ export const Article = (props: ArticleProps) => {
             </div>
 
             {conditionClicked ? (
-                <Conditions />
-            ) : (<Process />)}
+                <Conditions data={articleInfo!.conditions}/>
+            ) : (<Process  data={articleInfo!.processes} />)}
             </>
             
         )}

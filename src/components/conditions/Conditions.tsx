@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import './conditions.css';
+import { ConditionModel } from '../../models/search/Search';
 
 interface ConditionProps {
-    isShow: boolean;
+    data: ConditionModel[]   
 }
 
-export const Conditions = (props: any) => {
+export const Conditions = (props: ConditionProps) => {
 
     return (
         <>
             <div className="long-description">
-            Таким образом дальнейшее развитие различных форм деятельности играет важную роль в формировании системы обучения кадров, соответствует насущным потребностям. Таким образом постоянное информационно-пропагандистское обеспечение нашей деятельности требуют от нас анализа новых предложений. Таким образом сложившаяся структура организации обеспечивает широкому кругу (специалистов) участие в формировании позиций, занимаемых участниками в отношении поставленных задач.
+                <img src={"http://halyk-wiki.cfp.corp.p-s.kz/file-server/" + props.data[0].files[0].full_directory} style={{maxWidth: '100%'}} />
+                {props.data[0].short_description}
             </div>
         </>
 

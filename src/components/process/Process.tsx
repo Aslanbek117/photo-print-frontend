@@ -4,14 +4,15 @@ import ClientIcon from './client-icon.png';
 import OperatorIcon from './operator-icon.png'
 import { StepsComponent } from '../steps/Steps';
 import './process.css';
+import { ProcessModel } from '../../models/search/Search';
 const { TabPane } = Tabs;
 
 
-interface ConditionProps {
-    isShow: boolean;
+interface ProcessProps {
+    data: ProcessModel[];
 }
 
-export const Process = (props: any) => {
+export const Process = (props: ProcessProps) => {
 
     return (
         <>
@@ -25,7 +26,7 @@ export const Process = (props: any) => {
                     }
                     key="1"
                 >
-                    <StepsComponent />
+                    <StepsComponent  data={props.data} />
                  </TabPane>
                 <TabPane
                     tab={
@@ -36,7 +37,7 @@ export const Process = (props: any) => {
                     }
                     key="2"
                 >
-                    <StepsComponent />
+                    <StepsComponent data={props.data} />
                  </TabPane>
             </Tabs>
         </>
