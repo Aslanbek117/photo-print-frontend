@@ -9,7 +9,7 @@ const { TabPane } = Tabs;
 
 
 interface ProcessProps {
-    data: ProcessModel[];
+    data?: ProcessModel[];
 }
 
 export const Process = (props: ProcessProps) => {
@@ -20,25 +20,30 @@ export const Process = (props: ProcessProps) => {
                 <TabPane
                     tab={
                         <span>
-                            <img src={ClientIcon} style={{marginRight: 10}}/>
+                            <img src={ClientIcon} style={{ marginRight: 10 }} />
                             Клиентская
                          </span>
                     }
                     key="1"
                 >
-                    <StepsComponent  data={props.data} />
-                 </TabPane>
+
+                    {props.data !== null ? (
+                        <StepsComponent data={props.data!} />
+                    ) : ''}
+                </TabPane>
                 <TabPane
                     tab={
                         <span>
-                            <img src={OperatorIcon} style={{marginRight: 10}}/>
+                            <img src={OperatorIcon} style={{ marginRight: 10 }} />
                             Операторская
                         </span>
                     }
                     key="2"
                 >
-                    <StepsComponent data={props.data} />
-                 </TabPane>
+                    {props.data !== null ? (
+                        <StepsComponent data={props.data!} />
+                    ) : ''}
+                </TabPane>
             </Tabs>
         </>
 
