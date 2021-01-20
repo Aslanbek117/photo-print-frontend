@@ -57,16 +57,6 @@ export const Article = (props: ArticleProps) => {
                 <span>
                     {articleInfo?.title}
                 </span>
-
-                {/* <Breadcrumb style={{paddingTop: 10}}>
-                    <Breadcrumb.Item>Кредиты</Breadcrumb.Item>
-                    <Breadcrumb.Item>
-                        <a href="">Кредитные карты</a>
-                    </Breadcrumb.Item>
-                    <Breadcrumb.Item>
-                        <a href="">Кредитные карты 2</a>
-                    </Breadcrumb.Item>
-                </Breadcrumb> */}
                 <div className="breadcumb">
                     {props.path}
                 </div>
@@ -95,8 +85,8 @@ export const Article = (props: ArticleProps) => {
             </div>
 
             {conditionClicked ? (
-                <Conditions data={articleInfo!.conditions}/>
-            ) : (<Process  data={articleInfo!.processes} />)}
+                <Conditions data={articleInfo?.conditions}/>
+            ) : (<Process  data={articleInfo?.processes} />)}
             </>
             
         )}

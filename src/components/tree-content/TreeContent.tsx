@@ -9,7 +9,7 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import { SearchModel, SubcategoryArticles, Article as ArticleModel } from '../../models/search/Search';
 import "./style.css";
 import ArrowLeft from './arrow-left.png';
-import { GetArticlesBySubcategory, GetArticleInfo } from '../backend-api/api';
+import { GetArticlesBySubcategory, GetArticleInfo, GetArticlesByCategory } from '../backend-api/api';
 import { Article } from '../article/Article';
 const { Content, Sider } = Layout;
 
@@ -20,6 +20,8 @@ interface TreeContentProps {
     items: SearchModel[];
     loading: boolean;
     searchText: string;
+    article: ArticleModel | undefined;
+    articleFound: boolean;
 }
 
 export const TreeContent = (props: TreeContentProps) => {
@@ -55,6 +57,14 @@ export const TreeContent = (props: TreeContentProps) => {
         setNavItemClicked(true);
         setArticleClicked(false);
         articlesBySubcategory(navItem);
+        // если длина равна 3, то была выбрана категория
+        // если длина равна 4, то была выбрана подкатегория
+        let navDeep = info.node.pos.split('-').length
+        if (navDeep === 3) {
+            articlesByCategory(navItem)
+        } else if (navDeep === 4) {
+            articlesBySubcategory(navItem)
+        }
 
     };
 
@@ -77,16 +87,23 @@ export const TreeContent = (props: TreeContentProps) => {
 
 
     const articlesBySubcategory = async (subcategory_title: string) => {
-        console.log("category title", subcategory_title)
         let response = await GetArticlesBySubcategory("", subcategory_title);
-        console.log("category articles", response);
         if (!response.status) {
             setSubcategoryArticles([])
         } else {
             setSubcategoryArticles(response.result.articles)
         }
+        setArticleLoading(false);
+    }
 
-        console.log(subcategoryArticles)
+    const articlesByCategory = async (category_title: string) => {
+        console.log("category title", category_title)
+        let response = await GetArticlesByCategory("", category_title)
+        if (!response.status) {
+            setSubcategoryArticles([])
+        } else {
+            setSubcategoryArticles(response.result.articles)
+        }
         setArticleLoading(false);
     }
 
@@ -114,8 +131,12 @@ export const TreeContent = (props: TreeContentProps) => {
 
                 <Divider type="vertical" style={{ height: "100%", margin: "0 0px" }} />
                 <Content style={{ padding: '0 24px', minHeight: 700, backgroundColor: 'white', borderTopRightRadius: '24px' }} >
-                    {articleClicked ? (
-                        <Article article_id={articleId} path={articlePath} />
+                    {articleClicked  || props.articleFound  ? (
+                        props.articleFound ? (
+                            <Article article_id={props.article!.id} path={articlePath} />
+                        ) : (
+                            <Article article_id={articleId} path={articlePath} />
+                        ) 
                     ) : (
                             <>
                                 <Typography>

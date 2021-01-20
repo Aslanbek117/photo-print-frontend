@@ -13,25 +13,11 @@ interface StepsProps {
     data: ProcessModel[];
 }
 
-const data = [
-    {
-        title: 'Ant Design Title 1',
-    },
-    {
-        title: 'Ant Design Title 2',
-    },
-    {
-        title: 'Ant Design Title 3',
-    },
-    {
-        title: 'Ant Design Title 4',
-    },
-];
-
 export const StepsComponent = (props: StepsProps) => {
 
     return (
         <>
+        {props.data === null ? 'null' : 'not null'}
             <List
                 itemLayout="horizontal"
                 dataSource={props.data}
@@ -78,8 +64,6 @@ export const StepsComponent = (props: StepsProps) => {
                             />
                         </List.Item>
                     </>
-
-
                 )}
             />
         </>

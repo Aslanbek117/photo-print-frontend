@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from 'antd';
-import { YandexMap } from '../departments/Department';
+import YandexMap  from '../departments/Department';
 import SearchIcon from './search-icon-2.png';
 import './style.css';
 

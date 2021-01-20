@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Form, Input, Button, AutoComplete, Space } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Search, GetAllDirs } from '../backend-api/api';
+import { Search, GetAllDirs, GetArticleInfo } from '../backend-api/api';
 import { SearchResponseDTO, SearchModel } from '../../models/search/Search';
 import "./main.css";
 import HeaderTemp from '../header-temp/HeaderTemp';
@@ -15,9 +15,10 @@ import { useHistory, useLocation } from "react-router-dom";
 import { TreeView } from '../tree-nav/TreeNav';
 import { TreeContent } from '../tree-content/TreeContent';
 import { Modal } from 'antd';
-import { YandexMap } from '../departments/Department';
+import YandexMap  from '../departments/Department';
 import { DepartmentModal } from '../modals/DepartmentModal';
 import { Article } from '../article/Article';
+import { Article as ArticleModel } from '../../models/search/Search';
 const queryString = require('query-string')
 
 const { Header, Content, Footer } = Layout;
@@ -55,13 +56,15 @@ export const MainPage = (props: any) => {
 
     const [suggest, setSuggest] = useState<SearchModel[]>([]);
 
+    const [articleId, setArticleId] = useState<number>();
+
+    const [article, setArticle] = useState<ArticleModel>();
+
+    const [articleFound, setArticleFound] = useState<boolean>(false);
+
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const [searchText, setSearchText] = useState('');
-
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
 
     const handleOk = () => {
         setIsModalVisible(false);
@@ -71,44 +74,17 @@ export const MainPage = (props: any) => {
         setIsModalVisible(false);
     };
 
-    const onChange = (data: string) => {
-        setValue(data);
-    };
-
-    const renderItem = (title: string, count: number) => {
-        return {
-            value: title,
-            label: (
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                    }}
-                >
-                    {title}
-                    <span>
-                        <UserOutlined /> {count}
-                    </span>
-                </div>
-            ),
-        };
-    };
-
     const onSearchClick = (searchInput: string) => {
         console.log("CLICKED", searchInput)
         searchArticles(searchInput);
         setSearchText(searchInput);
     }
+
     async function fetch() {
         const response = await GetAllDirs(props.token, "../");
         setTreeData(response.result)
         console.log("FETCH FEtch ")
         setLoading(false);
-    }
-
-    const fetchQueryParam = () => {
-        let query = location.pathname.slice(location.pathname.lastIndexOf("=") + 1, location.pathname.length)
-        setQueryParam(query);
     }
 
     useEffect(() => {
@@ -133,7 +109,12 @@ export const MainPage = (props: any) => {
             setSuggest([]);
         } else {
 
+            console.log("suggest", resp.result)
             setSuggest(resp.result);
+            setArticleId(resp.result[0].article_id);
+            let resp2 = await GetArticleInfo("", resp.result[0].article_id)
+            setArticle(resp2.result);
+            setArticleFound(true);
             setLoading(false);
         }
     }
@@ -182,16 +163,11 @@ export const MainPage = (props: any) => {
                                 </>
                             ) : (
                                     <>
-                                        <TreeContent loading={loading} items={suggest} treeData={treeData} searchText={searchText} />
+                                        <TreeContent articleFound={articleFound} article={article} loading={loading} items={suggest} treeData={treeData} searchText={searchText} />
                                     </>
                                 )}
-
-                            {/* <Article /> */}
                         </div>
-
-
                     </Content>
-
                     <DepartmentModal title={"Филиалы"} isVisible={isModalVisible} onOk={handleOk} onCancel={handleCancel} />
                 </Layout>
 
