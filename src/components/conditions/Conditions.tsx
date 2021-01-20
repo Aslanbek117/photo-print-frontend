@@ -10,11 +10,21 @@ export const Conditions = (props: ConditionProps) => {
 
     return (
         <>
-            <img src={"http://halyk-wiki.cfp.corp.p-s.kz/file-server/" + props.data[0].files[0].full_directory} style={{ maxWidth: '100%' }} />
+            {props.data.map(i => (
+                <>
+                {i.files.map(j => (
+                    <img src={"http://halyk-wiki.cfp.corp.p-s.kz/file-server/" + j.full_directory} style={{ maxWidth: '100%' }} />
+                ))}
+                
 
-            <div className="long-description">
-                {props.data[0].short_description}
-            </div>
+                
+
+                <div className="long-description">
+                    {i.short_description}
+                </div>
+                </>
+        ))}
+
         </>
 
     )
