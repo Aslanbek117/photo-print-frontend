@@ -36,6 +36,8 @@ export const TreeContent = (props: TreeContentProps) => {
 
     const [subcategoryArticles, setSubcategoryArticles] = useState<ArticleModel[]>([]);
 
+    const [articleFound, setArticleFound] = useState<boolean>(false);
+
 
     const [articleLoading, setArticleLoading] = useState<boolean>(false);
 
@@ -57,6 +59,7 @@ export const TreeContent = (props: TreeContentProps) => {
         setNavItemClicked(true);
         setArticleClicked(false);
         articlesBySubcategory(navItem);
+        setArticleFound(false);
         // если длина равна 3, то была выбрана категория
         // если длина равна 4, то была выбрана подкатегория
         let navDeep = info.node.pos.split('-').length
@@ -82,8 +85,13 @@ export const TreeContent = (props: TreeContentProps) => {
 
     useEffect(() => {
         // setItems(props.items);
+        if (props.articleFound) {
+            setArticleFound(true)
+        } else {
+            setArticleFound(false);
+        }
         setArticleLoading(true);
-    }, [])
+    }, [props.articleFound])
 
 
     const articlesBySubcategory = async (subcategory_title: string) => {
@@ -111,7 +119,6 @@ export const TreeContent = (props: TreeContentProps) => {
     return (
         <>
             <Layout>
-
                 <Sider theme='light' width={300} style={{ borderTopLeftRadius: '24px', paddingTop: '20px' }}>
                     <span style={{ fontFamily: 'Roboto', fontSize: "16px", lineHeight: '20px !important', letterSpacing: "-0.4px/" }}>
                         {/* <ArrowLeftOutlined style={{ paddingLeft: '5px', marginRight: '10px' }} /> */}
@@ -123,71 +130,68 @@ export const TreeContent = (props: TreeContentProps) => {
                         </span>
                     </span>
                     <div style={{ paddingTop: '15px' }}>
-                        {props.loading ? 'loading xui' : (
+                        {props.loading ? 'loading' : (
                             <TreeView loading={props.loading} onSelect={onSelect} treeData={props.treeData} token="" items={props.treeData} />
                         )}
                     </div>
                 </Sider>
-
                 <Divider type="vertical" style={{ height: "100%", margin: "0 0px" }} />
                 <Content style={{ padding: '0 24px', minHeight: 700, backgroundColor: 'white', borderTopRightRadius: '24px' }} >
-                    {articleClicked  || props.articleFound  ? (
-                        props.articleFound ? (
-                            <Article article_id={props.article!.id} path={articlePath} />
-                        ) : (
-                            <Article article_id={articleId} path={articlePath} />
-                        ) 
+                    {articleFound ? (
+                        <Article article_id={props.article!.id} path={articlePath} />
+                    ) : ''
+                    }
+
+                    {articleClicked ? (
+                        <Article article_id={articleId} path={articlePath} />
                     ) : (
-                            <>
-                                <Typography>
-                                    {(props.items.length === 0 && !navItemClicked) === true ? (
-                                        props.searchText === "empty" && !navItemClicked ? '' : (
-                                            <span className="title">
-                                            В Базе знаний нет статьи по запросу "{props.searchText}"
+                            !articleFound ? (
+                                <>
+                                    <Typography>
+                                        {(props.items.length === 0 && !navItemClicked) === true ? (
+                                            props.searchText === "empty" && !navItemClicked ? '' : (
+                                                <span className="title">
+                                                    В Базе знаний нет статьи по запросу "{props.searchText}"
                                              </span>
-                                        )
-                                    ) : '' }
-                                    
-                                    <div className="nav-title">
-                                        <span>
-                                        {selectedNavItem}
-                                        </span>
-                                    </div>
+                                            )
+                                        ) : ''}
 
-                                    {(subcategoryArticles.length == 1) ? (
-                                        <>
-                                            {/* <Title> {props.searchText} </Title> */}
-                                            <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
-                                                найдена: 1 статья
-                                            </Text>
-                                        </>
-                                    ) : (
-                                            props.items.length == 0 ? (
+                                        <div className="nav-title">
+                                            <span>
+                                                {selectedNavItem}
+                                            </span>
+                                        </div>
+
+                                        {(subcategoryArticles.length == 1) ? (
+                                            <>
                                                 <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
-                                                    найдено: 0 статей
-                                             </Text>
-                                            ) : (
+                                                    найдена: 1 статья
+                                            </Text>
+                                            </>
+                                        ) : (
+                                                props.items.length == 0 ? (
                                                     <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
-                                                        найдено: {subcategoryArticles.length} статьи
+                                                        найдено: 0 статей
+                                             </Text>
+                                                ) : (
+                                                        <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
+                                                            найдено: {subcategoryArticles.length} статьи
                                                 </Text>
-                                                )
-                                        )}
-                                </Typography>
-                                <Divider type="horizontal" />
+                                                    )
+                                            )}
+                                    </Typography>
+                                    <Divider type="horizontal" />
 
-                                <ItemList isLoading={articleLoading} items={subcategoryArticles} onClick={onArticleClick} navItemClicked={navItemClicked} />
-                            </>
-                        )}
+                                    <ItemList isLoading={articleLoading} items={subcategoryArticles} onClick={onArticleClick} navItemClicked={navItemClicked} />
+                                </>
+                            ) : ''
+                         
+                )}
 
                 </Content>
-            </Layout>
-            {/* <Article /> */}
+        </Layout>
         </>
     )
 }
 
 
-
-//
-
-// */}

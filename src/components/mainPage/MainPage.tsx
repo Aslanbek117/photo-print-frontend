@@ -75,7 +75,6 @@ export const MainPage = (props: any) => {
     };
 
     const onSearchClick = (searchInput: string) => {
-        console.log("CLICKED", searchInput)
         searchArticles(searchInput);
         setSearchText(searchInput);
     }
@@ -108,13 +107,12 @@ export const MainPage = (props: any) => {
         if (resp.result === null) {
             setSuggest([]);
         } else {
-
-            console.log("suggest", resp.result)
             setSuggest(resp.result);
             setArticleId(resp.result[0].article_id);
             let resp2 = await GetArticleInfo("", resp.result[0].article_id)
             setArticle(resp2.result);
             setArticleFound(true);
+            console.log("ARTICLE FOUND")
             setLoading(false);
         }
     }
