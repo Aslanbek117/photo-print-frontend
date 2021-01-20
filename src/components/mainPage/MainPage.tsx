@@ -33,7 +33,7 @@ const mockVal = (str: string[], repeat: number = 1) => {
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
-  }
+}
 
 export const MainPage = (props: any) => {
     let history = useHistory();
@@ -102,8 +102,13 @@ export const MainPage = (props: any) => {
     async function fetch() {
         const response = await GetAllDirs(props.token, "../");
         setTreeData(response.result)
-        console.log("response.result", response.result)
+        console.log("FETCH FEtch ")
         setLoading(false);
+    }
+
+    const fetchQueryParam = () => {
+        let query = location.pathname.slice(location.pathname.lastIndexOf("=") + 1, location.pathname.length)
+        setQueryParam(query);
     }
 
     useEffect(() => {
@@ -111,14 +116,15 @@ export const MainPage = (props: any) => {
         let query = location.pathname.slice(location.pathname.lastIndexOf("=") + 1, location.pathname.length)
         setQueryParam(query);
         console.log("query", query)
+        setSearchText(query)
         // if (location.pathname='/')
         if (location.pathname != "/" && query != "empty") {
             console.log("search")
-            searchArticles(query)    
+            searchArticles(query)
         } else {
             setLoading(false);
         }
-        
+
     }, [])
 
     const searchArticles = async (searchValue: string) => {
@@ -126,71 +132,71 @@ export const MainPage = (props: any) => {
         if (resp.result === null) {
             setSuggest([]);
         } else {
-            
+
             setSuggest(resp.result);
             setLoading(false);
         }
     }
 
 
+
     return (
         <>
-        {!loading ? (
-             <Layout className="layout" style={{ backgroundColor: 'rgb(243,246,248)' }} >
-             <Header style={{ background: '#fff', paddingLeft: 160, paddingRight: 160 }}>
-                 <div className="logo" >
-                     <a href="/">
-                         <img
-                             alt="halyk-wiki"
-                             src={HalykLogo} 
-                             
-                             />
-                     </a>
-                 </div>
-                 <Button type="primary" shape="round" size={'large'} style={{
-                     float: 'right', marginTop: '13px', backgroundColor: 'rgb(237,237,239)', color: 'black', fontFamily: 'Roboto',
-                     fontSize: '14px;',
-                     lineHeight: '18px;',
-                     border: 'none'
-                 }}
-                 onClick={() => setIsModalVisible(true)}
-                 
-                 >
-                     <Text strong>Филиалы</Text>
-                 </Button>
-             </Header>
-             <Content style={{ padding: '0 50px', paddingLeft: 160, paddingRight: 160 }}>
-                 <div className="site-layout-content">
+            {!loading ? (
+                <Layout className="layout" style={{ backgroundColor: 'rgb(243,246,248)' }} >
+                    <Header style={{ background: '#fff', paddingLeft: 160, paddingRight: 160 }}>
+                        <div className="logo" >
+                            <a href="/">
+                                <img
+                                    alt="halyk-wiki"
+                                    src={HalykLogo}
 
-                     {location.pathname == "/" ? (
-                         <>
-                             <span className="title">Добро пожаловать в "Базу знаний"</span>
-                             <SearchTop onClick={(title) => onSearchClick(title) } />
-                             <div style={{ paddingTop: "50px" }}>
-                             </div>
-                             <span className="title">Поиск по категориям</span>
+                                />
+                            </a>
+                        </div>
+                        <Button type="primary" shape="round" size={'large'} style={{
+                            float: 'right', marginTop: '13px', backgroundColor: 'rgb(237,237,239)', color: 'black', fontFamily: 'Roboto',
+                            fontSize: '14px;',
+                            lineHeight: '18px;',
+                            border: 'none'
+                        }}
+                            onClick={() => setIsModalVisible(true)}
+                        >
+                            <Text strong>Филиалы</Text>
+                        </Button>
+                    </Header>
+                    <Content style={{ padding: '0 50px', paddingLeft: 160, paddingRight: 160 }}>
+                        <div className="site-layout-content">
 
-                             <div style={{ paddingTop: "20px" }}>
-                             </div>
-                             <Category />
-                         </>
-                     ) : (
-                         <>
-                          <TreeContent loading={loading} items={suggest} treeData={treeData} searchText={searchText} />
-                         </>
-                         )}
+                            {location.pathname == "/" ? (
+                                <>
+                                    <span className="title">Добро пожаловать в "Базу знаний"</span>
+                                    <SearchTop onClick={(title) => onSearchClick(title)} />
+                                    <div style={{ paddingTop: "50px" }}>
+                                    </div>
+                                    <span className="title">Поиск по категориям</span>
 
-                        {/* <Article /> */}
-                 </div>
+                                    <div style={{ paddingTop: "20px" }}>
+                                    </div>
+                                    <Category />
+                                </>
+                            ) : (
+                                    <>
+                                        <TreeContent loading={loading} items={suggest} treeData={treeData} searchText={searchText} />
+                                    </>
+                                )}
+
+                            {/* <Article /> */}
+                        </div>
 
 
-             </Content>
+                    </Content>
 
-             <DepartmentModal title={"Филиалы"} isVisible={isModalVisible} onOk={handleOk} onCancel={handleCancel} />
-         </Layout>
-        
-        ) : 'loading'}
-           
+                    <DepartmentModal title={"Филиалы"} isVisible={isModalVisible} onOk={handleOk} onCancel={handleCancel} />
+                </Layout>
+
+            ) : 'loading'}
+
         </>
     )
 }

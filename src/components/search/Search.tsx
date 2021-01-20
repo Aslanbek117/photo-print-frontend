@@ -60,6 +60,13 @@ export const SearchTop = (props: SearchProps) => {
         setSearchValue(title);
     }
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            history.push("/nav/search=" + searchValue)
+        }
+    }
+
+
 
     const filteredItems = () => {
         // const response = await Search("", searchText);
@@ -97,6 +104,7 @@ export const SearchTop = (props: SearchProps) => {
                     setSearchValue(event.target.value);
                     
                 }}
+                onKeyDown={(event) => handleKeyDown(event)}
                 />
                 <SearchDropdown items={filteredItems()} onClick={(title) => getSearchValue(title)}/>
                 <button className="search-button" onClick={() => {

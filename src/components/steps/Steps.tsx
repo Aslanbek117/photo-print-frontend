@@ -53,36 +53,26 @@ export const StepsComponent = (props: StepsProps) => {
                                     <>
                                         <span className="primary-text">
                                             {item.description}
-                                            {item.files.map(f => (
 
-                                                <>
-                                                    <div>
-
-                                                        <div className="img-border">
-                                                            <Image
-                                                                width={36}
-                                                                className="img-style"
-                                                                src={"http://halyk-wiki.cfp.corp.p-s.kz/file-server/" + f.full_directory}
-                                                            />
-                                                            <span className="img-title"> {f.name} </span>
-                                                        </div>
-
-                                                    </div>
-                                                </>
-                                            ))}
                                         </span>
+                                        <br />
+                                        {item.files.map(f => (
 
-                                        <div>
+                                            <>
+                                                <div style={{ display: 'inline-block' }}>
 
-                                            {item.files.map(f => {
-                                                <>
-                                                    <img src={"http://halyk-wiki.cfp.corp.p-s.kz/file-server/Kredity/Novyj%20kredit/Podkategorija%201/new-credit.png"} >
-                                                        xui
-                                                </img>
-                                                    <span> {f.full_directory} </span>
-                                                </>
-                                            })}
-                                        </div>
+                                                    <div className="img-border">
+                                                        <Image
+                                                            width={36}
+                                                            className="img-style"
+                                                            src={"http://halyk-wiki.cfp.corp.p-s.kz/file-server/" + f.full_directory}
+                                                        />
+                                                        <span className="img-title"> {f.name} </span>
+                                                    </div>
+
+                                                </div>
+                                            </>
+                                        ))}
                                     </>
                                 )}
                             />
