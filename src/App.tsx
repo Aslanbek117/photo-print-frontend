@@ -21,7 +21,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={MainPage} />
-        <Route path="/nav/search=:search" component={MainPage} />
+        <Route path="/nav/search=:search" component={(props) => <MainPage {...props} key={window.location.pathname}/>}/>
 
         {/* <Route exact path="/nav/:search/:article" component={ArticlePage} /> */}
       </Switch>

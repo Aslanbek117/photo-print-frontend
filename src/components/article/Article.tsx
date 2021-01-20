@@ -67,7 +67,7 @@ export const Article = (props: ArticleProps) => {
                         <a href="">Кредитные карты 2</a>
                     </Breadcrumb.Item>
                 </Breadcrumb> */}
-                <div>
+                <div className="breadcumb">
                     {props.path}
                 </div>
             </div>

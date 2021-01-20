@@ -51,12 +51,11 @@ export const TreeContent = (props: TreeContentProps) => {
     const onSelect = (selectedKeys: any, info: any) => {
         let index = selectedKeys.toString().lastIndexOf("/") + 1
         let navItem = selectedKeys.toString().slice(index, selectedKeys.toString().length);
-        console.log("category", navItem);
         setSelectedNavItem(navItem)
         setNavItemClicked(true);
         setArticleClicked(false);
         articlesBySubcategory(navItem);
-        
+
     };
 
     const onArticleClick = (article_id: number) => {
@@ -68,6 +67,7 @@ export const TreeContent = (props: TreeContentProps) => {
             }
         })
         setArticleClicked(true);
+        setNavItemClicked(false);
     }
 
     useEffect(() => {
@@ -78,18 +78,18 @@ export const TreeContent = (props: TreeContentProps) => {
 
     const articlesBySubcategory = async (subcategory_title: string) => {
         console.log("category title", subcategory_title)
-        let response = await GetArticlesBySubcategory("", subcategory_title);    
+        let response = await GetArticlesBySubcategory("", subcategory_title);
         console.log("category articles", response);
-        if (!response.status ) {
+        if (!response.status) {
             setSubcategoryArticles([])
         } else {
             setSubcategoryArticles(response.result.articles)
         }
-        
+
         console.log(subcategoryArticles)
         setArticleLoading(false);
     }
-    
+
 
     return (
         <>
@@ -115,25 +115,29 @@ export const TreeContent = (props: TreeContentProps) => {
                 <Divider type="vertical" style={{ height: "100%", margin: "0 0px" }} />
                 <Content style={{ padding: '0 24px', minHeight: 700, backgroundColor: 'white', borderTopRightRadius: '24px' }} >
                     {articleClicked ? (
-                        <Article  article_id={articleId} path={articlePath} />
+                        <Article article_id={articleId} path={articlePath} />
                     ) : (
                             <>
                                 <Typography>
-                                    {props.items.length == 0 ? (
-                                        props.searchText == "" ? null : (
+                                    {(props.items.length === 0 && !navItemClicked) === true ? (
+                                        props.searchText === "empty" && !navItemClicked ? '' : (
                                             <span className="title">
-                                                В Базе знаний нет статьи по запросу "{props.searchText}"
+                                            В Базе знаний нет статьи по запросу "{props.searchText}"
                                              </span>
                                         )
-                                    ) : ''}
-
-                                    <Title> {selectedNavItem} </Title>
+                                    ) : '' }
+                                    
+                                    <div className="nav-title">
+                                        <span>
+                                        {selectedNavItem}
+                                        </span>
+                                    </div>
 
                                     {(subcategoryArticles.length == 1) ? (
                                         <>
                                             {/* <Title> {props.searchText} </Title> */}
                                             <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
-                                                найдена: 1 статья 
+                                                найдена: 1 статья
                                             </Text>
                                         </>
                                     ) : (

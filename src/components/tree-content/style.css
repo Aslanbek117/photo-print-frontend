@@ -12,3 +12,18 @@
 
     color: #171717;
 }
+
+.nav-title {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 30px;
+    /* or 136% */
+    padding-top: 32px;
+    letter-spacing: -0.4px;
+
+    /* Black/B100 */
+
+    color: #171717;
+}

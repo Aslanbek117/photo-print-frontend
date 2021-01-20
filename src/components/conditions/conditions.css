@@ -1,4 +1,4 @@
-.description {
+.long-description {
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
@@ -9,7 +9,7 @@
     letter-spacing: -0.4px;
 
     /* Black/B100 */
-
+    padding-top: 25px;
     color: #171717;
     mix-blend-mode: normal;
     opacity: 0.8;

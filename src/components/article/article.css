@@ -6,6 +6,29 @@
     line-height: 30px;
     letter-spacing: -0.4px;
     color: #171717;
+    padding-top: 30px;
+}
+
+.breadcumb {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+    /* identical to box height, or 129% */
+
+    letter-spacing: -0.4px;
+
+    /* Black/B100 */
+
+    color: #171717;
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 4px 0px;
 }
 
 .short-description {
@@ -21,7 +44,7 @@
     /* Gray/G100 */
 
     color: #8F92A1;
-    padding-top: 30px;
+    padding-top: 24px;
     padding-bottom: 30px;
 }
 

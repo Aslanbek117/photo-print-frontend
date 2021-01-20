@@ -60,13 +60,20 @@
   }
 
   .img-border {
-    background: rgba(243, 246, 248, 0.4);
+    background: rgba(243, 246, 248, 0.7);
     mix-blend-mode: normal;
     border-radius: 16px;
     min-width: 200px;
     max-width: 200px;
     min-height: 56px;
     max-height: 200px;
+    left: 0;
+    float: left;
+    margin-left: 20px;    
+
+  }
+  .img-border:after {
+    margin-left: 20px;
   }
   .img-style {
       padding-left: 15px;

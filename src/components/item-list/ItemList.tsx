@@ -31,11 +31,9 @@ interface ItemProps {
 export const ItemList = (props: ItemProps) => {
     return (
         <>
-    
-            {props.isLoading ? 'loading': (
-                props.items != null  && !props.navItemClicked ? (
+         {
+                props.items !== null  && !props.navItemClicked ? (
                     <>
-    
                         <div>
                             <img src={NotFound} />
                             <span className="text" style={{ paddingLeft: 20 }}>
@@ -43,11 +41,10 @@ export const ItemList = (props: ItemProps) => {
                         </span>
                         </div>
                     </>
-                ) : (
+                ) : ''
+                }  
+            {props.isLoading ? '' : (
                     <>                
-                        {props.isLoading ?  'loading': (
-                            ''
-                        )}
                         <List
                             itemLayout="vertical"
                             size="small"
@@ -86,7 +83,7 @@ export const ItemList = (props: ItemProps) => {
                             )} />
 
                             </>
-                    )
+                    
             )}
             
 
