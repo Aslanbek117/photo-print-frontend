@@ -54,7 +54,7 @@ export const MainPage = (props: any) => {
     const [value, setValue] = useState('');
     const [options, setOptions] = useState<{ value: string }[]>([]);
 
-    const [suggest, setSuggest] = useState<SearchModel[]>([]);
+    const [suggest, setSuggest] = useState<ArticleModel[]>([]);
 
     const [articleId, setArticleId] = useState<number>();
 
@@ -104,13 +104,15 @@ export const MainPage = (props: any) => {
 
     const searchArticles = async (searchValue: string) => {
         const resp: SearchResponseDTO = await Search("", searchValue);
+        
         if (resp.result === null) {
             setSuggest([]);
         } else {
             setSuggest(resp.result);
-            setArticleId(resp.result[0].article_id);
-            let resp2 = await GetArticleInfo("", resp.result[0].article_id)
-            setArticle(resp2.result);
+            console.log("founded articles", resp.result);
+            // setArticleId(resp.result[0].article_id);
+            // let resp2 = await GetArticleInfo("", resp.result[0].article_id)
+            // setArticle(resp2.result);
             setArticleFound(true);
             console.log("ARTICLE FOUND")
             setLoading(false);

@@ -1,8 +1,4 @@
-export interface SearchResponseDTO {
-    message: string;
-    result: SearchModel[];
-    status: boolean;
-}
+
 export interface FileModel {
     name: string;
     full_directory: string;
@@ -36,7 +32,7 @@ export interface SearchModel {
 }
 
 export interface Article {
-    id: number;
+    article_id: number;
     title: string;
     short_description: string;
     description: string
@@ -53,3 +49,8 @@ export interface SubcategoryArticles {
     articles: Article[];
 }
 
+export interface SearchResponseDTO {
+    message: string;
+    result: Article[];
+    status: boolean;
+}
