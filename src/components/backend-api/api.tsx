@@ -69,6 +69,15 @@ export const GetArticlesByCategory = async (token: string, category_title: strin
     }
 }
 
+export const GetArticlesByEntity = async (token: string, entity_title: string): Promise<any> => {
+    try {
+        const response = await (await httpClient(token)).get("http://halyk-wiki.cfp.corp.p-s.kz/halyk-wiki-search-service/api/v1/entity/articlesByTitle?entityTitle=" + entity_title)
+        return response.data;
+    }  catch (err) {
+        return {} as any;
+    }
+}
+
 export const GetArticleInfo = async (token: string, article_id: number): Promise<any> =>  {
     try {
         
@@ -78,3 +87,4 @@ export const GetArticleInfo = async (token: string, article_id: number): Promise
         return {} as any;
     }
 }
+

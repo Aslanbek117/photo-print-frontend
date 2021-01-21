@@ -9,7 +9,7 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import { SearchModel, SubcategoryArticles, Article as ArticleModel } from '../../models/search/Search';
 import "./style.css";
 import ArrowLeft from './arrow-left.png';
-import { GetArticlesBySubcategory, GetArticleInfo, GetArticlesByCategory } from '../backend-api/api';
+import { GetArticlesBySubcategory, GetArticleInfo, GetArticlesByCategory, GetArticlesByEntity } from '../backend-api/api';
 import { Article } from '../article/Article';
 const { Content, Sider } = Layout;
 
@@ -63,7 +63,10 @@ export const TreeContent = (props: TreeContentProps) => {
         // если длина равна 3, то была выбрана категория
         // если длина равна 4, то была выбрана подкатегория
         let navDeep = info.node.pos.split('-').length
-        if (navDeep === 3) {
+        console.log(navDeep)
+        if (navDeep === 2) {
+            articlesByEntity(navItem)
+        } else if (navDeep === 3) {
             articlesByCategory(navItem)
         } else if (navDeep === 4) {
             articlesBySubcategory(navItem)
@@ -107,6 +110,16 @@ export const TreeContent = (props: TreeContentProps) => {
     const articlesByCategory = async (category_title: string) => {
         console.log("category title", category_title)
         let response = await GetArticlesByCategory("", category_title)
+        if (!response.status) {
+            setSubcategoryArticles([])
+        } else {
+            setSubcategoryArticles(response.result.articles)
+        }
+        setArticleLoading(false);
+    }
+
+    const articlesByEntity = async (entity_title: string) => {
+        let response = await GetArticlesByEntity("", entity_title)
         if (!response.status) {
             setSubcategoryArticles([])
         } else {

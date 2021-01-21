@@ -17,7 +17,6 @@ export const StepsComponent = (props: StepsProps) => {
 
     return (
         <>
-        {props.data === null ? 'null' : 'not null'}
             <List
                 itemLayout="horizontal"
                 dataSource={props.data}
