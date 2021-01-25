@@ -17,7 +17,7 @@ const { Text } = Typography;
 
 interface TreeContentProps {
     treeData: any[];
-    items: SearchModel[];
+    items: ArticleModel[];
     loading: boolean;
     searchText: string;
     article: ArticleModel | undefined;
@@ -27,6 +27,7 @@ interface TreeContentProps {
 export const TreeContent = (props: TreeContentProps) => {
     const [loading, SetLoading] = useState(false);
 
+    const [articles, setArticles] = useState<ArticleModel[]>([]);
 
     const [selectedNavItem, setSelectedNavItem] = useState<string>('');
 
@@ -34,7 +35,7 @@ export const TreeContent = (props: TreeContentProps) => {
 
     const [navMenuClicked, setNavMenuClicked] = useState<boolean>(false);
 
-    const [subcategoryArticles, setSubcategoryArticles] = useState<ArticleModel[]>([]);
+    const [subcategoryArticles, setSubcategoryArticles] = useState<any[]>([]);
 
     const [articleFound, setArticleFound] = useState<boolean>(false);
 
@@ -77,23 +78,34 @@ export const TreeContent = (props: TreeContentProps) => {
     const onArticleClick = (article_id: number) => {
         console.log("article click", article_id);
         subcategoryArticles.map(s => {
-            if (s.id == article_id) {
-                setArticleId(s.id)
-                setArticlePath(s.path)
+            console.log("suka", s.id, s.article_id,  article_id);
+            if (s.article_id === undefined) {
+                if (s.id == article_id) {
+                    setArticleId(s.id)
+                    setArticlePath(s.path)
+                }
+            } else if (s.id === undefined) {
+                if (s.article_id == article_id) {
+                    setArticleId(s.article_id)
+                    setArticlePath(s.path)
+                }
             }
+            
         })
         setArticleClicked(true);
         setNavItemClicked(false);
     }
 
     useEffect(() => {
-        // setItems(props.items);
+        setArticles(props.items);
+        setSubcategoryArticles(props.items)
+        console.log("artilces", props.items)
         if (props.articleFound) {
             setArticleFound(true)
         } else {
             setArticleFound(false);
         }
-        setArticleLoading(true);
+        setArticleLoading(false);
     }, [props.articleFound])
 
 
@@ -150,15 +162,14 @@ export const TreeContent = (props: TreeContentProps) => {
                 </Sider>
                 <Divider type="vertical" style={{ height: "100%", margin: "0 0px" }} />
                 <Content style={{ padding: '0 24px', minHeight: 700, backgroundColor: 'white', borderTopRightRadius: '24px' }} >
-                    {articleFound ? (
+                    {/* {articleFound ? (
                         <Article article_id={props.article!.id} path={articlePath} />
                     ) : ''
-                    }
+                    } */}
 
                     {articleClicked ? (
                         <Article article_id={articleId} path={articlePath} />
                     ) : (
-                            !articleFound ? (
                                 <>
                                     <Typography>
                                         {(props.items.length === 0 && !navItemClicked) === true ? (
@@ -178,8 +189,14 @@ export const TreeContent = (props: TreeContentProps) => {
                                         {(subcategoryArticles.length == 1) ? (
                                             <>
                                                 <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
+                                                    {props.searchText !== "empty" ? (
+                                                        <Text strong={true} style={{ backgroundColor: "rgb(249,250,250)", color: "black !important" }}>
+                                                            По запросу "{props.searchText}"
+                                                        </Text>
+                                                    )  : ''}
+                                                    <br />
                                                     найдена: 1 статья
-                                            </Text>
+                                                 </Text>
                                             </>
                                         ) : (
                                                 props.items.length == 0 ? (
@@ -197,7 +214,6 @@ export const TreeContent = (props: TreeContentProps) => {
 
                                     <ItemList isLoading={articleLoading} items={subcategoryArticles} onClick={onArticleClick} navItemClicked={navItemClicked} />
                                 </>
-                            ) : ''
                          
                 )}
 

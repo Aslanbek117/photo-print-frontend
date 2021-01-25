@@ -111,7 +111,8 @@ export const ArticlePage = (props: any) => {
             setSuggest([]);
         } else {
             
-            setSuggest(resp.result);
+            
+            // setSuggest(resp.result);
             setLoading(false);
         }
     }

@@ -1,11 +1,13 @@
-
-import React, { Component, FunctionComponent, useState, useEffect } from 'react';
+import React, {
+  Component,
+  FunctionComponent,
+  useState,
+  useEffect,
+} from 'react';
 import { Tree, Popover, Tooltip, Layout } from 'antd';
 import { DataNode } from 'antd/lib/tree';
-import { GetAllDirs, GetAllDirs1 } from '../backend-api/api'
-import './tree-nav.css'
-
-
+import { GetAllDirs, GetAllDirs1 } from '../backend-api/api';
+import './tree-nav.css';
 
 // const treeDate = [
 //     {
@@ -188,158 +190,166 @@ import './tree-nav.css'
 // ]
 
 const treeDate = [
-    {
-        "id": 1,
-        "title": "какая то сущность",
-        "key": "dddd",
-        "short_description": "Краткое описание",
-        "description": "Обычное описание",
-        "start_date": "2021-01-18T14:30:02.986056Z",
-        "end_date": null,
-        "children": [
-            {
-                "id": 1,
-                "title": "string",
-                "key": "1",
-                "short_description": "string",
-                "description": "Кредиты",
-                "start_date": "2021-01-18T15:05:05.880294Z",
-                "end_date": null,
-                "entity_history_id": 1,
-                "children": [
-                    {
-                        "id": 1,
-                        "title": "Кредиты подкатегория",
-                        "short_description": "string",
-                        "key": "1",
-                        "description": "Кредиты подкатегория",
-                        "start_date": "2021-01-18T15:10:02.222202Z",
-                        "end_date": null,
-                        "category_history_id": 1,
-                        "history_id": 1
-                    }
-                ],
-                "history_id": 1
-            },
-            {
-                "id": 2,
-                "title": "string",
-                "key": "2",
-                "short_description": "string",
-                "description": "Депозиты",
-                "start_date": "2021-01-18T15:08:29.465674Z",
-                "end_date": null,
-                "entity_history_id": 1,
-                "children": [],
-                "history_id": 2
-            },
-            {
-                "id": 3,
-                "title": "Депозиты",
-                "key": "3",
-                "short_description": "string",
-                "description": "Депозиты",
-                "start_date": "2021-01-18T15:08:44.049336Z",
-                "end_date": null,
-                "entity_history_id": 1,
-                "children": [],
-                "history_id": 3
-            }
+  {
+    id: 1,
+    title: 'какая то сущность',
+    key: 'dddd',
+    short_description: 'Краткое описание',
+    description: 'Обычное описание',
+    start_date: '2021-01-18T14:30:02.986056Z',
+    end_date: null,
+    children: [
+      {
+        id: 1,
+        title: 'string',
+        key: '1',
+        short_description: 'string',
+        description: 'Кредиты',
+        start_date: '2021-01-18T15:05:05.880294Z',
+        end_date: null,
+        entity_history_id: 1,
+        children: [
+          {
+            id: 1,
+            title: 'Кредиты подкатегория',
+            short_description: 'string',
+            key: '1',
+            description: 'Кредиты подкатегория',
+            start_date: '2021-01-18T15:10:02.222202Z',
+            end_date: null,
+            category_history_id: 1,
+            history_id: 1,
+          },
         ],
-        "history_id": 1
-    }
-]
-
+        history_id: 1,
+      },
+      {
+        id: 2,
+        title: 'string',
+        key: '2',
+        short_description: 'string',
+        description: 'Депозиты',
+        start_date: '2021-01-18T15:08:29.465674Z',
+        end_date: null,
+        entity_history_id: 1,
+        children: [],
+        history_id: 2,
+      },
+      {
+        id: 3,
+        title: 'Депозиты',
+        key: '3',
+        short_description: 'string',
+        description: 'Депозиты',
+        start_date: '2021-01-18T15:08:44.049336Z',
+        end_date: null,
+        entity_history_id: 1,
+        children: [],
+        history_id: 3,
+      },
+    ],
+    history_id: 1,
+  },
+];
 
 interface TreeViewProps {
-    onSelect: (selectedKeys: any, info: any) => void;
-    treeData: any[];
-    token: string;
-    items: any[];
-    loading: boolean;
+  onSelect: (selectedKeys: any, info: any) => void;
+  treeData: any[];
+  token: string;
+  items: any[];
+  loading: boolean;
 }
-
 
 //рекурсинвное решение отрицательно сказывается на памяти - в будущем требуется переписать. s
 const renderTreeNodes = (data: any) =>
-    data.length >= 0 ? data.map((item: any) =>
+  data.length >= 0
+    ? data.map((item: any) =>
         item.children ? (
-            <Tree.TreeNode
-                title={item.title} key={item.path} style={{fontFamily: 'Roboto', fontSize: "14px", lineHeight: '20px !important', letterSpacing: "-0.4px/"}}
-            >
-                {renderTreeNodes(item.children)}
-            </Tree.TreeNode>
-        ) : 'xui'
-    ) : 'pizda';
-
-export const TreeView: FunctionComponent<TreeViewProps> =  (props: TreeViewProps) => {
-    const [treeData, setTreeData] = useState(props.treeData);
-    const [int, setInt] = useState(0);
-
-    const [loading, setLoading] = useState(true);
-    function onLoadData(key: any, children: any) {
-        return new Promise(async resolve => {
-            if (children) {
-                resolve();
-                return;
-            }
-            let response: any;
-            console.log("ZEBAL")
-            response = await GetAllDirs(props.token, "" + key.key);
-            
-            let sss = treeData;
-            var i = 0;
-            for (i = 0; i < treeData.length; i++) {
-                if (treeData[i].path == key.key) {
-                    sss[i].children = [];
-                    if (response.result != null) {
-                        response.result.forEach((r: any) => {
-                            sss[i].children!.push(r)
-                        })
-                    }
-                        
-                }
-            }
-            setTreeData(sss)
-
-            //only for force re-render 
-            setInt(Math.random());
-            //************************ */
-            setLoading(false);
-            resolve();
-        });
-    }
-
-
-    async function fetch() {
-        const response = await GetAllDirs1(props.token, "../");
-        console.log("ZAEBAL", response.result)
-        setTreeData(response.result)
-        setLoading(false);
-        console.log(response.result)
-    }
-    useEffect(() => {
-        fetch();
-        console.log("TREE", treeData)
-    }, [])
-
-    return (
-        <>
-        
-        {loading == true ? 'loading' : (
-                <>
-              <Tree
-              showIcon={true}
-            //   loadData={onLoadData as any}
-              onSelect={props.onSelect}
-              treeData={treeData}
+          <Tree.TreeNode
+            title={item.title}
+            key={item.path}
+            style={{
+              fontFamily: 'Roboto',
+              fontSize: '14px',
+              lineHeight: '20px !important',
+              letterSpacing: '-0.4px/',
+            }}
           >
-              {/* {renderTreeNodes(treeData)} */}
-            </Tree>
-            </>
-        )}
-       
-        </>
-    )
+            {renderTreeNodes(item.children)}
+          </Tree.TreeNode>
+        ) : (
+          'xui'
+        )
+      )
+    : 'pizda';
 
-}
+export const TreeView: FunctionComponent<TreeViewProps> = (
+  props: TreeViewProps
+) => {
+  const [treeData, setTreeData] = useState(props.treeData);
+  const [int, setInt] = useState(0);
+
+  const [loading, setLoading] = useState(true);
+  function onLoadData(key: any, children: any) {
+    return new Promise(async resolve => {
+      if (children) {
+        resolve(null);
+        return;
+      }
+      let response: any;
+      console.log('ZEBAL');
+      response = await GetAllDirs(props.token, '' + key.key);
+
+      let sss = treeData;
+      var i = 0;
+      for (i = 0; i < treeData.length; i++) {
+        if (treeData[i].path == key.key) {
+          sss[i].children = [];
+          if (response.result != null) {
+            response.result.forEach((r: any) => {
+              sss[i].children!.push(r);
+            });
+          }
+        }
+      }
+      setTreeData(sss);
+
+      //only for force re-render
+      setInt(Math.random());
+      //************************ */
+      setLoading(false);
+      resolve(null);
+    });
+  }
+
+  async function fetch() {
+    const response = await GetAllDirs1(props.token, '../');
+    console.log('ZAEBAL', response.result);
+    setTreeData(response.result);
+    setLoading(false);
+    console.log(response.result);
+  }
+  useEffect(() => {
+    fetch();
+    console.log('TREE', treeData);
+  }, []);
+
+  return (
+    <>
+      {loading == true ? (
+        'loading'
+      ) : (
+        <>
+          <Tree
+            showIcon={true}
+            //   loadData={onLoadData as any}
+            onSelect={props.onSelect}
+            treeData={treeData}
+          >
+            {/* {renderTreeNodes(treeData)} */}
+          </Tree>
+        </>
+      )}
+    </>
+  );
+};

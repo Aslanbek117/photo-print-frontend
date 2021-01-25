@@ -62,11 +62,14 @@ export const Article = (props: ArticleProps) => {
                         </div>
                     </div>
 
-                    <div className="short-description">
+                    {/* <div className="short-description">
                         <span>
                             {articleInfo?.description}
                         </span>
-                    </div>
+                    </div> */}
+
+                    <div dangerouslySetInnerHTML={{ __html: articleInfo!.description }} />
+
 
                     <div className="button-group">
                         <button className={conditionClicked ? "button-clicked" : "button"} onClick={() => {

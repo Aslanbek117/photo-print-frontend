@@ -22,7 +22,7 @@ for (let i = 0; i < 23; i++) {
 }
 
 interface ItemProps {
-    items: ArticleModel[];
+    items: any[];
     onClick: (article_id: number) => void;
     navItemClicked: boolean;
     isLoading: boolean;
@@ -32,7 +32,7 @@ export const ItemList = (props: ItemProps) => {
     return (
         <>
          {
-                props.items !== null  && !props.navItemClicked ? (
+                props.items == null   && !props.navItemClicked ? (
                     <>
                         <div>
                             <img src={NotFound} />
@@ -42,8 +42,8 @@ export const ItemList = (props: ItemProps) => {
                         </div>
                     </>
                 ) : ''
-                }  
-            {props.isLoading ? '' : (
+            }  
+            {props.isLoading ? 'loading' : (
                     <>                
                         <List
                             itemLayout="vertical"
@@ -65,7 +65,13 @@ export const ItemList = (props: ItemProps) => {
                                     style={{ paddingLeft: '0' }}
                                 >
                                     <List.Item.Meta
-                                        title={<a style={{ color: 'rgb(0,128,96)' }} onClick={() => props.onClick(item.id)}>{item.title}</a>}
+                                        title={<a style={{ color: 'rgb(0,128,96)' }} onClick={() => {
+                                            if (item.id === undefined) {
+                                                props.onClick(item.article_id)
+                                            } else {
+                                                props.onClick(item.id)
+                                            }
+                                        }}>{item.title}</a>}
                                         description={<>
                                             <Breadcrumb>
                                                 <Breadcrumb.Item> {item.path} </Breadcrumb.Item>
