@@ -23,7 +23,8 @@ export const DepartmentModal = (props: ModalProps) => {
       onCancel={props.onCancel}
       footer={null}
       style={{ minHeight: 620 }}
-      closeIcon={<img src={CloseIcon} />}>
+      closeIcon={<img src={CloseIcon} />}
+    >
       <div className="search-input-modal">
         <i className="search-icon-modal">
           <img src={SearchIcon} />
@@ -37,7 +38,7 @@ export const DepartmentModal = (props: ModalProps) => {
           }}
         />
       </div>
-      <div style={{ marginTop: 15, height: "100%" }}>
+      <div style={{ marginTop: 15, height: 460 }}>
         <YandexMap />
       </div>
     </Modal>

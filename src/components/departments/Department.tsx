@@ -29,7 +29,7 @@ class YandexMap extends Component<{}, State> {
       activeDepartment: false,
     };
 
-    this.createTemplateLayoutFactory = this.createTemplateLayoutFactory.bind(this);
+    this.createTemplateLayoutFactory = this.createTemplateLayoutFactory;
   }
 
   createTemplateLayoutFactory = (ymaps: any) => {
@@ -38,36 +38,48 @@ class YandexMap extends Component<{}, State> {
         template: ymaps.templateLayoutFactory.createClass(
           '<div style="display:flex;align-items:center;padding-top:12px;padding-bottom:12px;padding-left:16px;padding-right:24px;heigth:auto;width:auto;"><div style="width:45px;height:45px;min-width:45px;border-radius: 14px;background-position: center;background-position: center;background-size:cover;background-repeat:no-repeat;background-color:#ddd;background-image:url($[properties.balloonImage]), url(/img/poster_h.jpg);"></div>' +
             '<div style="margin-left:20px;"><div style="font-size:16px;line-height:21px;font-weight:bold;text-decoration:none;color:#000;">$[properties.balloonContentHeader]</div>' +
-            '<div style="font-size:12px;line-height:16px;opacity:.5;padding-top:3px;color:#000;text-decoration:none;">$[properties.balloonContentBody]</div></div>',
+            '<div style="font-size:12px;line-height:16px;opacity:.5;padding-top:3px;color:#000;text-decoration:none;">$[properties.balloonContentBody]</div></div>'
         ),
         container: ymaps.templateLayoutFactory.createClass(
-          `<a href="$[properties.balloonContent]" style="border-radius:12px;background-color:#fff;border:1px solid #CCC;display:flex;align-items:center;text-decoration:none;width:auto;min-width:300px;min-height:72px;cursor:pointer;">$[[options.contentLayout]]</a>`,
+          `<a href="$[properties.balloonContent]" style="border-radius:12px;background-color:#fff;border:1px solid #CCC;display:flex;align-items:center;text-decoration:none;width:auto;min-width:300px;min-height:72px;cursor:pointer;">$[[options.contentLayout]]</a>`
         ),
       });
+    }
+  };
+
+  onMapClick = () => {
+    const { activeDepartment } = this.state;
+    if (activeDepartment) {
+      this.setState({ activeDepartment: false });
     }
   };
 
   render() {
     const { activeDepartment } = this.state;
     return (
-      <YMaps>
-        <Map
-          defaultState={mapData}
-          width={"100%"}
-          onLoad={this.createTemplateLayoutFactory}
-          modules={["templateLayoutFactory"]}>
-          {coordinates.map((coordinate) => (
-            <Placemark
-              geometry={coordinate}
-              options={{
-                iconLayout: "default#image",
-                iconImageHref: PlacemarkIcon,
-              }}
-              onClick={() => this.setState({ activeDepartment: true })}
-            />
-          ))}
-          {activeDepartment && <ActiveDepartment />}
-          {/*     
+      <>
+        {activeDepartment && <ActiveDepartment />}
+        <YMaps>
+          <Map
+            defaultState={mapData}
+            width="100%"
+            height="100%"
+            onLoad={this.createTemplateLayoutFactory}
+            modules={["templateLayoutFactory"]}
+            onClick={this.onMapClick}
+          >
+            {coordinates.map((coordinate) => (
+              <Placemark
+                geometry={coordinate}
+                options={{
+                  iconLayout: "default#image",
+                  iconImageHref: PlacemarkIcon,
+                }}
+                onClick={() => this.setState({ activeDepartment: true })}
+              />
+            ))}
+
+            {/*     
                     <Placemark
                         geometry={[55.684758, 37.738521]}
                         properties={{
@@ -85,8 +97,9 @@ class YandexMap extends Component<{}, State> {
                             iconImageOffset: [-3, -42]
                         }}
                     /> */}
-        </Map>
-      </YMaps>
+          </Map>
+        </YMaps>
+      </>
     );
   }
 }
