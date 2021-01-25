@@ -18,7 +18,8 @@ export const Conditions = (props: ConditionProps) => {
                         ))}
 
                         <div className="long-description">
-                            {i.short_description}
+                        <div dangerouslySetInnerHTML={{ __html: i!.description }} />
+
                         </div>
                     </>
                 ))
