@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography } from "antd";
+import Item from "antd/lib/list/Item";
 const { Text } = Typography;
 
 interface SearchResultProps {
@@ -26,7 +27,7 @@ export const SearchResult = (props: SearchResultProps) => {
           ""
         )}
 
-        {!props.navItemClicked ? (
+        {!props.navItemClicked && props.itemsCount > 0? (
           <div className="nav-title">
             <span> По запросу "{props.searchText}"</span>
           </div>
