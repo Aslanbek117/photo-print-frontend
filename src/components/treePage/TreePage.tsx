@@ -27,30 +27,20 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-export const MainPage = (props: any) => {
-  let history = useHistory();
+export const TreePage = (props: any) => {
   let location = useLocation();
 
   const [loading, setLoading] = useState(true);
 
-  let [queryParam, setQueryParam] = useState<string>('');
-
-  let query = useQuery();
-
   const [treeData, setTreeData] = useState<any[]>([]);
 
-  const [form] = Form.useForm();
 
-  const [value, setValue] = useState('');
-  const [options, setOptions] = useState<{ value: string }[]>([]);
 
   const [suggest, setSuggest] = useState<ArticleModel[]>([]);
 
-  const [articleId, setArticleId] = useState<number>();
 
   const [article, setArticle] = useState<ArticleModel>();
 
-  const [articleFound, setArticleFound] = useState<boolean>(false);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -62,11 +52,6 @@ export const MainPage = (props: any) => {
 
   const handleCancel = () => {
     setIsModalVisible(false);
-  };
-
-  const onSearchClick = (searchInput: string) => {
-    searchArticles(searchInput);
-    setSearchText(searchInput);
   };
 
   async function fetch() {
@@ -82,8 +67,6 @@ export const MainPage = (props: any) => {
       location.pathname.lastIndexOf('=') + 1,
       location.pathname.length
     );
-    setQueryParam(query);
-    console.log('query', query);
     setSearchText(query);
     // if (location.pathname='/')
     if (location.pathname != '/' && query != 'empty') {
@@ -101,7 +84,6 @@ export const MainPage = (props: any) => {
       setSuggest([]);
     } else {
       setSuggest(resp.result);
-      setArticleFound(true);
       setLoading(false);
     }
   };
@@ -144,20 +126,7 @@ export const MainPage = (props: any) => {
             style={{ padding: '0 50px', paddingLeft: 160, paddingRight: 160 }}
           >
             <div className="site-layout-content">
-              {location.pathname == '/' ? (
-                <>
-                  <span className="title">
-                    Добро пожаловать в "Базу знаний"
-                  </span>
-                  <SearchTop onClick={title => onSearchClick(title)} />
-                  <div style={{ paddingTop: '50px' }}></div>
-                  <span className="title">Поиск по категориям</span>
-
-                  <div style={{ paddingTop: '20px' }}></div>
-                  <Category />
-                </>
-              ) : (
-                <>
+             
                   <TreeContent
                     article={article}
                     loading={loading}
@@ -165,8 +134,6 @@ export const MainPage = (props: any) => {
                     treeData={treeData}
                     searchText={searchText}
                   />
-                </>
-              )}
             </div>
           </Content>
           {isModalVisible && (
