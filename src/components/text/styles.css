@@ -17,6 +17,12 @@
   margin-bottom: 0px;
 }
 
+.article-breadcumb {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+
 .small {
   font-weight: 500;
   font-size: 12px;

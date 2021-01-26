@@ -1,23 +1,21 @@
-import React, { useState } from 'react';
-import { Search } from '../backend-api/api';
-import { SearchResponseDTO, Article } from '../../models/search/Search';
-import './search.css';
-import { SearchDropdown } from '../search-dropdown/SearchDrodown';
-import Icon from '../icon';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from "react";
+import { Search } from "../backend-api/api";
+import { SearchResponseDTO, Article } from "../../models/search/Search";
+import "./search.css";
+import { SearchDropdown } from "../search-dropdown/SearchDrodown";
+import Icon from "../icon";
+import { useHistory } from "react-router-dom";
 
-
-interface SearchProps {
-}
+interface SearchProps {}
 
 export const SearchTop = (props: SearchProps) => {
   const history = useHistory();
 
-  const [searchValue, setSearchValue] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>("");
   const [suggest, setSuggest] = useState<Article[]>([]);
 
   const onInputChange = async (event: any) => {
-    const response: SearchResponseDTO = await Search('', event.target.value);
+    const response: SearchResponseDTO = await Search("", event.target.value);
     setSuggest(response.result);
   };
 
@@ -26,8 +24,8 @@ export const SearchTop = (props: SearchProps) => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      history.push('/nav/search=' + searchValue);
+    if (e.key === "Enter") {
+      history.push("/nav/search=" + searchValue);
     }
   };
 
@@ -47,7 +45,10 @@ export const SearchTop = (props: SearchProps) => {
       <div
         className="search-input"
         style={{
-          boxShadow: filteredItems().length > 0 ? '0px 4px 20px rgba(0, 0, 0, 0.16)' : 'none',
+          boxShadow:
+            filteredItems().length > 0
+              ? "0px 4px 20px rgba(0, 0, 0, 0.16)"
+              : "none",
         }}
       >
         <i className="search-icon">
@@ -58,7 +59,7 @@ export const SearchTop = (props: SearchProps) => {
           placeholder="Напишите вопрос или проблему"
           value={searchValue}
           onChange={(event) => {
-            if (event.target.value == '') {
+            if (event.target.value == "") {
               setSuggest([]);
             } else {
               onInputChange(event);
@@ -67,11 +68,14 @@ export const SearchTop = (props: SearchProps) => {
           }}
           onKeyDown={(event) => handleKeyDown(event)}
         />
-        <SearchDropdown items={filteredItems()} onClick={(title) => getSearchValue(title)} />
+        <SearchDropdown
+          items={filteredItems()}
+          onClick={(title) => getSearchValue(title)}
+        />
         <button
           className="search-button"
           onClick={() => {
-            history.push('/nav/search=' + searchValue);
+            history.push("/nav/search=" + searchValue);
           }}
         >
           <span className="search-button-text">Поиск</span>

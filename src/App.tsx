@@ -13,7 +13,7 @@ function App() {
         <Route exact path="/" component={MainPage} />
         <Route
           path="/nav/search=:search"
-          component={(props) => <TreePage key={window.location.pathname} />}
+          component={<TreePage key={window.location.pathname} />}
         />
       </Switch>
     </Router>

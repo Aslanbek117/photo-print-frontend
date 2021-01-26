@@ -1,28 +1,8 @@
-import React, { useState } from "react";
-
-import { SearchTop } from "../search/Search";
-import { Category } from "../category/Category";
-
-import { Typography, Breadcrumb, List, Pagination } from "antd";
-import Title from "antd/lib/typography/Title";
-import {
-  SearchModel,
-  SubcategoryArticles,
-  Article as ArticleModel,
-} from "../../models/search/Search";
+import React from "react";
+import { Breadcrumb, List } from "antd";
 import NotFound from "./not_found.png";
 import "./styles.css";
-const listData: any[] = [];
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    // href: 'https://ant.design',
-    title: `Заголовок 1 ${i}`,
-    description:
-      "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-    content:
-      "Разнообразный и богатый опыт укрепление и развитие структуры способствует подготовки и реализации соответст...",
-  });
-}
+
 
 interface ItemProps {
   items: any[];

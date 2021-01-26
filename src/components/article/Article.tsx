@@ -1,28 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import { SearchTop } from '../search/Search';
-import { Category } from '../category/Category';
-
-import { Typography, Breadcrumb, List, Pagination } from 'antd';
-import Title from 'antd/lib/typography/Title';
 import './article.css';
 import { Conditions } from '../conditions/Conditions';
 import { Process } from '../process/Process';
 import { GetArticleInfo } from '../backend-api/api';
 import { Article as ArticleModel } from '../../models/search/Search';
-
-const listData: any[] = [];
-for (let i = 0; i < 23; i++) {
-    listData.push({
-        // href: 'https://ant.design',
-        title: `Заголовок 1 ${i}`,
-        description:
-            'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-        content:
-            'Разнообразный и богатый опыт укрепление и развитие структуры способствует подготовки и реализации соответст...',
-    });
-
-}
+import Text from '../text';
 
 interface ArticleProps {
     article_id: number;
@@ -53,20 +36,13 @@ export const Article = (props: ArticleProps) => {
         <>
             {articleLoadind ? 'loading' : (
                 <>
-                    <div className="title">
-                        <span>
-                            {articleInfo?.title}
-                        </span>
-                        <div className="breadcumb">
-                            {props.path}
-                        </div>
-                    </div>
-
-                    {/* <div className="short-description">
-                        <span>
-                            {articleInfo?.description}
-                        </span>
-                    </div> */}
+                    <Text type="subtitle2">
+                    {articleInfo?.title}
+                    </Text>
+                    
+                    <Text type='article-breadcrumb'>
+                        {props.path}
+                    </Text>
 
                     <div dangerouslySetInnerHTML={{ __html: articleInfo!.description }} />
 

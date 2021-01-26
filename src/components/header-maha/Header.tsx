@@ -3,11 +3,13 @@ import Icon from "../icon";
 import Text from "../text";
 import { Form, Button } from "antd";
 
-import { DepartmentModal } from '../modals/DepartmentModal';
-
+import { DepartmentModal } from "../modals/DepartmentModal";
+import "./header.css";
 
 interface HeaderProps {
-//   onButtonClick: (isVisible: boolean) => void;
+    // isSearchVisible: boolean -- я буду использовать этот хидер для поиска в шапке страницы либо напишу свой кастомный
+    // на данный момент не пытайся скрыть поиск через свойства
+    // сверстай поиск и закомменть его - я позже решу что с ним делать
 }
 
 export const Header = (props: HeaderProps) => {
@@ -30,6 +32,21 @@ export const Header = (props: HeaderProps) => {
               <Icon icon="logo" width={108} height={38} />
             </a>
           </div>
+
+          {/* 
+
+
+            другие хидеры верстать не надо,
+            если надо будет я ими сам займусь
+            у меня на них большие планы))
+
+            приглядись к этой кнопке
+            я закомментил некоторые свойства
+            вроде исправилось
+            но все же посмотри
+            (мб конфликт стилей?)
+
+          */}
           <Button
             type="primary"
             shape="round"
@@ -38,9 +55,9 @@ export const Header = (props: HeaderProps) => {
               float: "right",
               backgroundColor: "rgb(237,237,239)",
               color: "black",
-              fontFamily: "Roboto",
-              fontSize: "14px;",
-              lineHeight: "18px;",
+              //   fontFamily: "Roboto",
+              //   fontSize: "14px;",
+              //   lineHeight: "18px;",
               border: "none",
             }}
             onClick={() => setIsModalVisible(true)}
@@ -51,13 +68,13 @@ export const Header = (props: HeaderProps) => {
       </div>
 
       {isModalVisible && (
-            <DepartmentModal
-              title={'Филиалы'}
-              isVisible={isModalVisible}
-              onOk={handleOk}
-              onCancel={handleCancel}
-            />
-          )}
+        <DepartmentModal
+          title={"Филиалы"}
+          isVisible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        />
+      )}
     </>
   );
 };

@@ -21,14 +21,6 @@
   height: 100vh;
 }
 
-.header {
-  background-color: #ffffff;
-  width: 100%;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .main-container {
   width: 80%;
