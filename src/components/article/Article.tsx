@@ -37,7 +37,7 @@ export const Article = (props: ArticleProps) => {
     const [articleLoadind, setArticleLoading] = useState(true);
 
     const [articleInfo, setArticleInfo] = useState<ArticleModel>();
-    
+
 
     const getArticleInfo = async () => {
         let response = await GetArticleInfo("", props.article_id);
@@ -51,47 +51,50 @@ export const Article = (props: ArticleProps) => {
 
     return (
         <>
-        {articleLoadind ? 'loading' : (
-            <>
-            <div className="title">
-                <span>
-                    {articleInfo?.title}
-                </span>
-                <div className="breadcumb">
-                    {props.path}
-                </div>
-            </div>
+            {articleLoadind ? 'loading' : (
+                <>
+                    <div className="title">
+                        <span>
+                            {articleInfo?.title}
+                        </span>
+                        <div className="breadcumb">
+                            {props.path}
+                        </div>
+                    </div>
 
-            <div className="short-description">
-                <span>
-                {articleInfo?.description}
-                </span>
-            </div>
+                    {/* <div className="short-description">
+                        <span>
+                            {articleInfo?.description}
+                        </span>
+                    </div> */}
 
-            <div className="button-group">
-                <button className={conditionClicked ? "button-clicked" : "button"} onClick={() => {
-                    setProcessClicked(false);
-                    setConditionClicked(true);
-                }}>
-                    Условия
+                    <div dangerouslySetInnerHTML={{ __html: articleInfo!.description }} />
+
+
+                    <div className="button-group">
+                        <button className={conditionClicked ? "button-clicked" : "button"} onClick={() => {
+                            setProcessClicked(false);
+                            setConditionClicked(true);
+                        }}>
+                            Условия
                 </button>
 
-                <button className={processClicked ? "button-clicked" : "button"} style={{marginLeft: 20}} onClick={() => {
-                     setConditionClicked(false);
-                     setProcessClicked(true);
-                }}>
-                    Процессы
+                        <button className={processClicked ? "button-clicked" : "button"} style={{ marginLeft: 20 }} onClick={() => {
+                            setConditionClicked(false);
+                            setProcessClicked(true);
+                        }}>
+                            Процессы
                 </button>
-            </div>
+                    </div>
 
-            {conditionClicked ? (
-                <Conditions data={articleInfo?.conditions}/>
-            ) : (<Process  data={articleInfo?.processes} />)}
-            </>
-            
-        )}
-        
-            
+                    {conditionClicked ? (
+                        <Conditions data={articleInfo?.conditions} />
+                    ) : (<Process data={articleInfo?.processes} />)}
+                </>
+
+            )}
+
+
 
         </>
 

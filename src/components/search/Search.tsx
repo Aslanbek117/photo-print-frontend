@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { AutoComplete, Form, Select } from 'antd';
 import { UserOutlined, LockOutlined, PropertySafetyOutlined } from '@ant-design/icons';
 import { Search } from '../backend-api/api';
-import { SearchResponseDTO, SearchModel } from '../../models/search/Search';
+import { SearchResponseDTO, SearchModel, Article } from '../../models/search/Search';
 import HeaderTemp from '../header-temp/HeaderTemp';
 import './search.css';
 import { SearchDropdown } from '../search-dropdown/SearchDrodown';
@@ -47,7 +47,7 @@ export const SearchTop = (props: SearchProps) => {
 
     const [searchText, setSearchText] = useState<string>('');
     const [searchValue, setSearchValue] = useState<string>('');
-    const [suggest, setSuggest] = useState<SearchModel[]>([]);
+    const [suggest, setSuggest] = useState<Article[]>([]);
 
     const onInputChange = async (event: any) => {
         const response: SearchResponseDTO = await Search("", event.target.value);

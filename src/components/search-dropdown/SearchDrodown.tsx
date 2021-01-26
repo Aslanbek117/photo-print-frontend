@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './search-dropdown.css';
 import ArrowIcon from './arrow-icon.png'
-import { SearchModel } from '../../models/search/Search';
+import { SearchModel, Article } from '../../models/search/Search';
 import { getByDisplayValue } from '@testing-library/react';
 
 
 interface SearchDropdownProps {
-    items: SearchModel[];
+    items: Article[];
     onClick: (title: string) => void;
 }
 

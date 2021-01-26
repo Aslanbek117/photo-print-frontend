@@ -17,7 +17,6 @@ export const StepsComponent = (props: StepsProps) => {
 
     return (
         <>
-        {props.data === null ? 'null' : 'not null'}
             <List
                 itemLayout="horizontal"
                 dataSource={props.data}
@@ -51,7 +50,7 @@ export const StepsComponent = (props: StepsProps) => {
                                                         <Image
                                                             width={36}
                                                             className="img-style"
-                                                            src={"http://halyk-wiki.cfp.corp.p-s.kz/file-server/" + f.full_directory}
+                                                            src={"http://halyk-wiki.cfp.corp.p-s.kz/file-server/" + f.name}
                                                         />
                                                         <span className="img-title"> {f.name} </span>
                                                     </div>

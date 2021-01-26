@@ -51,7 +51,7 @@ export const SearchHeader = (props: SearchProps) => {
     const onInputChange = async (event: any) => {
         const response: SearchResponseDTO = await Search("", event.target.value);
         console.log("response", response);
-        setSuggest(response.result);
+        // setSuggest(response.result);
     }
 
 
