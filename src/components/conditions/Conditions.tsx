@@ -14,7 +14,7 @@ export const Conditions = (props: ConditionProps) => {
                 props.data!.map(i => (
                     <>
                         {i.files.map(j => (
-                            <img src={"http://halyk-wiki.cfp.corp.p-s.kz/file-server/" + j.full_directory} style={{ maxWidth: '100%' }} />
+                            <img src={"http://halyk-wiki.cfp.corp.p-s.kz/file-server/" + j.name} style={{ maxWidth: '100%' }} />
                         ))}
 
                         <div className="long-description">
