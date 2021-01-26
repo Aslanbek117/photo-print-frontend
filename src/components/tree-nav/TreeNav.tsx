@@ -1,256 +1,12 @@
 import React, {
-  Component,
   FunctionComponent,
   useState,
   useEffect,
 } from 'react';
-import { Tree, Popover, Tooltip, Layout } from 'antd';
-import { DataNode } from 'antd/lib/tree';
+import { Tree } from 'antd';
 import { GetAllDirs, GetAllDirs1 } from '../backend-api/api';
 import './tree-nav.css';
 
-// const treeDate = [
-//     {
-//         "title": "test-folder",
-//         "path": "/Users/aslan/test-folder",
-//         "key": "/Users/aslan/test-folder",
-//         "info": {
-//             "name": "test-folder",
-//             "original_name": "test-folder",
-//             "dir": "test-folder",
-//             "path": "test-folder/test-folder",
-//             "extension": "",
-//             "size": 160,
-//             "mod_time": "2021-01-16T22:03:39.856577067+06:00",
-//             "is_dir": true,
-//             "mime": "inode/directory"
-//         },
-//         "children": [
-//             {
-//                 "title": "three",
-//                 "path": "/Users/aslan/test-folder/three",
-//                 "key": "/Users/aslan/test-folder/three",
-//                 "info": {
-//                     "name": "three",
-//                     "original_name": "three",
-//                     "dir": "three",
-//                     "path": "three/three",
-//                     "extension": "",
-//                     "size": 96,
-//                     "mod_time": "2021-01-16T22:04:23.583764211+06:00",
-//                     "is_dir": true,
-//                     "mime": "inode/directory"
-//                 },
-//                 "children": [
-//                     {
-//                         "title": "three-three",
-//                         "path": "/Users/aslan/test-folder/three/three-three",
-//                         "key": "/Users/aslan/test-folder/three/three-three",
-//                         "info": {
-//                             "name": "three-three",
-//                             "original_name": "three-three",
-//                             "dir": "three-three",
-//                             "path": "three-three/three-three",
-//                             "extension": "",
-//                             "size": 96,
-//                             "mod_time": "2021-01-16T22:04:32.803636293+06:00",
-//                             "is_dir": true,
-//                             "mime": "inode/directory"
-//                         },
-//                         "children": [
-//                             {
-//                                 "title": "three-three-three",
-//                                 "path": "/Users/aslan/test-folder/three/three-three/three-three-three",
-//                                 "key": "/Users/aslan/test-folder/three/three-three/three-three-three",
-//                                 "info": {
-//                                     "name": "three-three-three",
-//                                     "original_name": "three-three-three",
-//                                     "dir": "three-three-three",
-//                                     "path": "three-three-three/three-three-three",
-//                                     "extension": "",
-//                                     "size": 64,
-//                                     "mod_time": "2021-01-16T22:04:32.803624907+06:00",
-//                                     "is_dir": true,
-//                                     "mime": "inode/directory"
-//                                 },
-//                                 "children": []
-//                             }
-//                         ]
-//                     }
-//                 ]
-//             },
-//             {
-//                 "title": "two",
-//                 "path": "/Users/aslan/test-folder/two",
-//                 "key": "/Users/aslan/test-folder/two",
-//                 "info": {
-//                     "name": "two",
-//                     "original_name": "two",
-//                     "dir": "two",
-//                     "path": "two/two",
-//                     "extension": "",
-//                     "size": 96,
-//                     "mod_time": "2021-01-16T22:04:07.9807106+06:00",
-//                     "is_dir": true,
-//                     "mime": "inode/directory"
-//                 },
-//                 "children": [
-//                     {
-//                         "title": "two-two",
-//                         "path": "/Users/aslan/test-folder/two/two-two",
-//                         "key": "/Users/aslan/test-folder/two/two-two",
-//                         "info": {
-//                             "name": "two-two",
-//                             "original_name": "two-two",
-//                             "dir": "two-two",
-//                             "path": "two-two/two-two",
-//                             "extension": "",
-//                             "size": 96,
-//                             "mod_time": "2021-01-16T22:04:12.408913596+06:00",
-//                             "is_dir": true,
-//                             "mime": "inode/directory"
-//                         },
-//                         "children": [
-//                             {
-//                                 "title": "two-two-two",
-//                                 "path": "/Users/aslan/test-folder/two/two-two/two-two-two",
-//                                 "key": "/Users/aslan/test-folder/two/two-two/two-two-two",
-//                                 "info": {
-//                                     "name": "two-two-two",
-//                                     "original_name": "two-two-two",
-//                                     "dir": "two-two-two",
-//                                     "path": "two-two-two/two-two-two",
-//                                     "extension": "",
-//                                     "size": 64,
-//                                     "mod_time": "2021-01-16T22:04:12.408901647+06:00",
-//                                     "is_dir": true,
-//                                     "mime": "inode/directory"
-//                                 },
-//                                 "children": []
-//                             }
-//                         ]
-//                     }
-//                 ]
-//             },
-//             {
-//                 "title": "one",
-//                 "path": "/Users/aslan/test-folder/one",
-//                 "key": "/Users/aslan/test-folder/one",
-//                 "info": {
-//                     "name": "one",
-//                     "original_name": "one",
-//                     "dir": "one",
-//                     "path": "one/one",
-//                     "extension": "",
-//                     "size": 96,
-//                     "mod_time": "2021-01-16T22:03:49.025996655+06:00",
-//                     "is_dir": true,
-//                     "mime": "inode/directory"
-//                 },
-//                 "children": [
-//                     {
-//                         "title": "one-one",
-//                         "path": "/Users/aslan/test-folder/one/one-one",
-//                         "key": "/Users/aslan/test-folder/one/one-one",
-//                         "info": {
-//                             "name": "one-one",
-//                             "original_name": "one-one",
-//                             "dir": "one-one",
-//                             "path": "one-one/one-one",
-//                             "extension": "",
-//                             "size": 96,
-//                             "mod_time": "2021-01-16T22:03:59.158950745+06:00",
-//                             "is_dir": true,
-//                             "mime": "inode/directory"
-//                         },
-//                         "children": [
-//                             {
-//                                 "title": "one-one-one",
-//                                 "path": "/Users/aslan/test-folder/one/one-one/one-one-one",
-//                                 "key": "/Users/aslan/test-folder/one/one-one/one-one-one",
-//                                 "info": {
-//                                     "name": "one-one-one",
-//                                     "original_name": "one-one-one",
-//                                     "dir": "one-one-one",
-//                                     "path": "one-one-one/one-one-one",
-//                                     "extension": "",
-//                                     "size": 64,
-//                                     "mod_time": "2021-01-16T22:03:59.158940599+06:00",
-//                                     "is_dir": true,
-//                                     "mime": "inode/directory"
-//                                 },
-//                                 "children": []
-//                             }
-//                         ]
-//                     }
-//                 ]
-//             }
-//         ]
-//     }
-// ]
-
-const treeDate = [
-  {
-    id: 1,
-    title: 'какая то сущность',
-    key: 'dddd',
-    short_description: 'Краткое описание',
-    description: 'Обычное описание',
-    start_date: '2021-01-18T14:30:02.986056Z',
-    end_date: null,
-    children: [
-      {
-        id: 1,
-        title: 'string',
-        key: '1',
-        short_description: 'string',
-        description: 'Кредиты',
-        start_date: '2021-01-18T15:05:05.880294Z',
-        end_date: null,
-        entity_history_id: 1,
-        children: [
-          {
-            id: 1,
-            title: 'Кредиты подкатегория',
-            short_description: 'string',
-            key: '1',
-            description: 'Кредиты подкатегория',
-            start_date: '2021-01-18T15:10:02.222202Z',
-            end_date: null,
-            category_history_id: 1,
-            history_id: 1,
-          },
-        ],
-        history_id: 1,
-      },
-      {
-        id: 2,
-        title: 'string',
-        key: '2',
-        short_description: 'string',
-        description: 'Депозиты',
-        start_date: '2021-01-18T15:08:29.465674Z',
-        end_date: null,
-        entity_history_id: 1,
-        children: [],
-        history_id: 2,
-      },
-      {
-        id: 3,
-        title: 'Депозиты',
-        key: '3',
-        short_description: 'string',
-        description: 'Депозиты',
-        start_date: '2021-01-18T15:08:44.049336Z',
-        end_date: null,
-        entity_history_id: 1,
-        children: [],
-        history_id: 3,
-      },
-    ],
-    history_id: 1,
-  },
-];
 
 interface TreeViewProps {
   onSelect: (selectedKeys: any, info: any) => void;
@@ -278,10 +34,10 @@ const renderTreeNodes = (data: any) =>
             {renderTreeNodes(item.children)}
           </Tree.TreeNode>
         ) : (
-          'xui'
+          ''
         )
       )
-    : 'pizda';
+    : '';
 
 export const TreeView: FunctionComponent<TreeViewProps> = (
   props: TreeViewProps
@@ -297,7 +53,6 @@ export const TreeView: FunctionComponent<TreeViewProps> = (
         return;
       }
       let response: any;
-      console.log('ZEBAL');
       response = await GetAllDirs(props.token, '' + key.key);
 
       let sss = treeData;
@@ -324,14 +79,12 @@ export const TreeView: FunctionComponent<TreeViewProps> = (
 
   async function fetch() {
     const response = await GetAllDirs1(props.token, '../');
-    console.log('ZAEBAL', response.result);
     setTreeData(response.result);
     setLoading(false);
     console.log(response.result);
   }
   useEffect(() => {
     fetch();
-    console.log('TREE', treeData);
   }, []);
 
   return (

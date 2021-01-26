@@ -1,32 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import "antd/dist/antd.css";
+import 'antd/dist/antd.css';
 import 'ant-design-pro/dist/ant-design-pro.css'; // Import whole style
-import {
-  BrowserRouter as Router,
-  Link,
-  Switch,
-  Route
-} from 'react-router-dom';
-import Header from './components/header/Header';
-// import './styles/index.scss';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { MainPage } from './components/mainPage/MainPage';
-import HeaderTemp from './components/header-temp/HeaderTemp';
-import { TreeView } from './components/tree-nav/TreeNav';
-import { ArticlePage } from './components/articlePage.tsx/ArticlePage';
+import { TreePage } from './components/treePage/TreePage';
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={MainPage} />
-        <Route path="/nav/search=:search" component={(props) => <MainPage {...props} key={window.location.pathname}/>}/>
-
-        {/* <Route exact path="/nav/:search/:article" component={ArticlePage} /> */}
+        <Route
+          path="/nav/search=:search"
+          component={(props) => <TreePage key={window.location.pathname} />}
+        />
       </Switch>
     </Router>
-
   );
 }
 

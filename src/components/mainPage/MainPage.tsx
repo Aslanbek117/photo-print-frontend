@@ -1,28 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
-import { Form, Input, Button, AutoComplete, Space } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Search, GetAllDirs, GetArticleInfo } from '../backend-api/api';
-import { SearchResponseDTO, SearchModel } from '../../models/search/Search';
+import { Form, Button } from 'antd';
+import { Search, GetAllDirs } from '../backend-api/api';
+import { SearchResponseDTO } from '../../models/search/Search';
 import './main.css';
-import HeaderTemp from '../header-temp/HeaderTemp';
 import { SearchTop } from '../search/Search';
 import { Category } from '../category/Category';
-import HalykLogo from './halyk-logo.png';
-import { Layout, Menu, Breadcrumb, Typography } from 'antd';
-import Title from 'antd/lib/typography/Title';
+import { Layout, Typography } from 'antd';
 import { useHistory, useLocation } from 'react-router-dom';
-import { TreeView } from '../tree-nav/TreeNav';
 import { TreeContent } from '../tree-content/TreeContent';
-import { Modal } from 'antd';
-import YandexMap from '../departments/Department';
 import { DepartmentModal } from '../modals/DepartmentModal';
-import { Article } from '../article/Article';
 import { Article as ArticleModel } from '../../models/search/Search';
-const queryString = require('query-string');
+import Icon from '../icon';
+import Text from '../text';
 
-const { Header, Content, Footer } = Layout;
-const { Text, Link } = Typography;
+const { Header, Content } = Layout;
+// const { Text } = Typography;
 
 const mockVal = (str: string[], repeat: number = 1) => {
   return {
@@ -108,78 +101,67 @@ export const MainPage = (props: any) => {
       setSuggest([]);
     } else {
       setSuggest(resp.result);
-      console.log('founded articles', resp.result);
-      // setArticleId(resp.result[0].article_id);
-      // let resp2 = await GetArticleInfo("", resp.result[0].article_id)
-      // setArticle(resp2.result);
       setArticleFound(true);
-      console.log('ARTICLE FOUND');
       setLoading(false);
     }
   };
 
   return (
-    <>
+    <Layout className="layout">
       {!loading ? (
-        <Layout
-          className="layout"
-          style={{ backgroundColor: 'rgb(243,246,248)' }}
-        >
-          <Header
-            style={{ background: '#fff', paddingLeft: 160, paddingRight: 160 }}
-          >
-            <div className="logo">
-              <a href="/">
-                <img alt="halyk-wiki" src={HalykLogo} />
-              </a>
+        <>
+          <div className="header">
+            <div className="main-container">
+              <div className="logo">
+                <a href="/">
+                  <Icon icon="logo" width={108} height={38} />
+                </a>
+              </div>
+              <Button
+                type="primary"
+                shape="round"
+                size={'large'}
+                style={{
+                  float: 'right',
+                  backgroundColor: 'rgb(237,237,239)',
+                  color: 'black',
+                  fontFamily: 'Roboto',
+                  fontSize: '14px;',
+                  lineHeight: '18px;',
+                  border: 'none',
+                }}
+                onClick={() => setIsModalVisible(true)}
+              >
+                <Text type="subtitle2">Филиалы</Text>
+              </Button>
             </div>
-            <Button
-              type="primary"
-              shape="round"
-              size={'large'}
-              style={{
-                float: 'right',
-                marginTop: '13px',
-                backgroundColor: 'rgb(237,237,239)',
-                color: 'black',
-                fontFamily: 'Roboto',
-                fontSize: '14px;',
-                lineHeight: '18px;',
-                border: 'none',
-              }}
-              onClick={() => setIsModalVisible(true)}
-            >
-              <Text strong>Филиалы</Text>
-            </Button>
-          </Header>
-          <Content
-            style={{ padding: '0 50px', paddingLeft: 160, paddingRight: 160 }}
-          >
-            <div className="site-layout-content">
-              {location.pathname == '/' ? (
-                <>
-                  <span className="title">
-                    Добро пожаловать в "Базу знаний"
-                  </span>
-                  <SearchTop onClick={title => onSearchClick(title)} />
-                  <div style={{ paddingTop: '50px' }}></div>
-                  <span className="title">Поиск по категориям</span>
+          </div>
 
-                  <div style={{ paddingTop: '20px' }}></div>
-                  <Category />
-                </>
-              ) : (
-                <>
-                  <TreeContent
-                    articleFound={articleFound}
-                    article={article}
-                    loading={loading}
-                    items={suggest}
-                    treeData={treeData}
-                    searchText={searchText}
-                  />
-                </>
-              )}
+          <Content style={{ display: 'flex', justifyContent: 'center' }}>
+            <div className="main-container">
+              <div className="site-layout-content">
+                {location.pathname === '/' ? (
+                  <>
+                    <Text type="title">Добро пожаловать в "Базу знаний"</Text>
+                    <SearchTop onClick={(title) => onSearchClick(title)} />
+                    <div style={{ paddingTop: '50px' }}></div>
+                    <Text type="subtitle1">Поиск по категориям</Text>
+
+                    <div style={{ paddingTop: '20px' }}></div>
+                    <Category />
+                  </>
+                ) : (
+                  <>
+                    <TreeContent
+                      article={article}
+                      loading={loading}
+                      items={suggest}
+                      treeData={treeData}
+                      searchText={searchText}
+                    />
+                  </>
+                )}
+              </div>
             </div>
           </Content>
           {isModalVisible && (
@@ -190,10 +172,10 @@ export const MainPage = (props: any) => {
               onCancel={handleCancel}
             />
           )}
-        </Layout>
+        </>
       ) : (
         'loading'
       )}
-    </>
+    </Layout>
   );
 };
