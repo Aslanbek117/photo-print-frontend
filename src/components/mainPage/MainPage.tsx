@@ -147,7 +147,6 @@ export const MainPage = (props: any) => {
                     <div style={{ paddingTop: '50px' }}></div>
                     <Text type="subtitle1">Поиск по категориям</Text>
 
-                    <div style={{ paddingTop: '20px' }}></div>
                     <Category />
                   </>
                 ) : (
