@@ -1,58 +1,27 @@
-import React, { useState, useEffect } from 'react';
-
-import { AutoComplete, Form, Select } from 'antd';
-import { UserOutlined, LockOutlined, PropertySafetyOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
 import { Search } from '../backend-api/api';
-import { SearchResponseDTO, SearchModel, Article } from '../../models/search/Search';
-import HeaderTemp from '../header-temp/HeaderTemp';
+import { SearchResponseDTO, Article } from '../../models/search/Search';
 import './search.css';
 import { SearchDropdown } from '../search-dropdown/SearchDrodown';
 import Icon from '../icon';
-import SearchIcon from './search-icon.png';
 import { useHistory } from 'react-router-dom';
 
-const mockVal = (str: string[], repeat: number = 1) => {
-  return {
-    value: str[0] || '',
-  };
-};
-
-const items: any[] = [
-  {
-    id: 1,
-    text: 'first',
-  },
-  {
-    id: 2,
-    text: 'second',
-  },
-  {
-    id: 3,
-    text: 'third',
-  },
-];
 
 interface SearchProps {
-  onClick: (searchInput: string) => void;
 }
 
 export const SearchTop = (props: SearchProps) => {
   const history = useHistory();
 
-  const [form] = Form.useForm();
-
-  const [searchText, setSearchText] = useState<string>('');
   const [searchValue, setSearchValue] = useState<string>('');
   const [suggest, setSuggest] = useState<Article[]>([]);
 
   const onInputChange = async (event: any) => {
     const response: SearchResponseDTO = await Search('', event.target.value);
-    console.log('response', response);
     setSuggest(response.result);
   };
 
   const getSearchValue = (title: string) => {
-    console.log('FINALLY SEARCH VALUE', title);
     setSearchValue(title);
   };
 
@@ -63,15 +32,6 @@ export const SearchTop = (props: SearchProps) => {
   };
 
   const filteredItems = () => {
-    // const response = await Search("", searchText);
-    // console.log("response", response);
-
-    // if (searchValue.length > 0) {
-    //     return items;
-    // } else {
-    //     return [];
-    // }
-
     if (suggest !== null) {
       if (suggest?.length > 0) {
         return suggest;
@@ -79,7 +39,6 @@ export const SearchTop = (props: SearchProps) => {
         return [];
       }
     }
-
     return [];
   };
 
@@ -112,7 +71,6 @@ export const SearchTop = (props: SearchProps) => {
         <button
           className="search-button"
           onClick={() => {
-            props.onClick(searchValue);
             history.push('/nav/search=' + searchValue);
           }}
         >

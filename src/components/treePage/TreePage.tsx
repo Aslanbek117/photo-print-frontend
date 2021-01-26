@@ -1,31 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { Form,  Button } from 'antd';
-import { Search, GetAllDirs } from '../backend-api/api';
-import { SearchResponseDTO } from '../../models/search/Search';
-import './main.css';
-import { SearchTop } from '../search/Search';
-import { Category } from '../category/Category';
-import HalykLogo from './halyk-logo.png';
-import { Layout, Menu, Breadcrumb, Typography } from 'antd';
-import { useHistory, useLocation } from 'react-router-dom';
-import { TreeContent } from '../tree-content/TreeContent';
-import { DepartmentModal } from '../modals/DepartmentModal';
-import { Article as ArticleModel } from '../../models/search/Search';
-const queryString = require('query-string');
+import { Button } from "antd";
+import { Search, GetAllDirs } from "../backend-api/api";
+import { SearchResponseDTO } from "../../models/search/Search";
+import HalykLogo from "./halyk-logo.png";
+import { Layout, Typography } from "antd";
+import { useLocation } from "react-router-dom";
+import { TreeContent } from "../tree-content/TreeContent";
+import { DepartmentModal } from "../modals/DepartmentModal";
+import { Article as ArticleModel } from "../../models/search/Search";
+import { Header } from "../header-maha/Header";
+import "./main.css";
 
-const { Header, Content, Footer } = Layout;
-const { Text, Link } = Typography;
-
-const mockVal = (str: string[], repeat: number = 1) => {
-  return {
-    value: str[0] || '',
-  };
-};
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+const { Content } = Layout;
+const { Text } = Typography;
 
 export const TreePage = (props: any) => {
   let location = useLocation();
@@ -34,17 +22,13 @@ export const TreePage = (props: any) => {
 
   const [treeData, setTreeData] = useState<any[]>([]);
 
-
-
   const [suggest, setSuggest] = useState<ArticleModel[]>([]);
-
 
   const [article, setArticle] = useState<ArticleModel>();
 
-
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -55,22 +39,20 @@ export const TreePage = (props: any) => {
   };
 
   async function fetch() {
-    const response = await GetAllDirs(props.token, '../');
+    const response = await GetAllDirs(props.token, "../");
     setTreeData(response.result);
-    console.log('FETCH FEtch ');
     setLoading(false);
   }
 
   useEffect(() => {
     fetch();
     let query = location.pathname.slice(
-      location.pathname.lastIndexOf('=') + 1,
+      location.pathname.lastIndexOf("=") + 1,
       location.pathname.length
     );
     setSearchText(query);
     // if (location.pathname='/')
-    if (location.pathname != '/' && query != 'empty') {
-      console.log('search');
+    if (location.pathname != "/" && query != "empty") {
       searchArticles(query);
     } else {
       setLoading(false);
@@ -78,7 +60,7 @@ export const TreePage = (props: any) => {
   }, []);
 
   const searchArticles = async (searchValue: string) => {
-    const resp: SearchResponseDTO = await Search('', searchValue);
+    const resp: SearchResponseDTO = await Search("", searchValue);
 
     if (resp.result === null) {
       setSuggest([]);
@@ -93,52 +75,27 @@ export const TreePage = (props: any) => {
       {!loading ? (
         <Layout
           className="layout"
-          style={{ backgroundColor: 'rgb(243,246,248)' }}
+          style={{ backgroundColor: "rgb(243,246,248)" }}
         >
-          <Header
-            style={{ background: '#fff', paddingLeft: 160, paddingRight: 160 }}
-          >
-            <div className="logo">
-              <a href="/">
-                <img alt="halyk-wiki" src={HalykLogo} />
-              </a>
-            </div>
-            <Button
-              type="primary"
-              shape="round"
-              size={'large'}
-              style={{
-                float: 'right',
-                marginTop: '13px',
-                backgroundColor: 'rgb(237,237,239)',
-                color: 'black',
-                fontFamily: 'Roboto',
-                fontSize: '14px;',
-                lineHeight: '18px;',
-                border: 'none',
-              }}
-              onClick={() => setIsModalVisible(true)}
-            >
-              <Text strong>Филиалы</Text>
-            </Button>
-          </Header>
+
+         <Header />
+          
           <Content
-            style={{ padding: '0 50px', paddingLeft: 160, paddingRight: 160 }}
+            style={{ padding: "0 50px" }}
           >
             <div className="site-layout-content">
-             
-                  <TreeContent
-                    article={article}
-                    loading={loading}
-                    items={suggest}
-                    treeData={treeData}
-                    searchText={searchText}
-                  />
+              <TreeContent
+                article={article}
+                loading={loading}
+                items={suggest}
+                treeData={treeData}
+                searchText={searchText}
+              />
             </div>
           </Content>
           {isModalVisible && (
             <DepartmentModal
-              title={'Филиалы'}
+              title={"Филиалы"}
               isVisible={isModalVisible}
               onOk={handleOk}
               onCancel={handleCancel}
@@ -146,7 +103,7 @@ export const TreePage = (props: any) => {
           )}
         </Layout>
       ) : (
-        'loading'
+        "loading"
       )}
     </>
   );
