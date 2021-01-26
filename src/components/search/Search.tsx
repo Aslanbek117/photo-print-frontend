@@ -73,7 +73,7 @@ export const SearchTop = (props: SearchProps) => {
     // }
 
     if (suggest !== null) {
-      if (suggest.length > 0) {
+      if (suggest?.length > 0) {
         return suggest;
       } else {
         return [];
@@ -92,7 +92,7 @@ export const SearchTop = (props: SearchProps) => {
         }}
       >
         <i className="search-icon">
-          <Icon icon="grey-search-19" />
+          <Icon icon="grey-search-19" width={19} height={19} />
         </i>
         <input
           className="search-input-field"
