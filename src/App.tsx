@@ -1,13 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import "antd/dist/antd.css";
+import 'antd/dist/antd.css';
 import 'ant-design-pro/dist/ant-design-pro.css'; // Import whole style
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { MainPage } from './components/mainPage/MainPage';
 import { TreePage } from './components/treePage/TreePage';
 
@@ -16,11 +11,12 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={MainPage} />
-        <Route path="/nav/search=:search" component={(props) => <TreePage key={window.location.pathname}/>}/>
-
+        <Route
+          path="/nav/search=:search"
+          component={(props) => <TreePage key={window.location.pathname} />}
+        />
       </Switch>
     </Router>
-
   );
 }
 

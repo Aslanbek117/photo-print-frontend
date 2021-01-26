@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
-import { Form,  Button } from 'antd';
+import { Form, Button } from 'antd';
 import { Search, GetAllDirs } from '../backend-api/api';
 import { SearchResponseDTO } from '../../models/search/Search';
 import './main.css';
 import { SearchTop } from '../search/Search';
 import { Category } from '../category/Category';
-import HalykLogo from './halyk-logo.png';
-import { Layout, Menu, Breadcrumb, Typography } from 'antd';
+import { Layout, Typography } from 'antd';
 import { useHistory, useLocation } from 'react-router-dom';
 import { TreeContent } from '../tree-content/TreeContent';
 import { DepartmentModal } from '../modals/DepartmentModal';
 import { Article as ArticleModel } from '../../models/search/Search';
-const queryString = require('query-string');
+import Icon from '../icon';
 
-const { Header, Content, Footer } = Layout;
-const { Text, Link } = Typography;
+const { Header, Content } = Layout;
+const { Text } = Typography;
 
 const mockVal = (str: string[], repeat: number = 1) => {
   return {
@@ -109,16 +108,11 @@ export const MainPage = (props: any) => {
   return (
     <>
       {!loading ? (
-        <Layout
-          className="layout"
-          style={{ backgroundColor: 'rgb(243,246,248)' }}
-        >
-          <Header
-            style={{ background: '#fff', paddingLeft: 160, paddingRight: 160 }}
-          >
+        <Layout className="layout" style={{ backgroundColor: 'rgb(243,246,248)' }}>
+          <Header style={{ background: '#fff', paddingLeft: 160, paddingRight: 160 }}>
             <div className="logo">
               <a href="/">
-                <img alt="halyk-wiki" src={HalykLogo} />
+                <Icon icon="logo" width={108} height={38} />
               </a>
             </div>
             <Button
@@ -140,16 +134,12 @@ export const MainPage = (props: any) => {
               <Text strong>Филиалы</Text>
             </Button>
           </Header>
-          <Content
-            style={{ padding: '0 50px', paddingLeft: 160, paddingRight: 160 }}
-          >
+          <Content style={{ padding: '0 50px', paddingLeft: 160, paddingRight: 160 }}>
             <div className="site-layout-content">
-              {location.pathname == '/' ? (
+              {location.pathname === '/' ? (
                 <>
-                  <span className="title">
-                    Добро пожаловать в "Базу знаний"
-                  </span>
-                  <SearchTop onClick={title => onSearchClick(title)} />
+                  <span className="title">Добро пожаловать в "Базу знаний"</span>
+                  <SearchTop onClick={(title) => onSearchClick(title)} />
                   <div style={{ paddingTop: '50px' }}></div>
                   <span className="title">Поиск по категориям</span>
 
