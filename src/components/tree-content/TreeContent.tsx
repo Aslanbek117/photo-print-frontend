@@ -134,7 +134,7 @@ export const TreeContent = (props: TreeContentProps) => {
       <Divider type="vertical" style={{ height: '100%', margin: '0 0px' }} />
       <Content
         style={{
-          padding: '0 24px',
+          padding: '24px',
           minHeight: 700,
           backgroundColor: 'white',
           borderTopRightRadius: '24px',

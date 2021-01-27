@@ -1,0 +1,9 @@
+.arcticles-length-container {
+  background: rgba(143, 146, 161, 0.05);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding: 3px 10px;
+  margin-top: 10px;
+}
