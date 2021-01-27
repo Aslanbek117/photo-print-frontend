@@ -2,6 +2,7 @@ import React from 'react';
 import { Breadcrumb, List } from 'antd';
 import './styles.css';
 import Icon from '../icon';
+import Text from '../text';
 
 interface ItemProps {
   items: any[];
@@ -29,7 +30,7 @@ export const ItemList = (props: ItemProps) => {
         'loading'
       ) : (
         <>
-          {props.items?.length > 0 ? (
+          {props.items?.length > 0 && (
             <List
               itemLayout="vertical"
               size="small"
@@ -46,8 +47,9 @@ export const ItemList = (props: ItemProps) => {
                 <List.Item key={item.title} style={{ paddingLeft: '0' }}>
                   <List.Item.Meta
                     title={
-                      <span
-                        style={{ color: 'rgb(0,128,96)' }}
+                      <Text
+                        type="subtitle2"
+                        color="#008060"
                         onClick={() => {
                           if (item.id === undefined) {
                             props.onClick(item.article_id);
@@ -57,7 +59,7 @@ export const ItemList = (props: ItemProps) => {
                         }}
                       >
                         {item.title}
-                      </span>
+                      </Text>
                     }
                     description={
                       <>
@@ -70,15 +72,15 @@ export const ItemList = (props: ItemProps) => {
                                     <a href=""> {item.subcategory_name} </a>
                                 </Breadcrumb.Item> */}
                         </Breadcrumb>
+                        <Text color="#8F92A1" style={{ marginTop: '10px' }}>
+                          {item.title}
+                        </Text>
                       </>
                     }
                   />
-                  {item.title}
                 </List.Item>
               )}
             />
-          ) : (
-            ''
           )}
         </>
       )}
