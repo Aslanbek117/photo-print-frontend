@@ -25,7 +25,6 @@ export const StepsComponent = (props: StepsProps) => {
                     </Text>
                   </div>
                 }
-                // description="Выберите страну и введите номер телефона. Нажмите «У меня нет мобильного телефона», если у вас его нет, и укажите резервную почту. "
                 description={
                   <>
                     <Text>{item.description}</Text>
