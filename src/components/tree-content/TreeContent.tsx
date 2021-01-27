@@ -114,8 +114,16 @@ export const TreeContent = (props: TreeContentProps) => {
   };
 
   return (
-    <Layout style={{ height: 'fit-content', backgroundColor: 'white', borderRadius: '24px' }}>
-      <Sider theme="light" width={300} style={{ borderRadius: '24px', paddingTop: '20px' }}>
+    <Layout style={{ height: 'fit-content', backgroundColor: 'transparent' }}>
+      <Sider
+        theme="light"
+        width={300}
+        style={{
+          borderTopLeftRadius: '24px',
+          borderBottomLeftRadius: '24px',
+          paddingTop: '20px',
+        }}
+      >
         <BackToMainPage />
         <div className="tree-view-container">
           {props.loading ? (
@@ -135,6 +143,9 @@ export const TreeContent = (props: TreeContentProps) => {
       <Content
         style={{
           padding: '24px',
+          backgroundColor: '#ffffff',
+          borderTopRightRadius: '24px',
+          borderBottomRightRadius: '24px',
         }}
       >
         {articleClicked ? (

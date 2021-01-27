@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import './article.css';
+import { Divider } from 'antd';
 import { Conditions } from '../conditions/Conditions';
 import { Process } from '../process/Process';
 import { GetArticleInfo } from '../backend-api/api';
 import { Article as ArticleModel } from '../../models/search/Search';
 import Text from '../text';
-
+import './article.css';
 interface ArticleProps {
   article_id: number;
   path: string;
@@ -36,11 +36,16 @@ export const Article = (props: ArticleProps) => {
         'loading'
       ) : (
         <>
-          <Text type="subtitle2">{articleInfo?.title}</Text>
+          <Text type="subtitle1">{articleInfo?.title}</Text>
+          <Text>{props.path}</Text>
+          {articleInfo?.description && (
+            <div
+              style={{ marginTop: 10 }}
+              dangerouslySetInnerHTML={{ __html: articleInfo?.description }}
+            />
+          )}
 
-          <Text type="article-breadcrumb">{props.path}</Text>
-
-          {/* <div dangerouslySetInnerHTML={{ __html: articleInfo!.description }} /> */}
+          <Divider type="horizontal" />
 
           <div className="button-group">
             <button
@@ -50,7 +55,7 @@ export const Article = (props: ArticleProps) => {
                 setConditionClicked(true);
               }}
             >
-              Условия
+              <Text type="subtitle3">Условия</Text>
             </button>
 
             <button
@@ -61,7 +66,7 @@ export const Article = (props: ArticleProps) => {
                 setProcessClicked(true);
               }}
             >
-              Процессы
+              <Text type="subtitle3">Процессы</Text>
             </button>
           </div>
 
