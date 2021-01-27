@@ -145,7 +145,7 @@ export const TreeContent = (props: TreeContentProps) => {
         ) : (
           <>
             <SearchResult
-              itemsCount={articles.length}
+              itemsCount={articles?.length}
               searchText={props.searchText}
               navItemClicked={navItemClicked}
               selectedNavItem={selectedNavItem}

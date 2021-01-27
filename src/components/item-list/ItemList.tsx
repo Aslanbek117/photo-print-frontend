@@ -13,7 +13,7 @@ interface ItemProps {
 export const ItemList = (props: ItemProps) => {
   return (
     <>
-      {props.items.length === 0 && !props.navItemClicked ? (
+      {props.items?.length === 0 && !props.navItemClicked ? (
         <>
           <div>
             <Icon icon="empty-list" width={132} height={122} />
@@ -29,7 +29,7 @@ export const ItemList = (props: ItemProps) => {
         'loading'
       ) : (
         <>
-          {props.items.length > 0 ? (
+          {props.items?.length > 0 ? (
             <List
               itemLayout="vertical"
               size="small"

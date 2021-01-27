@@ -23,7 +23,7 @@ export const SearchResult = (props: SearchResultProps) => {
         props.selectedNavItem && <Text type="subtitle1">{props.selectedNavItem}</Text>
       )}
 
-      {props.articles.length === 1 ? (
+      {props.articles?.length === 1 ? (
         props.searchText !== 'empty' && (
           <div className="arcticles-length-container">
             <Text type="small" color="#8F92A1">
@@ -49,7 +49,7 @@ export const SearchResult = (props: SearchResultProps) => {
             Найдено:
           </Text>
           <Text type="small" style={{ paddingLeft: '5px' }}>
-            {props.articles.length} статьи
+            {props.articles?.length} статьи
           </Text>
         </div>
       )}
