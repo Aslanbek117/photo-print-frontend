@@ -6,7 +6,7 @@ const Text = ({
   type,
 }: {
   children: ReactText | any;
-  type?: 'title' | 'subtitle1' | 'subtitle2' | 'small';
+  type?: 'title' | 'subtitle1' | 'subtitle2' | 'small' | 'article-breadcrumb';
 }) => {
   return <p className={type || 'default'}>{children}</p>;
 };

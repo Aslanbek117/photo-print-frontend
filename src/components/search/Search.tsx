@@ -1,77 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
+import { Search } from "../backend-api/api";
+import { SearchResponseDTO, Article } from "../../models/search/Search";
+import "./search.css";
+import { SearchDropdown } from "../search-dropdown/SearchDrodown";
+import Icon from "../icon";
+import { useHistory } from "react-router-dom";
 
-import { AutoComplete, Form, Select } from 'antd';
-import { UserOutlined, LockOutlined, PropertySafetyOutlined } from '@ant-design/icons';
-import { Search } from '../backend-api/api';
-import { SearchResponseDTO, SearchModel, Article } from '../../models/search/Search';
-import HeaderTemp from '../header-temp/HeaderTemp';
-import './search.css';
-import { SearchDropdown } from '../search-dropdown/SearchDrodown';
-import Icon from '../icon';
-import SearchIcon from './search-icon.png';
-import { useHistory } from 'react-router-dom';
-
-const mockVal = (str: string[], repeat: number = 1) => {
-  return {
-    value: str[0] || '',
-  };
-};
-
-const items: any[] = [
-  {
-    id: 1,
-    text: 'first',
-  },
-  {
-    id: 2,
-    text: 'second',
-  },
-  {
-    id: 3,
-    text: 'third',
-  },
-];
-
-interface SearchProps {
-  onClick: (searchInput: string) => void;
-}
+interface SearchProps {}
 
 export const SearchTop = (props: SearchProps) => {
   const history = useHistory();
 
-  const [form] = Form.useForm();
-
-  const [searchText, setSearchText] = useState<string>('');
-  const [searchValue, setSearchValue] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>("");
   const [suggest, setSuggest] = useState<Article[]>([]);
 
   const onInputChange = async (event: any) => {
-    const response: SearchResponseDTO = await Search('', event.target.value);
-    console.log('response', response);
+    const response: SearchResponseDTO = await Search("", event.target.value);
     setSuggest(response.result);
   };
 
   const getSearchValue = (title: string) => {
-    console.log('FINALLY SEARCH VALUE', title);
     setSearchValue(title);
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      history.push('/nav/search=' + searchValue);
+    if (e.key === "Enter") {
+      history.push("/nav/search=" + searchValue);
     }
   };
 
   const filteredItems = () => {
-    // const response = await Search("", searchText);
-    // console.log("response", response);
-
-    // if (searchValue.length > 0) {
-    //     return items;
-    // } else {
-    //     return [];
-    // }
-
     if (suggest !== null) {
       if (suggest?.length > 0) {
         return suggest;
@@ -79,7 +37,6 @@ export const SearchTop = (props: SearchProps) => {
         return [];
       }
     }
-
     return [];
   };
 
@@ -88,7 +45,10 @@ export const SearchTop = (props: SearchProps) => {
       <div
         className="search-input"
         style={{
-          boxShadow: filteredItems().length > 0 ? '0px 4px 20px rgba(0, 0, 0, 0.16)' : 'none',
+          boxShadow:
+            filteredItems().length > 0
+              ? "0px 4px 20px rgba(0, 0, 0, 0.16)"
+              : "none",
         }}
       >
         <i className="search-icon">
@@ -99,7 +59,7 @@ export const SearchTop = (props: SearchProps) => {
           placeholder="Напишите вопрос или проблему"
           value={searchValue}
           onChange={(event) => {
-            if (event.target.value == '') {
+            if (event.target.value == "") {
               setSuggest([]);
             } else {
               onInputChange(event);
@@ -108,12 +68,14 @@ export const SearchTop = (props: SearchProps) => {
           }}
           onKeyDown={(event) => handleKeyDown(event)}
         />
-        <SearchDropdown items={filteredItems()} onClick={(title) => getSearchValue(title)} />
+        <SearchDropdown
+          items={filteredItems()}
+          onClick={(title) => getSearchValue(title)}
+        />
         <button
           className="search-button"
           onClick={() => {
-            props.onClick(searchValue);
-            history.push('/nav/search=' + searchValue);
+            history.push("/nav/search=" + searchValue);
           }}
         >
           <span className="search-button-text">Поиск</span>
