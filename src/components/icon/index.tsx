@@ -7,8 +7,17 @@ const Icon: FC<SvgProps> = ({
   className = '',
   onClick,
   fill = 'none',
+  mr,
+  ml,
 }) => (
-  <svg width={width} height={height} className={className} onClick={onClick} fill={fill}>
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    onClick={onClick}
+    fill={fill}
+    style={{ marginLeft: ml, marginRight: mr }}
+  >
     <use xlinkHref={`/i/sprite.svg#${icon}`} />
   </svg>
 );
@@ -22,4 +31,6 @@ interface SvgProps {
   className?: string;
   onClick?: () => void;
   fill?: string;
+  mr?: number;
+  ml?: number;
 }
