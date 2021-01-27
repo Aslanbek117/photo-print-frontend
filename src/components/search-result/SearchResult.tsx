@@ -13,7 +13,7 @@ interface SearchResultProps {
 export const SearchResult = (props: SearchResultProps) => {
   return (
     <>
-      {props.itemsCount === 0 && !props.navItemClicked && (
+      {props.itemsCount === 0 && !props.navItemClicked &&  props.searchText !== "empty" && (
         <Text type="subtitle1">В Базе знаний нет статьи по запросу «{props.searchText}»</Text>
       )}
 
