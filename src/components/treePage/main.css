@@ -1,6 +1,7 @@
 .site-layout-content {
   /* min-height: 280px; */
   margin-top: 50px;
+  padding-bottom: 50px;
   /* background: rgb(243,246,248); */
 }
 
@@ -18,18 +19,16 @@
   color: #171717;
 }
 
-
 .layout {
   background-color: #f3f6f8;
   height: 100vh;
 }
 
-
 .main-container {
   width: 80%;
 }
 .content {
-  display: "flex";
-  justify-content: "center";
+  display: 'flex';
+  justify-content: 'center';
   position: relative;
 }
