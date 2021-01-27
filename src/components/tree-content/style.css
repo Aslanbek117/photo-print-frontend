@@ -1,29 +1,34 @@
 .title {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 22px;
-    line-height: 30px;
-    /* identical to box height, or 136% */
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 30px;
+  /* identical to box height, or 136% */
 
-    letter-spacing: -0.4px;
+  letter-spacing: -0.4px;
 
-    /* Black/B100 */
+  /* Black/B100 */
 
-    color: #171717;
+  color: #171717;
 }
 
 .nav-title {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 22px;
-    line-height: 30px;
-    /* or 136% */
-    padding-top: 32px;
-    letter-spacing: -0.4px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 30px;
+  /* or 136% */
+  padding-top: 32px;
+  letter-spacing: -0.4px;
 
-    /* Black/B100 */
+  /* Black/B100 */
 
-    color: #171717;
+  color: #171717;
+}
+
+.tree-view-container {
+  padding-top: 15px;
+  padding-left: 15px;
 }

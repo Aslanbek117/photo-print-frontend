@@ -1,6 +1,6 @@
-import React from "react";
-import { Typography } from "antd";
-import Text from "../text";
+import React from 'react';
+import Text from '../text';
+import './styles.css';
 
 interface SearchResultProps {
   itemsCount: number;
@@ -13,38 +13,45 @@ interface SearchResultProps {
 export const SearchResult = (props: SearchResultProps) => {
   return (
     <>
-      {(props.itemsCount === 0 && !props.navItemClicked) ? (
-        props.searchText === "empty" && !props.navItemClicked ? (
-          ""
-        ) : (
-          <span className="title">
-            В Базе знаний нет статьи по запросу "{props.searchText}"
-          </span>
-        )
-      ) : (
-        ""
+      {props.itemsCount === 0 && !props.navItemClicked && (
+        <Text type="subtitle1">В Базе знаний нет статьи по запросу «{props.searchText}»</Text>
       )}
 
       {!props.navItemClicked && props.itemsCount > 0 ? (
-        <div className="nav-title">
-          <span> По запросу "{props.searchText}"</span>
-        </div>
+        <Text type="subtitle1">По запросу "{props.searchText}"</Text>
       ) : (
-        <div className="nav-title">
-          <span>{props.selectedNavItem}</span>
-        </div>
+        props.selectedNavItem && <Text type="subtitle1">{props.selectedNavItem}</Text>
       )}
 
-      {props.articles.length == 1 ? (
-        props.searchText !== "empty" ? (
-          <Text type="subtitle2">найдена: 1 статья</Text>
-        ) : (
-          ""
+      {props.articles?.length === 1 ? (
+        props.searchText !== 'empty' && (
+          <div className="arcticles-length-container">
+            <Text type="small" color="#8F92A1">
+              Найдена:
+            </Text>
+            <Text type="small" style={{ paddingLeft: '5px' }}>
+              1 статья
+            </Text>
+          </div>
         )
-      ) : props.itemsCount == 0 ? (
-        <Text type="subtitle2">найдено: 0 статей</Text>
+      ) : props.itemsCount === 0 ? (
+        <div className="arcticles-length-container">
+          <Text type="small" color="#8F92A1">
+            Найдено:
+          </Text>
+          <Text type="small" style={{ paddingLeft: '5px' }}>
+            0 статей
+          </Text>
+        </div>
       ) : (
-        <Text type="subtitle2">найдено: {props.articles.length} статьи</Text>
+        <div className="arcticles-length-container">
+          <Text type="small" color="#8F92A1">
+            Найдено:
+          </Text>
+          <Text type="small" style={{ paddingLeft: '5px' }}>
+            {props.articles?.length} статьи
+          </Text>
+        </div>
       )}
     </>
   );

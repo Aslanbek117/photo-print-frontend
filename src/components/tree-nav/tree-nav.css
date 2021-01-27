@@ -1,3 +1,14 @@
 .content {
-    background-color: white;
+  background-color: white;
+}
+
+.ant-tree .ant-tree-treenode {
+  width: 100%;
+}
+
+.ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
+  background-color: rgba(0, 135, 90, 0.05);
+  width: 100%;
+  border-right: 4px solid #008060;
+  z-index: 3;
 }
