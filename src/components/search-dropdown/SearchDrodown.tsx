@@ -6,6 +6,7 @@ import { Article } from '../../models/search/Search';
 interface SearchDropdownProps {
   items: Article[];
   onClick: (title: string) => void;
+  header?: boolean;
 }
 
 export const SearchDropdown = (props: SearchDropdownProps) => {
@@ -13,7 +14,7 @@ export const SearchDropdown = (props: SearchDropdownProps) => {
     console.log('LI VALUE', title);
   };
 
-  const listItems = props.items.map((item) => (
+  const listItems = props.items.map(item => (
     <li value={item.title} onClick={() => props.onClick(item.title)}>
       <div className="search-result-item">
         <Icon icon="corner-down-right" width={20} height={18} />
@@ -24,13 +25,20 @@ export const SearchDropdown = (props: SearchDropdownProps) => {
     </li>
   ));
 
-  return (
-    <>
-      <div style={{ paddingTop: props.items.length > 0 ? '80px' : '0px', width: '100%' }}>
+  if (props?.items?.length > 0) {
+    return (
+      <div
+        style={{
+          paddingTop: props?.header ? '0px' : '20px',
+          width: props?.header ? '56%' : '100%',
+        }}
+        className="search-dropdown"
+      >
         <div style={{ paddingBottom: '15px' }}>
           <ul style={{ listStyleType: 'none', margin: 0, padding: 0 }}>{listItems}</ul>
         </div>
       </div>
-    </>
-  );
+    );
+  }
+  return null;
 };

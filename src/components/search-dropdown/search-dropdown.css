@@ -32,3 +32,13 @@
 .search-result-item:hover {
   background-color: rgba(250, 174, 23, 0.05);
 }
+
+.search-dropdown {
+  width: 100%;
+  position: absolute;
+  top: 60px;
+  z-index: 10;
+  background: rgb(255, 255, 255);
+  border-bottom-right-radius: 26px;
+  border-bottom-left-radius: 26px;
+}
