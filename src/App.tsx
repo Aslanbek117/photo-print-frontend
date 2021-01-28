@@ -12,7 +12,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={MainPage} />
         <Route
-          path="/nav/search=:search"
+          exact path="/search"
           component={() => <TreePage key={window.location.pathname} />}
         />
       </Switch>

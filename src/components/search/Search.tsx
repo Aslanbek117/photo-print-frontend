@@ -35,9 +35,9 @@ const unique = [...new Map(response.result.map(item =>
   };
 
   const handleKeyDown = e => {
-    if (e.key === 'Enter') {
-      history.push('/nav/search=' + searchValue);
-    }
+    // if (e.key === 'Enter') {
+    //   history.push('/search', state:{ searchValue: ""});
+    // }
   };
 
   const filteredItems = () => {
@@ -73,7 +73,7 @@ const unique = [...new Map(response.result.map(item =>
           <button
             className="header-search-button"
             onClick={() => {
-              searchValue && history.push('/nav/search=' + searchValue);
+              searchValue && history.push({pathname: "/search", state: { searchValue: searchValue, categoryToExpand: ""}});
             }}
           >
             <Text type="subtitle3" color="#ffffff">
@@ -115,7 +115,7 @@ const unique = [...new Map(response.result.map(item =>
         <button
           className="search-button"
           onClick={() => {
-            searchValue && history.push('/nav/search=' + searchValue);
+            searchValue && history.push({pathname: "/search", state: { searchValue: searchValue, categoryToExpand: ""}});
           }}
         >
           <Text type="subtitle3" color="#ffffff">

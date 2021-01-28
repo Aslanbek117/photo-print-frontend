@@ -13,7 +13,7 @@ interface SearchResultProps {
 export const SearchResult = (props: SearchResultProps) => {
   return (
     <>
-      {props.itemsCount === 0 && !props.navItemClicked &&  props.searchText !== "empty" && (
+      {props.itemsCount === 0 && !props.navItemClicked &&  props.searchText !== "" && (
         <Text type="subtitle1">В Базе знаний нет статьи по запросу «{props.searchText}»</Text>
       )}
 
@@ -24,7 +24,7 @@ export const SearchResult = (props: SearchResultProps) => {
       )}
 
       {props.articles?.length === 1 ? (
-        props.searchText !== 'empty' && (
+        props.searchText !== '' && (
           <div className="arcticles-length-container">
             <Text type="small" color="#8F92A1">
               Найдена:

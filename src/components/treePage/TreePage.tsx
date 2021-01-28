@@ -21,6 +21,8 @@ export const TreePage = (props: any) => {
 
   const [searchText, setSearchText] = useState('');
 
+  const [categoryToExpand, setCategoryToExpand] = useState<string[]>([]);
+
   useEffect(() => {
     async function fetch() {
       const response = await GetAllDirs(props.token, '../');
@@ -28,15 +30,15 @@ export const TreePage = (props: any) => {
       setLoading(false);
     }
 
+    const { state } = location;
+    const { searchValue, categoryToExpand } = state;
+    
     fetch();
-    let query = location.pathname.slice(
-      location.pathname.lastIndexOf('=') + 1,
-      location.pathname.length
-    );
-    setSearchText(query);
+    setCategoryToExpand(categoryToExpand);
+    setSearchText(searchValue);
     // if (location.pathname='/')
-    if (location.pathname !== '/' && query !== 'empty') {
-      searchArticles(query);
+    if (searchValue !== "") {
+      searchArticles(searchValue);
     } else {
       setLoading(false);
     }
@@ -51,7 +53,6 @@ export const TreePage = (props: any) => {
       let key = "title"
       const unique = [...new Map(resp.result.map(item =>
         [item[key], item])).values()];
-
       setSuggest(unique);
       setLoading(false);
     }
@@ -70,6 +71,7 @@ export const TreePage = (props: any) => {
                   items={suggest}
                   treeData={treeData}
                   searchText={searchText}
+                  categoryToExpand={categoryToExpand}
                 />
               </div>
             </div>

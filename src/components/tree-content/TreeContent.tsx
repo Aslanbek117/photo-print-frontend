@@ -13,6 +13,7 @@ import {
 } from "../backend-api/api";
 import { Article } from "../article/Article";
 import { BackToMainPage } from "../back-to-main/BackToMainPage";
+import { PropertySafetyOutlined } from "@ant-design/icons";
 const { Content, Sider } = Layout;
 
 interface TreeContentProps {
@@ -20,6 +21,7 @@ interface TreeContentProps {
   items: ArticleModel[];
   loading: boolean;
   searchText: string;
+  categoryToExpand: string[];
 }
 
 export const TreeContent = (props: TreeContentProps) => {
@@ -137,6 +139,7 @@ export const TreeContent = (props: TreeContentProps) => {
               treeData={props.treeData}
               token=""
               items={props.treeData}
+              categoryToExpand={props.categoryToExpand}
             />
           )}
         </div>

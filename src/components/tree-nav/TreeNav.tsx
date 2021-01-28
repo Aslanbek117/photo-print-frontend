@@ -2,7 +2,6 @@ import React, { FunctionComponent, useState, useEffect } from 'react';
 import { Tree } from 'antd';
 import { GetAllDirs1 } from '../backend-api/api';
 import './tree-nav.css';
-import Icon from '../icon';
 
 interface TreeViewProps {
   onSelect: (selectedKeys: any, info: any) => void;
@@ -10,6 +9,7 @@ interface TreeViewProps {
   token: string;
   items: any[];
   loading: boolean;
+  categoryToExpand: string[];
 }
 
 //рекурсинвное решение отрицательно сказывается на памяти - в будущем требуется переписать. s
@@ -35,10 +35,13 @@ const renderTreeNodes = (data: any) =>
       )
     : '';
 
+
+
 export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps) => {
   const [treeData, setTreeData] = useState(props.treeData);
 
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     async function fetch() {
@@ -60,6 +63,7 @@ export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps)
             showIcon={true}
             onSelect={props.onSelect}
             treeData={treeData}
+            defaultExpandedKeys={props.categoryToExpand}
             // switcherIcon={<Icon icon="filled-arrow-bottom" width={10} height={6} />}
           >
             {/* {renderTreeNodes(treeData)} */}

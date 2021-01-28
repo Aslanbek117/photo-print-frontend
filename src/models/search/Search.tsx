@@ -54,3 +54,13 @@ export interface SearchResponseDTO {
     result: Article[];
     status: boolean;
 }
+
+export interface Categories {
+    category_title: string;
+    article_count: number;
+}
+
+export interface EntityWithCategoriesDTO {
+    title: string;
+    categories: Categories[];
+}

@@ -88,3 +88,13 @@ export const GetArticleInfo = async (token: string, article_id: number): Promise
     }
 }
 
+
+
+export const GetEntityArticleCount = async (token: string): Promise<any> => {
+    try {
+        const response = await (await httpClient(token)).get("http://halyk-wiki.cfp.corp.p-s.kz/halyk-wiki-search-service/api/v1/entity/list/category")
+        return response.data;
+    } catch (err) {
+        return {} as any;
+    }
+}
