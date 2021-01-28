@@ -35,7 +35,7 @@ export const Header = (props: HeaderProps) => {
               </a>
             </div>
 
-            {/* <SearchTop header /> */}
+            <SearchTop header /> 
 
             <Button
               type="primary"
