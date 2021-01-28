@@ -4,9 +4,12 @@ import { SearchResponseDTO, Article } from '../../models/search/Search';
 import './search.css';
 import { SearchDropdown } from '../search-dropdown/SearchDrodown';
 import Icon from '../icon';
+import Text from '../text';
 import { useHistory } from 'react-router-dom';
 
-interface SearchProps {}
+interface SearchProps {
+  header?: boolean;
+}
 
 export const SearchTop = (props: SearchProps) => {
   const history = useHistory();
@@ -31,7 +34,7 @@ const unique = [...new Map(response.result.map(item =>
     setSearchValue(title);
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = e => {
     if (e.key === 'Enter') {
       history.push('/nav/search=' + searchValue);
     }
@@ -48,6 +51,41 @@ const unique = [...new Map(response.result.map(item =>
     return [];
   };
 
+  if (props.header) {
+    return (
+      <div className="header-search-container-with-dropdown">
+        <div className="header-search-container">
+          <Icon icon="grey-search-19" width={19} height={19} mr={15} />
+          <input
+            className="header-serach-input"
+            placeholder="Напишите вопрос или проблему"
+            value={searchValue}
+            onChange={event => {
+              if (event.target.value === '') {
+                setSuggest([]);
+              } else {
+                onInputChange(event);
+              }
+              setSearchValue(event.target.value);
+            }}
+            onKeyDown={event => handleKeyDown(event)}
+          />
+          <button
+            className="header-search-button"
+            onClick={() => {
+              searchValue && history.push('/nav/search=' + searchValue);
+            }}
+          >
+            <Text type="subtitle3" color="#ffffff">
+              Поиск
+            </Text>
+          </button>
+        </div>
+        <SearchDropdown items={filteredItems()} onClick={title => getSearchValue(title)} header />
+      </div>
+    );
+  }
+
   return (
     <>
       <div
@@ -63,7 +101,7 @@ const unique = [...new Map(response.result.map(item =>
           className="search-input-field"
           placeholder="Напишите вопрос или проблему"
           value={searchValue}
-          onChange={(event) => {
+          onChange={event => {
             if (event.target.value === '') {
               setSuggest([]);
             } else {
@@ -71,16 +109,18 @@ const unique = [...new Map(response.result.map(item =>
             }
             setSearchValue(event.target.value);
           }}
-          onKeyDown={(event) => handleKeyDown(event)}
+          onKeyDown={event => handleKeyDown(event)}
         />
-        <SearchDropdown items={filteredItems()} onClick={(title) => getSearchValue(title)} />
+        <SearchDropdown items={filteredItems()} onClick={title => getSearchValue(title)} />
         <button
           className="search-button"
           onClick={() => {
             searchValue && history.push('/nav/search=' + searchValue);
           }}
         >
-          <span className="search-button-text">Поиск</span>
+          <Text type="subtitle3" color="#ffffff">
+            Поиск
+          </Text>
         </button>
       </div>
     </>
