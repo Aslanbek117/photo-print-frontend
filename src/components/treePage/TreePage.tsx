@@ -48,7 +48,11 @@ export const TreePage = (props: any) => {
     if (resp.result === null) {
       setSuggest([]);
     } else {
-      setSuggest(resp.result);
+      let key = "title"
+      const unique = [...new Map(resp.result.map(item =>
+        [item[key], item])).values()];
+
+      setSuggest(unique);
       setLoading(false);
     }
   };

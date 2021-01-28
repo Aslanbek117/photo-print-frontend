@@ -19,7 +19,15 @@ export const SearchTop = (props: SearchProps) => {
 
   const onInputChange = async (event: any) => {
     const response: SearchResponseDTO = await Search('', event.target.value);
-    setSuggest(response.result);
+    
+    const key = 'title';
+
+    //get only unique objects array by title
+const unique = [...new Map(response.result.map(item =>
+  [item[key], item])).values()];
+
+
+    setSuggest(unique);
   };
 
   const getSearchValue = (title: string) => {

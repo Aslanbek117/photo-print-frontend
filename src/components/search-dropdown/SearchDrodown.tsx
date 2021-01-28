@@ -18,7 +18,14 @@ export const SearchDropdown = (props: SearchDropdownProps) => {
     <li value={item.title} onClick={() => props.onClick(item.title)}>
       <div className="search-result-item">
         <Icon icon="corner-down-right" width={20} height={18} />
-        <span style={{ paddingLeft: '20px', fontWeight: 500, fontSize: 16, color: '#171717' }}>
+        <span
+          style={{
+            paddingLeft: '20px',
+            fontWeight: 500,
+            fontSize: 16,
+            color: '#171717',
+          }}
+        >
           {item.title}
         </span>
       </div>
