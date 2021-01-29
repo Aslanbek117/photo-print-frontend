@@ -1,0 +1,11 @@
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.ant-spin-dot-item {
+  background-color: #008060;
+}

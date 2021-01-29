@@ -3,6 +3,7 @@ import { Search, GetAllDirs } from '../backend-api/api';
 import { SearchResponseDTO } from '../../models/search/Search';
 import { Layout } from 'antd';
 import { useLocation } from 'react-router-dom';
+import Loader from '../loader';
 import { TreeContent } from '../tree-content/TreeContent';
 import { Article as ArticleModel } from '../../models/search/Search';
 import { Header } from '../header-maha/Header';
@@ -32,12 +33,12 @@ export const TreePage = (props: any) => {
 
     const { state } = location;
     const { searchValue, categoryToExpand } = state;
-    
+
     fetch();
     setCategoryToExpand(categoryToExpand);
     setSearchText(searchValue);
     // if (location.pathname='/')
-    if (searchValue !== "") {
+    if (searchValue !== '') {
       searchArticles(searchValue);
     } else {
       setLoading(false);
@@ -50,18 +51,19 @@ export const TreePage = (props: any) => {
     if (resp.result === null) {
       setSuggest([]);
     } else {
-      let key = "title"
-      const unique = [...new Map(resp.result.map(item =>
-        [item[key], item])).values()];
+      let key = 'title';
+      const unique = [...new Map(resp.result.map(item => [item[key], item])).values()];
       setSuggest(unique);
       setLoading(false);
     }
   };
 
   return (
-    <>
-      {!loading ? (
-        <Layout className="layout">
+    <Layout className="layout">
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
           <Header />
           <Content style={{ display: 'flex', justifyContent: 'center' }}>
             <div className="main-container">
@@ -76,10 +78,8 @@ export const TreePage = (props: any) => {
               </div>
             </div>
           </Content>
-        </Layout>
-      ) : (
-        'loading'
+        </>
       )}
-    </>
+    </Layout>
   );
 };

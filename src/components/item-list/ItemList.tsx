@@ -3,6 +3,7 @@ import { Breadcrumb, List } from 'antd';
 import './styles.css';
 import Icon from '../icon';
 import Text from '../text';
+import Loader from '../loader';
 
 interface ItemProps {
   items: any[];
@@ -14,20 +15,16 @@ interface ItemProps {
 export const ItemList = (props: ItemProps) => {
   return (
     <>
-      {props.items?.length === 0 && !props.navItemClicked ? (
-        <>
-          <div>
-            <Icon icon="empty-list" width={132} height={122} />
-            <span className="text" style={{ paddingLeft: 20 }}>
-              Попробуйте еще раз! Либо найдите нужную статью в категории
-            </span>
-          </div>
-        </>
-      ) : (
-        ''
+      {props.items?.length === 0 && !props.navItemClicked && (
+        <div>
+          <Icon icon="empty-list" width={132} height={122} />
+          <span className="text" style={{ paddingLeft: 20 }}>
+            Попробуйте еще раз! Либо найдите нужную статью в категории
+          </span>
+        </div>
       )}
       {props.isLoading ? (
-        'loading'
+        <Loader />
       ) : (
         <>
           {props.items?.length > 0 && (
@@ -35,7 +32,7 @@ export const ItemList = (props: ItemProps) => {
               itemLayout="vertical"
               size="small"
               pagination={{
-                onChange: (page) => {
+                onChange: page => {
                   console.log(page);
                 },
 
@@ -43,7 +40,7 @@ export const ItemList = (props: ItemProps) => {
               }}
               dataSource={props.items}
               locale={{ emptyText: 'В данной категории отсутствуют статьи' }}
-              renderItem={(item) => (
+              renderItem={item => (
                 <List.Item key={item.title} style={{ paddingLeft: '0' }}>
                   <List.Item.Meta
                     title={

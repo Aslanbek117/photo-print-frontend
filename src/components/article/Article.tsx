@@ -5,6 +5,7 @@ import { Conditions } from '../conditions/Conditions';
 import { Process } from '../process/Process';
 import { GetArticleInfo } from '../backend-api/api';
 import { Article as ArticleModel } from '../../models/search/Search';
+import Loader from '../loader';
 import Text from '../text';
 import './article.css';
 interface ArticleProps {
@@ -33,7 +34,7 @@ export const Article = (props: ArticleProps) => {
   return (
     <>
       {articleLoadind ? (
-        'loading'
+        <Loader />
       ) : (
         <>
           <Text type="subtitle1">{articleInfo?.title}</Text>
