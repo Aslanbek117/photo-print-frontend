@@ -3,6 +3,7 @@ import { SearchTop } from '../search/Search';
 import { Category } from '../category/Category';
 import { Layout } from 'antd';
 import Text from '../text';
+import Loader from '../loader';
 import { Header } from '../header-maha/Header';
 import './main.css';
 const { Content } = Layout;
@@ -16,10 +17,11 @@ export const MainPage = (props: any) => {
 
   return (
     <Layout className="layout">
-      {!loading ? (
+      {loading ? (
+        <Loader />
+      ) : (
         <>
           <Header />
-
           <Content style={{ display: 'flex', justifyContent: 'center' }}>
             <div className="main-container">
               <div className="site-layout-content">
@@ -33,8 +35,6 @@ export const MainPage = (props: any) => {
             </div>
           </Content>
         </>
-      ) : (
-        'loading'
       )}
     </Layout>
   );

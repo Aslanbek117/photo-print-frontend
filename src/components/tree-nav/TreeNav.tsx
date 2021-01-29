@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import { Tree } from 'antd';
 import { GetAllDirs1 } from '../backend-api/api';
+import Loader from '../loader';
 import './tree-nav.css';
 
 interface TreeViewProps {
@@ -35,13 +36,10 @@ const renderTreeNodes = (data: any) =>
       )
     : '';
 
-
-
 export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps) => {
   const [treeData, setTreeData] = useState(props.treeData);
 
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     async function fetch() {
@@ -56,19 +54,17 @@ export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps)
   return (
     <>
       {loading ? (
-        'loading'
+        <Loader />
       ) : (
-        <>
-          <Tree
-            showIcon={true}
-            onSelect={props.onSelect}
-            treeData={treeData}
-            defaultExpandedKeys={props.categoryToExpand}
-            // switcherIcon={<Icon icon="filled-arrow-bottom" width={10} height={6} />}
-          >
-            {/* {renderTreeNodes(treeData)} */}
-          </Tree>
-        </>
+        <Tree
+          showIcon={true}
+          onSelect={props.onSelect}
+          treeData={treeData}
+          defaultExpandedKeys={props.categoryToExpand}
+          // switcherIcon={<Icon icon="filled-arrow-bottom" width={10} height={6} />}
+        >
+          {/* {renderTreeNodes(treeData)} */}
+        </Tree>
       )}
     </>
   );
