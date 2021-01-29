@@ -24,7 +24,7 @@ export const SearchResult = (props: SearchResultProps) => {
       )}
 
       {props.articles?.length === 1 ? (
-        props.searchText !== '' && (
+        // props.searchText === '' && (
           <div className="arcticles-length-container">
             <Text type="small" color="#8F92A1">
               Найдена:
@@ -33,7 +33,7 @@ export const SearchResult = (props: SearchResultProps) => {
               1 статья
             </Text>
           </div>
-        )
+        // )
       ) : props.itemsCount === 0 ? (
         <div className="arcticles-length-container">
           <Text type="small" color="#8F92A1">
