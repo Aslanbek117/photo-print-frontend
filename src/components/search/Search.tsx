@@ -19,13 +19,11 @@ export const SearchTop = (props: SearchProps) => {
 
   const onInputChange = async (event: any) => {
     const response: SearchResponseDTO = await Search('', event.target.value);
-    
+
     const key = 'title';
 
     //get only unique objects array by title
-const unique = [...new Map(response.result.map(item =>
-  [item[key], item])).values()];
-
+    const unique = [...new Map(response.result.map(item => [item[key], item])).values()];
 
     setSuggest(unique);
   };
@@ -51,6 +49,15 @@ const unique = [...new Map(response.result.map(item =>
     return [];
   };
 
+  const onClickSearch = (searchVal: string) => {
+    if (searchVal) {
+      history.push({
+        pathname: '/search',
+        state: { searchValue: searchVal, categoryToExpand: '' },
+      });
+    }
+  };
+
   if (props.header) {
     return (
       <div className="header-search-container-with-dropdown">
@@ -70,18 +77,13 @@ const unique = [...new Map(response.result.map(item =>
             }}
             onKeyDown={event => handleKeyDown(event)}
           />
-          <button
-            className="header-search-button"
-            onClick={() => {
-              searchValue && history.push({pathname: "/search", state: { searchValue: searchValue, categoryToExpand: ""}});
-            }}
-          >
+          <button className="header-search-button" onClick={() => onClickSearch(searchValue)}>
             <Text type="subtitle3" color="#ffffff">
               Поиск
             </Text>
           </button>
         </div>
-        <SearchDropdown items={filteredItems()} onClick={title => getSearchValue(title)} header />
+        <SearchDropdown items={filteredItems()} onClick={title => onClickSearch(title)} header />
       </div>
     );
   }
@@ -111,13 +113,8 @@ const unique = [...new Map(response.result.map(item =>
           }}
           onKeyDown={event => handleKeyDown(event)}
         />
-        <SearchDropdown items={filteredItems()} onClick={title => getSearchValue(title)} />
-        <button
-          className="search-button"
-          onClick={() => {
-            searchValue && history.push({pathname: "/search", state: { searchValue: searchValue, categoryToExpand: ""}});
-          }}
-        >
+        <SearchDropdown items={filteredItems()} onClick={title => onClickSearch(title)} />
+        <button className="search-button" onClick={() => onClickSearch(searchValue)}>
           <Text type="subtitle3" color="#ffffff">
             Поиск
           </Text>
