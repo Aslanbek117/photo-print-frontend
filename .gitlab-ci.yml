@@ -14,6 +14,7 @@ build-image:
     - docker push "${REGISTRY_URL}/${CI_PROJECT_NAME}:$CI_PIPELINE_IID"
   only:
     - k8s
+    - prod
 
 deploy-dev:
   stage: deploy
@@ -43,3 +44,27 @@ deploy-dev:
     - kubectl apply -f kub/
   only:
     - k8s
+
+build-prod:
+  tags:
+  - halyk-wiki
+  image: kub
+  dependencies:
+    - build-image
+  before_script:
+    - mkdir ~/.kube
+    - echo "$PROD_KUBE_CONFIG" | base64 -d > ~/.kube/config
+    - mkdir kub
+    - echo ${DEPLOY_TEMPLATE} | base64 -d > kub/deploy.yaml
+    - sed -i "s/BUILD-TAG/${CI_PIPELINE_IID}/g" kub/deploy.yaml
+    - sed -i "s/NAME-TAG/${CI_PROJECT_NAME}/g" kub/deploy.yaml
+    - sed -i "s/NAMESPACE-TAG/${CI_PROJECT_NAMESPACE}/g" kub/deploy.yaml
+    - sed -i "s/ANIMAL-TAG/${CI_PROJECT_NAMESPACE}/g" kub/deploy.yaml
+    - sed -i "s/PART-TAG/${CI_PROJECT_NAME}/g" kub/deploy.yaml
+    - sed -i "s/APP-PORT/${APP_PORT}/g" kub/deploy.yaml
+    - sed -i "s/REGISTRY-URL/${PROD_REGISTRY_URL}/g" kub/deploy.yaml
+  stage: deploy
+  script:
+    - kubectl apply -f ./kub/
+  only:
+    - prod
