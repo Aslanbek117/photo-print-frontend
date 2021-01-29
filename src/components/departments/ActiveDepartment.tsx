@@ -13,14 +13,14 @@ const daysOfWeek = [
   { title: 'Вс' },
 ];
 
-const ActiveDepartment = (department: any) => {
+const ActiveDepartment = ({ department }: { department: any }) => {
   return (
     <div className="active-department">
       <div className="active-department-header">
         <img alt="" src={CircleSmallLogo} />
         <div className="active-department-header-right">
           <p style={{ fontSize: 15, margin: 0, fontWeight: 'bold' }}>Отделение №1</p>
-          <p style={{ fontSize: 15, margin: 0 }}>г. Алматы, проспект Абая, 21</p>
+          <p style={{ fontSize: 15, margin: 0 }}>{department?.address}</p>
         </div>
       </div>
       <div className="active-department-body">

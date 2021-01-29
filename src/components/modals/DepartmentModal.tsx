@@ -15,7 +15,7 @@ interface ModalProps {
 const YANDEX_GEOCODE_KEY = '518ec391-229c-4e70-81ca-09dbe544157a';
 
 export const DepartmentModal = (props: ModalProps) => {
-  const [coordinates, setCoordinates] = useState<any>([]);
+  const [coordinates, setCoordinates] = useState<{ coords: number[]; address: string }[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const debouncedSearchTerm = useDebounce(searchValue, 2000);
 
@@ -29,15 +29,15 @@ export const DepartmentModal = (props: ModalProps) => {
         .then(async res => {
           const response = res?.response?.GeoObjectCollection?.featureMember;
 
-          let coordsArray: number[][] = [];
+          let coordsArray: { coords: number[]; address: string }[] = [];
 
           await response?.map((resItem: any) => {
             const position = resItem?.GeoObject?.Point?.pos;
-            const address = resItem?.GeoObject?.description;
+            const address: string = resItem?.GeoObject?.description;
             if (address.includes('Алматы')) {
               const posArr = position.split(' ');
-              const normalizedPos = [parseFloat(posArr?.[1]), parseFloat(posArr?.[0])];
-              coordsArray.push(normalizedPos);
+              const normalizedPos: number[] = [parseFloat(posArr?.[1]), parseFloat(posArr?.[0])];
+              coordsArray.push({ coords: normalizedPos, address: resItem?.GeoObject?.name });
               return normalizedPos;
             }
             return [];

@@ -16,17 +16,20 @@ const mapData = {
 type State = {
   template: React.ReactNode;
   container: React.ReactNode;
-  activeDepartment: boolean;
+  activeDepartment: any;
 };
 
-class YandexMap extends Component<{ searchedCoordinates: number[][] }, State> {
+class YandexMap extends Component<
+  { searchedCoordinates: { coords: number[]; address: string }[] },
+  State
+> {
   constructor(props: any) {
     super(props);
 
     this.state = {
       template: null,
       container: null,
-      activeDepartment: false,
+      activeDepartment: null,
     };
 
     // this.createTemplateLayoutFactory = this.createTemplateLayoutFactory;
@@ -50,7 +53,7 @@ class YandexMap extends Component<{ searchedCoordinates: number[][] }, State> {
   onMapClick = () => {
     const { activeDepartment } = this.state;
     if (activeDepartment) {
-      this.setState({ activeDepartment: false });
+      this.setState({ activeDepartment: null });
     }
   };
 
@@ -59,10 +62,9 @@ class YandexMap extends Component<{ searchedCoordinates: number[][] }, State> {
     const { searchedCoordinates } = this.props;
     const coordinates = searchedCoordinates;
 
-    console.log(coordinates, 'coords');
     return (
       <>
-        {activeDepartment && <ActiveDepartment />}
+        {activeDepartment !== null && <ActiveDepartment department={activeDepartment} />}
         <YMaps>
           <Map
             defaultState={mapData}
@@ -74,12 +76,12 @@ class YandexMap extends Component<{ searchedCoordinates: number[][] }, State> {
           >
             {coordinates.map(coordinate => (
               <Placemark
-                geometry={coordinate}
+                geometry={coordinate.coords}
                 options={{
                   iconLayout: 'default#image',
                   iconImageHref: PlacemarkIcon,
                 }}
-                onClick={() => this.setState({ activeDepartment: true })}
+                onClick={() => this.setState({ activeDepartment: coordinate })}
               />
             ))}
 
