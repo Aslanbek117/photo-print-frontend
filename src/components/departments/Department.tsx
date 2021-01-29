@@ -1,35 +1,38 @@
-import { YMaps, Map, Placemark } from "react-yandex-maps";
-import React, { Component } from "react";
+import { YMaps, Map, Placemark } from 'react-yandex-maps';
+import React, { Component } from 'react';
 
-import ActiveDepartment from "./ActiveDepartment";
+import ActiveDepartment from './ActiveDepartment';
 
-import PlacemarkIcon from "./placemark.svg";
-import "./department.css";
+import PlacemarkIcon from './placemark.svg';
+import './department.css';
 
 const mapData = {
-  center: [43.243271, 76.952894],
-  zoom: 15,
+  center: [43.238949, 76.889709],
+  zoom: 12,
 };
 
-const coordinates = [[43.243271, 76.952894]];
+// [43.243271, 76.952894] Абая 21
 
 type State = {
   template: React.ReactNode;
   container: React.ReactNode;
-  activeDepartment: boolean;
+  activeDepartment: any;
 };
 
-class YandexMap extends Component<{}, State> {
+class YandexMap extends Component<
+  { searchedCoordinates: { coords: number[]; address: string }[] },
+  State
+> {
   constructor(props: any) {
     super(props);
 
     this.state = {
       template: null,
       container: null,
-      activeDepartment: false,
+      activeDepartment: null,
     };
 
-    this.createTemplateLayoutFactory = this.createTemplateLayoutFactory;
+    // this.createTemplateLayoutFactory = this.createTemplateLayoutFactory;
   }
 
   createTemplateLayoutFactory = (ymaps: any) => {
@@ -50,32 +53,35 @@ class YandexMap extends Component<{}, State> {
   onMapClick = () => {
     const { activeDepartment } = this.state;
     if (activeDepartment) {
-      this.setState({ activeDepartment: false });
+      this.setState({ activeDepartment: null });
     }
   };
 
   render() {
     const { activeDepartment } = this.state;
+    const { searchedCoordinates } = this.props;
+    const coordinates = searchedCoordinates;
+
     return (
       <>
-        {activeDepartment && <ActiveDepartment />}
+        {activeDepartment !== null && <ActiveDepartment department={activeDepartment} />}
         <YMaps>
           <Map
             defaultState={mapData}
             width="100%"
             height="100%"
             onLoad={this.createTemplateLayoutFactory}
-            modules={["templateLayoutFactory"]}
+            modules={['templateLayoutFactory']}
             onClick={this.onMapClick}
           >
-            {coordinates.map((coordinate) => (
+            {coordinates.map(coordinate => (
               <Placemark
-                geometry={coordinate}
+                geometry={coordinate.coords}
                 options={{
-                  iconLayout: "default#image",
+                  iconLayout: 'default#image',
                   iconImageHref: PlacemarkIcon,
                 }}
-                onClick={() => this.setState({ activeDepartment: true })}
+                onClick={() => this.setState({ activeDepartment: coordinate })}
               />
             ))}
 

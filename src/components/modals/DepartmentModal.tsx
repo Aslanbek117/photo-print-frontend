@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Modal } from "antd";
-import YandexMap from "../departments/Department";
-import SearchIcon from "./search-icon-2.png";
-import CloseIcon from "./close.svg";
-import "./style.css";
+import React, { useState, useEffect } from 'react';
+import { Modal } from 'antd';
+import { useDebounce } from 'helpers/hooks';
+import YandexMap from '../departments/Department';
+import Icon from '../icon';
+import './style.css';
 
 interface ModalProps {
   isVisible: boolean;
@@ -12,8 +12,44 @@ interface ModalProps {
   title: string;
 }
 
+const YANDEX_GEOCODE_KEY = '518ec391-229c-4e70-81ca-09dbe544157a';
+
 export const DepartmentModal = (props: ModalProps) => {
-  const [searchValue, setSearchValue] = useState<string>("");
+  const [coordinates, setCoordinates] = useState<{ coords: number[]; address: string }[]>([]);
+  const [searchValue, setSearchValue] = useState<string>('');
+  const debouncedSearchTerm = useDebounce(searchValue, 2000);
+
+  // TODO: переписать геокодер
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      fetch(
+        `https://geocode-maps.yandex.ru/1.x?geocode=${debouncedSearchTerm}&apikey=${YANDEX_GEOCODE_KEY}&format=json&ll=43.238949,76.889709&spn=3.552069,2.400552&results=10`
+      )
+        .then(res => res?.json())
+        .then(async res => {
+          const response = res?.response?.GeoObjectCollection?.featureMember;
+
+          let coordsArray: { coords: number[]; address: string }[] = [];
+
+          await response?.map((resItem: any) => {
+            const position = resItem?.GeoObject?.Point?.pos;
+            const address: string = resItem?.GeoObject?.description;
+            if (address.includes('Алматы')) {
+              const posArr = position.split(' ');
+              const normalizedPos: number[] = [parseFloat(posArr?.[1]), parseFloat(posArr?.[0])];
+              coordsArray.push({ coords: normalizedPos, address: resItem?.GeoObject?.name });
+              return normalizedPos;
+            }
+            return [];
+          });
+
+          setCoordinates(coordsArray);
+        })
+        .catch(e => console.log(e, 'errir'));
+    } else {
+      setCoordinates([]);
+    }
+  }, [debouncedSearchTerm]);
 
   return (
     <Modal
@@ -23,23 +59,23 @@ export const DepartmentModal = (props: ModalProps) => {
       onCancel={props.onCancel}
       footer={null}
       style={{ minHeight: 620 }}
-      closeIcon={<img src={CloseIcon} />}
+      closeIcon={<Icon icon="close-16" width={16} height={16} />}
     >
       <div className="search-input-modal">
         <i className="search-icon-modal">
-          <img src={SearchIcon} />
+          <Icon icon="grey-search-13" width={13} height={13} />
         </i>
         <input
           className="search-input-field-modal"
           placeholder="Введите адрес"
           value={searchValue}
-          onChange={(event) => {
+          onChange={event => {
             setSearchValue(event.target.value);
           }}
         />
       </div>
       <div style={{ marginTop: 15, height: 460 }}>
-        <YandexMap />
+        <YandexMap searchedCoordinates={coordinates} />
       </div>
     </Modal>
   );
