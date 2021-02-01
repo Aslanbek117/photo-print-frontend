@@ -1,11 +1,11 @@
-import React from "react";
-import { List, Image } from "antd";
-import Text from "../text";
-import "./steps.css";
-import { ProcessModel } from "../../models/search/Search";
+import React from 'react';
+import { List, Image } from 'antd';
+import Text from '../text';
+import './steps.css';
+import { ProcessModel } from '../../models/search/Search';
 
 interface StepsProps {
-  data: ProcessModel[];
+  data: any;
 }
 
 export const StepsComponent = (props: StepsProps) => {
@@ -14,7 +14,7 @@ export const StepsComponent = (props: StepsProps) => {
       <List
         itemLayout="horizontal"
         dataSource={props.data}
-        renderItem={(item, index) => (
+        renderItem={(item: any, index) => (
           <>
             <List.Item>
               <List.Item.Meta
@@ -27,30 +27,23 @@ export const StepsComponent = (props: StepsProps) => {
                 }
                 description={
                   <>
-                    <Text>{item.description}</Text>
+                    <Text>{item?.description}</Text>
                     <br />
-                    {item.files.map((f) => (
+                    {item?.files?.map(f => (
                       <>
                         <div
                           style={{
-                            display: "flex",
-                            flexWrap: "wrap",
-                            justifyContent: "space-between",
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            justifyContent: 'space-between',
                           }}
                         >
                           <div className="img-border">
                             <Image
                               className="img-style"
-                              src={
-                                "http://halyk-wiki.cfp.corp.p-s.kz/file-server/" +
-                                f.name
-                              }
+                              src={'http://halyk-wiki.cfp.corp.p-s.kz/file-server/' + f.name}
                             />
-                            <Text
-                              type="small"
-                              color="#171717"
-                              style={{ maxWidth: 120 }}
-                            >
+                            <Text type="small" color="#171717" style={{ maxWidth: 120 }}>
                               {f.name}
                             </Text>
                           </div>

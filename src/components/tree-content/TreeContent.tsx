@@ -42,12 +42,15 @@ export const TreeContent = (props: TreeContentProps) => {
 
   const [articleClicked, setArticleClicked] = useState(false);
 
+  const [categoryToExpand, setCategoryToExpand] = useState(props?.categoryToExpand);
+
   const onSelect = (selectedKeys: any, info: any) => {
     let index = selectedKeys.toString().lastIndexOf('/') + 1;
     let navItem = selectedKeys.toString().slice(index, selectedKeys.toString().length);
     setSelectedNavItem(navItem);
     setNavItemClicked(true);
     setArticleClicked(false);
+    setCategoryToExpand(selectedKeys);
     articlesBySubcategory(navItem);
     // если длина равна 2, то была выбрана сущность
     // если длина равна 3, то была выбрана категория
@@ -62,7 +65,7 @@ export const TreeContent = (props: TreeContentProps) => {
     }
   };
 
-  const onArticleClick = (article_id: number) => {
+  const onArticleClick = (article_id: number, category_to_expand: string[]) => {
     articles.map(s => {
       if (s.article_id === undefined) {
         if (s.id === article_id) {
@@ -78,6 +81,7 @@ export const TreeContent = (props: TreeContentProps) => {
     });
     setArticleClicked(true);
     setNavItemClicked(false);
+    setCategoryToExpand([selectedNavItem, ...category_to_expand]);
   };
 
   useEffect(() => {
@@ -138,7 +142,7 @@ export const TreeContent = (props: TreeContentProps) => {
               treeData={props.treeData}
               token=""
               items={props.treeData}
-              categoryToExpand={props.categoryToExpand}
+              categoryToExpand={categoryToExpand}
             />
           )}
         </div>

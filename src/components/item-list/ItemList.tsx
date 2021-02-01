@@ -7,7 +7,7 @@ import Loader from '../loader';
 
 interface ItemProps {
   items: any[];
-  onClick: (article_id: number) => void;
+  onClick: (article_id: number, category_to_expand: string[]) => void;
   navItemClicked: boolean;
   isLoading: boolean;
 }
@@ -49,9 +49,9 @@ export const ItemList = (props: ItemProps) => {
                         color="#008060"
                         onClick={() => {
                           if (item.id === undefined) {
-                            props.onClick(item.article_id);
+                            props.onClick(item.article_id, item?.path?.split(' / '));
                           } else {
-                            props.onClick(item.id);
+                            props.onClick(item.id, item?.path?.split(' / '));
                           }
                         }}
                       >
