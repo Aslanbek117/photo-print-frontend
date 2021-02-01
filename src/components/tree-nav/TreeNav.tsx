@@ -3,7 +3,6 @@ import { Tree } from 'antd';
 import { GetAllDirs1 } from '../backend-api/api';
 import Loader from '../loader';
 import './tree-nav.css';
-import { Category } from '../category/Category';
 
 interface TreeViewProps {
   onSelect: (selectedKeys: any, info: any) => void;
@@ -43,6 +42,7 @@ export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps)
 
   const [loading, setLoading] = useState(true);
 
+  const [expand, setExpand] = useState<any[]>([]);
 
   useEffect(() => {
     async function fetch() {
@@ -52,6 +52,8 @@ export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps)
     }
 
     fetch();
+
+    setExpand([...props.categoryToExpand])
   }, [props.token, props.categoryToExpand]);
 
   return (
@@ -63,8 +65,9 @@ export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps)
           showIcon={true}
           onSelect={props.onSelect}
           treeData={treeData}
-          expandedKeys={[...props.categoryToExpand]}
+          expandedKeys={expand}
           onExpand={expanded => {
+            setExpand([...expanded])
             props.onExpand(expanded)
           }}
           // switcherIcon={<Icon icon="filled-arrow-bottom" width={10} height={6} />}
