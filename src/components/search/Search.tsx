@@ -23,7 +23,7 @@ export const SearchTop = (props: SearchProps) => {
     const key = 'title';
 
     //get only unique objects array by title
-    const unique = [...new Map(response.result.map(item => [item[key], item])).values()];
+    const unique = [...new Map(response?.result?.map(item => [item[key], item])).values()];
 
     setSuggest(unique);
   };
