@@ -67,7 +67,7 @@ export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps)
           showIcon={true}
           onSelect={props.onSelect}
           treeData={treeData}
-          expandedKeys={expand}
+          defaultExpandedKeys={expand}
           // switcherIcon={<Icon icon="filled-arrow-bottom" width={10} height={6} />}
         >
           {/* {renderTreeNodes(treeData)} */}
