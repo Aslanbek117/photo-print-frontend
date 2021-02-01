@@ -43,7 +43,7 @@ export const TreePage = (props: any) => {
     } else {
       setLoading(false);
     }
-  }, [location.pathname, props.token]);
+  }, [location.pathname, props.token, location]);
 
   const searchArticles = async (searchValue: string) => {
     const resp: SearchResponseDTO = await Search('', searchValue);
