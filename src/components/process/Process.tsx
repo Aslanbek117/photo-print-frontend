@@ -11,11 +11,18 @@ interface ProcessProps {
   data?: ProcessModel[];
 }
 
+const operatorData = [
+  { description: 'Необходимо проверить, что клиент выполнил весь процесс' },
+  { description: 'Завести заявку на изменение' },
+  { description: 'Отписать департаменту о появлении запроса' },
+];
+
 export const Process = (props: ProcessProps) => {
   const [activeTabKey, setActiveTabKey] = useState('1');
+
   return (
     <>
-      <Tabs defaultActiveKey="1" onChange={(key) => setActiveTabKey(key)}>
+      <Tabs defaultActiveKey="1" onChange={key => setActiveTabKey(key)}>
         <TabPane
           tab={
             <div className="process-tab-container">
@@ -46,7 +53,7 @@ export const Process = (props: ProcessProps) => {
           }
           key="2"
         >
-          {props.data !== null ? <StepsComponent data={props.data!} /> : ''}
+          {props.data !== null ? <StepsComponent data={operatorData} /> : ''}
         </TabPane>
       </Tabs>
     </>
