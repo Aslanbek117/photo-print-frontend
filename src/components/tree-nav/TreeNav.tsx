@@ -51,9 +51,11 @@ export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps)
     }
 
     fetch();
-    console.log("ZAEBAL", props.categoryToExpand);
-    let newArr = props.categoryToExpand.filter(e => e)
-    setExpand(newArr)
+    let newArr = [...props.categoryToExpand]
+    // newArr = newArr.filter(e => e)
+    var the = newArr.filter(e => e)
+    console.log("the", the)
+    setExpand(the)
   }, [props.token, props.categoryToExpand]);
 
   return (
@@ -65,7 +67,7 @@ export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps)
           showIcon={true}
           onSelect={props.onSelect}
           treeData={treeData}
-          defaultExpandedKeys={expand}
+          expandedKeys={expand}
           // switcherIcon={<Icon icon="filled-arrow-bottom" width={10} height={6} />}
         >
           {/* {renderTreeNodes(treeData)} */}
