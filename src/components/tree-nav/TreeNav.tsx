@@ -3,6 +3,7 @@ import { Tree } from 'antd';
 import { GetAllDirs1 } from '../backend-api/api';
 import Loader from '../loader';
 import './tree-nav.css';
+import { Category } from '../category/Category';
 
 interface TreeViewProps {
   onSelect: (selectedKeys: any, info: any) => void;
@@ -11,6 +12,7 @@ interface TreeViewProps {
   items: any[];
   loading: boolean;
   categoryToExpand: string[];
+  onExpand: (expandData: any[]) => void;
 }
 
 //рекурсинвное решение отрицательно сказывается на памяти - в будущем требуется переписать. s
@@ -41,7 +43,6 @@ export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps)
 
   const [loading, setLoading] = useState(true);
 
-  const [expand, setExpand] = useState<string[]>([]);
 
   useEffect(() => {
     async function fetch() {
@@ -51,11 +52,6 @@ export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps)
     }
 
     fetch();
-    let newArr = [...props.categoryToExpand]
-    // newArr = newArr.filter(e => e)
-    var the = newArr.filter(e => e)
-    console.log("the", the)
-    setExpand(the)
   }, [props.token, props.categoryToExpand]);
 
   return (
@@ -67,7 +63,10 @@ export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps)
           showIcon={true}
           onSelect={props.onSelect}
           treeData={treeData}
-          defaultExpandedKeys={expand}
+          expandedKeys={[...props.categoryToExpand]}
+          onExpand={expanded => {
+            props.onExpand(expanded)
+          }}
           // switcherIcon={<Icon icon="filled-arrow-bottom" width={10} height={6} />}
         >
           {/* {renderTreeNodes(treeData)} */}

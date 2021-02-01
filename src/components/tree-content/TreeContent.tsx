@@ -14,7 +14,6 @@ import {
 import Loader from '../loader';
 import { Article } from '../article/Article';
 import { BackToMainPage } from '../back-to-main/BackToMainPage';
-import { PropertySafetyOutlined } from '@ant-design/icons';
 const { Content, Sider } = Layout;
 
 interface TreeContentProps {
@@ -43,6 +42,8 @@ export const TreeContent = (props: TreeContentProps) => {
   const [articleClicked, setArticleClicked] = useState(false);
 
   const [categoryToExpand, setCategoryToExpand] = useState<string[]>(props?.categoryToExpand);
+
+  const [expanded, setExpanded] = useState<any[]>([]);
 
   const onSelect = (selectedKeys: any, info: any) => {
     let index = selectedKeys.toString().lastIndexOf('/') + 1;
@@ -82,13 +83,14 @@ export const TreeContent = (props: TreeContentProps) => {
     });
     setArticleClicked(true);
     setNavItemClicked(false);
-    setCategoryToExpand([selectedNavItem, ...category_to_expand]);
+    setCategoryToExpand([...expanded, ...category_to_expand]);
   };
 
   useEffect(() => {
     setArticles(props.items);
     setArticleLoading(false);
     setArticleClicked(false);
+
   }, [props.items, setArticles, props.searchText]);
 
   const articlesBySubcategory = async (subcategory_title: string) => {
@@ -121,6 +123,11 @@ export const TreeContent = (props: TreeContentProps) => {
     setArticleLoading(false);
   };
 
+
+  const onExpand = (expanded: any[]) => {
+    setExpanded(expanded);
+  }
+
   return (
     <Layout style={{ height: 'fit-content', backgroundColor: 'transparent' }}>
       <Sider
@@ -144,6 +151,7 @@ export const TreeContent = (props: TreeContentProps) => {
               token=""
               items={props.treeData}
               categoryToExpand={categoryToExpand}
+              onExpand={onExpand}
             />
           )}
         </div>
