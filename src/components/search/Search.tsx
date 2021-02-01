@@ -50,6 +50,7 @@ export const SearchTop = (props: SearchProps) => {
   };
 
   const onClickSearch = (searchVal: string) => {
+    setSuggest([]);
     if (searchVal) {
       history.push({
         pathname: '/search',

@@ -49,7 +49,8 @@ export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps)
     }
 
     fetch();
-  }, [props.token]);
+    console.log("ZAEBAL", props.categoryToExpand);
+  }, [props.token, props.categoryToExpand]);
 
   return (
     <>
@@ -60,7 +61,7 @@ export const TreeView: FunctionComponent<TreeViewProps> = (props: TreeViewProps)
           showIcon={true}
           onSelect={props.onSelect}
           treeData={treeData}
-          expandedKeys={props.categoryToExpand}
+          defaultExpandedKeys={props.categoryToExpand}
           // switcherIcon={<Icon icon="filled-arrow-bottom" width={10} height={6} />}
         >
           {/* {renderTreeNodes(treeData)} */}
