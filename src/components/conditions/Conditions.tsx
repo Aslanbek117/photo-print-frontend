@@ -16,7 +16,7 @@ export const Conditions = (props: ConditionProps) => {
               {i.files.map((j) => (
                 <img
                   alt=""
-                  src={'http://halyk-wiki.cfp.corp.p-s.kz/file-server/' + j.name}
+                  src={'http://10.3.19.73/file-server/' + j.name}
                   style={{ maxWidth: '100%' }}
                 />
               ))}

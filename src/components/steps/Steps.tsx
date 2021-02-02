@@ -41,7 +41,7 @@ export const StepsComponent = (props: StepsProps) => {
                           <div className="img-border">
                             <Image
                               className="img-style"
-                              src={'http://halyk-wiki.cfp.corp.p-s.kz/file-server/' + f.name}
+                              src={'http://10.3.19.73/file-server/' + f.name}
                             />
                             <Text type="small" color="#171717" style={{ maxWidth: 120 }}>
                               {f.name}
