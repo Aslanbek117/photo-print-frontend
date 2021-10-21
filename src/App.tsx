@@ -1,23 +1,32 @@
-import React from 'react';
-import './App.css';
-import 'antd/dist/antd.css';
-import 'ant-design-pro/dist/ant-design-pro.css'; // Import whole style
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { MainPage } from './components/mainPage/MainPage';
-import { TreePage } from './components/treePage/TreePage';
+import * as React from 'react';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Layout, Menu, Breadcrumb } from 'antd';
+import { CarouselComponent } from 'components/material/carousel';
+import { CardComponent } from 'components/material/cards';
+import { BrowserRouter } from 'react-router-dom';
 
-function App() {
+import "antd/dist/antd.css";
+import "./app.css";
+import { SearchHeader } from 'components/search-header/SearchHeader';
+import Sider from 'antd/lib/layout/Sider';
+import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+import App from 'components/material/main';
+import { Route } from 'react-router';
+import CardList from 'components/material/card-list';
+import { Shop }  from 'components/material/shop';
+const { Header, Content, Footer } = Layout;
+
+
+const { SubMenu } = Menu;
+
+export default function Index() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={MainPage} />
-        <Route
-          exact path="/search"
-          component={() => <TreePage key={window.location.pathname} />}
-        />
-      </Switch>
-    </Router>
+    <BrowserRouter>
+      <Route exact path='/' component={Shop}/>
+      <Route path="/shop" componen={Shop} /> 
+      <Route  path='/categories' component={CardList}/>
+  </BrowserRouter>
   );
 }
-
-export default App;

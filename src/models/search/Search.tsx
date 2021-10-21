@@ -64,3 +64,20 @@ export interface EntityWithCategoriesDTO {
     title: string;
     categories: Categories[];
 }
+
+
+
+
+export interface PhotoPprint {
+    ID: number; 
+    title: string; 
+    img: string;
+    path: string;
+    full_img_path: string;
+    category: string;
+}
+
+export interface Category {
+    name: string; 
+    count: number;
+}

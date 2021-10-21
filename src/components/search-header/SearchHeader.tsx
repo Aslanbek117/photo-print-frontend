@@ -37,7 +37,7 @@ interface SearchProps {
     onClick: (searchInput: string) => void;
 }
 
-export const SearchHeader = (props: SearchProps) => {
+export const SearchHeader = () => {
 
     const history = useHistory()
 
@@ -95,7 +95,7 @@ export const SearchHeader = (props: SearchProps) => {
                 />
                 {/* <SearchDropdown items={filteredItems()} /> */}
                 <button className="search-button-header" onClick={() => {
-                    props.onClick(searchValue)
+                    // props.onClick(searchValue)
                     history.push("/nav/" + searchValue)
                 }} >
                     <span className="search-button-text-header">
