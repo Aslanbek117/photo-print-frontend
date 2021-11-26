@@ -20,6 +20,7 @@
     "ant-design-pro": "^2.3.2",
     "antd": "^4.10.0",
     "axios": "^0.21.1",
+    "express": "^4.17.1",
     "mdbreact": "^5.0.1",
     "node-sass": "^4.14.1",
     "query-string": "^6.13.8",
@@ -31,7 +32,7 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
