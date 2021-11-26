@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Halyk Wiki",
   "license": "ISC",
+  "engines": { 
+    "node": "12.16.0" 
+  },
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "@emotion/react": "^11.4.1",
