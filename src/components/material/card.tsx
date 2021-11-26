@@ -6,20 +6,29 @@ interface CardProps {
   title: string;
   src: string;
   price: number;
+  onClick?: () => void;
 }
 
 export const Card = (props: CardProps) => {
+
+ 
   return (
     <>
-      <div className="product h-100">
+      <div className="product h-100"
+      onClick={() => console.log("XUI")}>
         <div className="product-image">
-          <a href="shop-detail.html">
+          {/* <a href="shop-detail.html">
             <img
               className="img-fluid"
               src={props.src}
               alt={props.title}
             />
-          </a>
+          </a> */}
+           <img
+              className="img-fluid"
+              src={props.src}
+              alt={props.title}
+            />
         </div>
         <div className="py-4 px-3 text-center">
           <h3 className="h5 text-uppercase mb-3">

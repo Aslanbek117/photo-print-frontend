@@ -2,25 +2,116 @@ import * as React from "react";
 import TopBar from "./top-bar.js";
 import Header from "./header.js";
 import "./app.css";
-import SiteTitle from "./site-title.js";
 import { Card } from "./card";
-import { Discount } from "./discount";
 import { Categories } from "./categories";
 import { Footer } from "./footer";
 import { PhotoPprint } from "../../models/search/Search";
 import { useState, useEffect } from "react";
 import { GetPhotoPrints } from "components/backend-api/api";
 import Loader from "components/loader";
+import { ShopPagination } from "./shop-pagination";
+
+function getQueryVariable(variable)
+{
+        var query = window.location.search.substring(1);
+        console.log(query)//"app=article&act=news_content&aid=160990"
+        var vars = query.split("&");
+        console.log(vars) //[ 'app=article', 'act=news_content', 'aid=160990' ]
+        for (var i=0;i<vars.length;i++) {
+                    var pair = vars[i].split("=");
+                    // console.log(pair)//[ 'app', 'article' ][ 'act', 'news_content' ][ 'aid', '160990' ] 
+        if(pair[0] == variable){return pair[1];}
+         }
+         return(false);
+}
+
 
 export const Shop = () => {
   const [data, setData] = useState<PhotoPprint[]>([]);
 
+  const [pages, setPages] = useState<Number[]>([]);
+
+  const [arrPages, setArrPages] = useState<number[]>([]);
+
+  const [currentPage, setCurrentPage] = useState<string>("1");
+
+  const [currentPerPage, setCurrentPerpage] = useState<string>("50");
+
+  const [category, setCategory] = useState<string>("");
+
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+   
+    //160990
+
     async function fetch() {
-      const response = await GetPhotoPrints("some_token");
+      let response: any;
+      let page = getQueryVariable('page')
+      let perPage =  getQueryVariable('per_page');   
+      let category = getQueryVariable('category')
+      
+      if (!category) {
+        category = ""
+      } 
+
+      if (page === null || page === false) {
+        setCurrentPage("1")
+      } else {
+        setCurrentPage(page.toString());
+      }
+
+      if (perPage === null  || perPage === false) {
+        setCurrentPerpage("50");
+      } else {
+        setCurrentPerpage("50")
+      }
+
+      if (perPage === null || perPage === false  || page === null || page === false) {
+        if (!category) {
+          response = await GetPhotoPrints("some_token", "1", "50", "");  
+        } else {
+          response = await GetPhotoPrints("some_token", "1", "50", category);
+        }
+        
+      } else {
+        if (!category) {
+          response = await GetPhotoPrints("some_token", page.toString(), "50", "");  
+        } else {
+          response = await GetPhotoPrints("some_token", page.toString(), "50", category);
+        }
+      }
+      setCategory(category.toString());
       setData(response.result.merchants);
+      let count = response.result.rows_count / 50;
+      let page_count =  Math.floor(count);
+      let pages: Number[] = [];
+      if (!page || page == '' ) {
+        if (count > 10 ) {
+          for (var i=0; i < 10; i++) {
+            pages.push(i)
+          }  
+        } else {
+          for (var i=0; i < count; i++) {
+            pages.push(i)
+          }
+        }
+      } else {
+
+        if (count > 10 ) {
+          for (var i=parseInt(page.toString(), 10); i < parseInt(page.toString(), 10) + 10; i++) {
+            pages.push(i+1)
+          }  
+        } else {
+          for (var i=parseInt(page.toString(), 10); i < count; i++) {
+            pages.push(i+1)
+          }
+        }
+        
+      }
+      
+      setPages(pages);
       setLoading(false);
     }
 
@@ -34,46 +125,15 @@ export const Shop = () => {
       ) : (
         <div className="wide" id="all">
           <TopBar />
-          {/* <div className="modal fade" id="login-modal" tabindex="-1" aria-labelledby="login-modalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h4 className="modal-title text-uppercase" id="login-modalLabel">Customer Login</h4>
-              <button className="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <form action="customer-orders.html" method="get">
-                <div className="form-group mb-3">
-                  <input className="form-control" id="email_modal" type="text" placeholder="email"/>
-                </div>
-                <div className="form-group mb-3">
-                  <input className="form-control" id="password_modal" type="password" placeholder="password" />
-                </div>
-                <p className="text-center">
-                  <button className="btn btn-outline-primary"><i className="fas fa-door-open"></i> Log in</button>
-                </p>
-              </form>
-              <p className="text-center text-muted small">Not registered yet?</p>
-              <p className="text-center text-muted small"><a href="customer-register.html"><strong>Register now</strong></a>! It is easy and done in 1 minute and gives you access to special discounts and much more!</p>
-            </div>
-          </div>
-        </div>
-      </div> */}
           <Header />
-          {/* <SiteTitle /> */}
           <section className="py-5">
             <div className="container py-4">
               <div className="row g-5">
               <Categories />
-              {/* <Categories /> */}
                 <div className="col-lg-9">
                   <h3 className="h4 text-uppercase mb-4 text-center">
                   Модульные картины
                   </h3>
-                  {/* <h3 className="text-center mb-5">
-                  Модульные картины
-
-                  </h3> */}
                   <div className="row gy-5 align-items-stretch">
                     {data.map((d) => (
                       <div className="col-lg-4 col-md-4 col-xs-6 col-6">
@@ -84,67 +144,9 @@ export const Shop = () => {
                         />
                       </div>
                     ))}
-
-                 
-
-                        
-
-                    {/* PAGINATION */}
                   </div>
-                  <a className="d-block text-center py-4">
-                    <img
-                      className="img-fluid"
-                      src="img/banner2.jpg"
-                      alt="banner"
-                    />
-                  </a>
-                  <div className="text-center mb-5">
-                    <a className="btn btn-outline-primary" href="#">
-                      <i className="fas fa-angle-down me-2"></i>Load more
-                    </a>
-                  </div>
-                  <nav aria-label="Page navigation example">
-                    <ul className="pagination justify-content-center">
-                      <li className="page-item">
-                        <a className="page-link" href="#" aria-label="Previous">
-                          <span aria-hidden="true">«</span>
-                        </a>
-                      </li>
-                      <li className="page-item active">
-                        <a className="page-link" href="#">
-                          1
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          2
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          3
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          4
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          5
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#" aria-label="Next">
-                          <span aria-hidden="true">»</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                  
+                  <ShopPagination page={currentPage} per_page={currentPerPage} pages={pages as number[]} category={category}/>
                 </div>
-                
               </div>
             </div>
           </section>

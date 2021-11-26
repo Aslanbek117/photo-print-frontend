@@ -102,9 +102,9 @@ export const GetEntityArticleCount = async (token: string): Promise<any> => {
 
 
 
-export const GetPhotoPrints= async (token: string): Promise<any> => {
+export const GetPhotoPrints= async (token: string, page: string, perPage: string, category: string): Promise<any> => {
     try {
-        const response = await (await httpClient(token)).get("http://localhost:9092/pub/v1/merchants?page=1&per_page=50")
+        const response = await (await httpClient(token)).get("http://localhost:9092/pub/v1/merchants?page=" + page + "&per_page=" +perPage +"&category=" + category)
         return response.data;
     } catch (err) {
         return {} as any;
