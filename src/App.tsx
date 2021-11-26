@@ -8,7 +8,6 @@ import { CardComponent } from 'components/material/cards';
 import { BrowserRouter } from 'react-router-dom';
 
 import "antd/dist/antd.css";
-import "./app.css";
 import { SearchHeader } from 'components/search-header/SearchHeader';
 import Sider from 'antd/lib/layout/Sider';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
