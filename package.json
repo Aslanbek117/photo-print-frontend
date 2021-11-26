@@ -2,14 +2,6 @@
   "name": "solution",
   "version": "0.1.0",
   "description": "Halyk Wiki",
-  "repository": {
-    "type": "git",
-    "url": "https://repo.p-s.kz/halyk-wiki/halyk-wiki-frontend"
-  },
-  "author": {
-    "name": "Makhabbat Galym",
-    "email": "m.galym@p-s.kz"
-  },
   "license": "ISC",
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
