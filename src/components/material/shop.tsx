@@ -17,6 +17,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { Nav } from "./nav";
+import SiteHeader from "./header.js";
 
 function getQueryVariable(variable)
 {
@@ -132,12 +134,14 @@ export const Shop = () => {
       ) : (
         <div className="wide" id="all">
           <TopBar />
-          <Header />
+          <SiteHeader />
           <section className="py-5">
             <div className="container py-4">
+              
               <div className="row g-5">
               <Categories />
                 <div className="col-lg-9">
+                  <Nav />
                   <h3 className="h4 text-uppercase mb-4 text-center">
                   Модульные картины
                   </h3>

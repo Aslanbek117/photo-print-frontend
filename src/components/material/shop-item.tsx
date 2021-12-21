@@ -8,6 +8,8 @@ import { Card } from "./card";
 
 import { Tabs } from "antd";
 import { TabItem } from "./tab-item";
+import { Nav } from "./nav";
+import SiteHeader from "./header.js";
 
 const { TabPane } = Tabs;
 
@@ -71,12 +73,12 @@ export const ShopItem = (props: ShopItemProps) => {
         <Loader />
       ) : (
         <>
-          <p> {selected} </p>
           <div className="wide" id="all">
             <TopBar />
-            <Header />
-            <section className="py-5" style={{ backgroundColor: "white" }}>
+            <SiteHeader />
+            <section className="py-3" style={{ backgroundColor: "white" }}>
               <div className="container">
+               <Nav />
                 <div className="row g-5">
                   <div className="col-lg-12">
                     <div className="row gy-5 align-items-stretch">
@@ -88,7 +90,7 @@ export const ShopItem = (props: ShopItemProps) => {
                                 className="img-fluid"
                                 src="https://www.allstick.ru//@s/image-cache/bcf/bcf57e7f7d4e-u..product~35~35795~5e8a3d4ae89d1.fit.max.h.400.local.gallery~offset~50.w.400~xgxgxgxdxkx.jpg"
                                 alt="..."
-                                style={{maxWidth: '95%'}}
+                                style={{ maxWidth: "95%" }}
                               />
                             </div>
                             {/* <div className="swiper-slide"><img className="img-fluid" src="https://www.allstick.ru//@s/image-cache/bcf/bcf57e7f7d4e-u..product~35~35795~5e8a3d4ae89d1.fit.max.h.400.local.gallery~offset~50.w.400~xgxgxgxdxkx.jpg" alt="..."/></div> */}
@@ -105,7 +107,7 @@ export const ShopItem = (props: ShopItemProps) => {
                                 className="img-fluid"
                                 src="https://www.allstick.ru//@s/image-cache/bcf/bcf57e7f7d4e-u..product~35~35795~5e8a3d4ae89d1.fit.max.h.400.local.gallery~offset~50.w.400~xgxgxgxdxkx.jpg"
                                 alt="..."
-                                style={{width: '95%', height: '100%'}}
+                                style={{ width: "95%", height: "100%" }}
                               />
                             </div>
                             {/* <div className="swiper-slide"><img className="img-fluid" src="https://www.allstick.ru//@s/image-cache/bcf/bcf57e7f7d4e-u..product~35~35795~5e8a3d4ae89d1.fit.max.h.400.local.gallery~offset~50.w.400~xgxgxgxdxkx.jpg" alt="..."/></div> */}
@@ -165,19 +167,11 @@ export const ShopItem = (props: ShopItemProps) => {
                     </div>
                   </div>
 
-                  
-
                   <ul className="nav justify-content-center">
                     <TabItem
                       text="Характеристики"
                       href=""
                       id={1}
-                      setSelected={onSelect}
-                    />
-                    <TabItem
-                      text="Пункты самовывоза"
-                      href=""
-                      id={2}
                       setSelected={onSelect}
                     />
                     <TabItem
@@ -198,7 +192,6 @@ export const ShopItem = (props: ShopItemProps) => {
                       >
                         <div className="container">
                           <div className="row">
-
                             <div className="col-lg-6 col-sm-6">
                               <p className="text-center">
                                 Натуральный плотный холст. Печать УФ стойкими
@@ -219,7 +212,7 @@ export const ShopItem = (props: ShopItemProps) => {
                           </div>
 
                           <div className="row mt-4">
-                          <div className="col-lg-6 col-sm-6">
+                            <div className="col-lg-6 col-sm-6">
                               <p className="text-center">
                                 Натуральный плотный холст. Печать УФ стойкими
                                 красками. Матовое или глянцевое покрытие на
@@ -238,7 +231,7 @@ export const ShopItem = (props: ShopItemProps) => {
                             </div>
                           </div>
                           <div className="row mt-4">
-                          <div className="col-lg-6 col-sm-6">
+                            <div className="col-lg-6 col-sm-6">
                               <p className="text-center">
                                 Натуральный плотный холст. Печать УФ стойкими
                                 красками. Матовое или глянцевое покрытие на
