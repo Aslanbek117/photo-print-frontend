@@ -7,6 +7,7 @@ interface CardProps {
   src: string;
   price: number;
   onClick?: () => void;
+  isDiscountEnable: boolean;
 }
 
 export const Card = (props: CardProps) => {
@@ -14,8 +15,7 @@ export const Card = (props: CardProps) => {
  
   return (
     <>
-      <div className="product h-100"
-      onClick={() => console.log("XUI")}>
+      <div className="product h-100">
         <div className="product-image">
           {/* <a href="shop-detail.html">
             <img
@@ -39,7 +39,7 @@ export const Card = (props: CardProps) => {
           <p className="mb-0">{props.price}</p>
         </div>
         <ul className="list-unstyled p-0 ribbon-holder mb-0"></ul>
-        <Discount />
+        {props.isDiscountEnable ? <Discount /> : null}
 
       </div>
     </>

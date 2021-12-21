@@ -10,6 +10,13 @@ import { useState, useEffect } from "react";
 import { GetPhotoPrints } from "components/backend-api/api";
 import Loader from "components/loader";
 import { ShopPagination } from "./shop-pagination";
+import { useHistory } from "react-router";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function getQueryVariable(variable)
 {
@@ -137,11 +144,14 @@ export const Shop = () => {
                   <div className="row gy-5 align-items-stretch">
                     {data.map((d) => (
                       <div className="col-lg-4 col-md-4 col-xs-6 col-6">
+                        <Link to={"/item?id=" + d.id}>
                         <Card
                           title={d.title}
                           src={d.full_img_path}
-                          price={143}
+                          price={d.id}
+                          isDiscountEnable={true}
                         />
+                        </Link>
                       </div>
                     ))}
                   </div>

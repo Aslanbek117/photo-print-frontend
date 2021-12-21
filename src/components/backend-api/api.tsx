@@ -104,7 +104,7 @@ export const GetEntityArticleCount = async (token: string): Promise<any> => {
 
 export const GetPhotoPrints= async (token: string, page: string, perPage: string, category: string): Promise<any> => {
     try {
-        const response = await (await httpClient(token)).get("https://fathomless-shore-28522.herokuapp.com/pub/v1/merchants?page=" + page + "&per_page=" +perPage +"&category=" + category)
+        const response = await (await httpClient(token)).get("http://localhost:9092/pub/v1/merchants?page=" + page + "&per_page=" +perPage +"&category=" + category)
         return response.data;
     } catch (err) {
         return {} as any;
@@ -114,7 +114,16 @@ export const GetPhotoPrints= async (token: string, page: string, perPage: string
 
 export const GetCategories = async (token: string): Promise<any> => {
     try {
-        const response = await (await httpClient(token)).get("https://fathomless-shore-28522.herokuapp.com/pub/v1/categories")
+        const response = await (await httpClient(token)).get("http://localhost:9092/pub/v1/categories")
+        return response.data;
+    } catch (err) {
+        return {} as any;
+    }
+}
+
+export const GetItem = async (token: string, id: number): Promise<any> => {
+    try {
+        const response = await (await httpClient(token)).get("http://localhost:9092/pub/v1/item?id=" + id)
         return response.data;
     } catch (err) {
         return {} as any;

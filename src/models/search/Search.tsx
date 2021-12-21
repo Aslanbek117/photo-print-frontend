@@ -69,7 +69,7 @@ export interface EntityWithCategoriesDTO {
 
 
 export interface PhotoPprint {
-    ID: number; 
+    id: number; 
     title: string; 
     img: string;
     path: string;

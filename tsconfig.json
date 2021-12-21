@@ -20,13 +20,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "react",
     "baseUrl": "src",
     "downlevelIteration": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false
   },
   "include": [
-    "src"
+    "src",
+    "server.js"
   ]
 }

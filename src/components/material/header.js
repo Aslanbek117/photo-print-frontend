@@ -12,8 +12,8 @@ export default function Header() {
             <button class="navbar-toggler text-primary border-primary" type="button" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation"><span class="sr-only">Toggle navigation</span><i class="fas fa-align-justify"></i></button>
             <div class="collapse navbar-collapse" id="navigationCollapse">
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="hpDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Модульные картины</a>
-                  <ul class="dropdown-menu" aria-labelledby="hpDropdown">
+                <li class="nav-item dropdown"><a class="nav-link"  href="/" role="button"  aria-expanded="false">Модульные картины</a>
+                  {/* <ul class="dropdown-menu" aria-labelledby="hpDropdown">
                     <li><a class="dropdown-item text-uppercase border-bottom" href="index.html">Option 1: Default Page </a></li>
                     <li><a class="dropdown-item text-uppercase border-bottom" href="index2.html">Option 2: Application </a></li>
                     <li><a class="dropdown-item text-uppercase border-bottom" href="index3.html">Option 3: Startup </a></li>
@@ -26,7 +26,7 @@ export default function Header() {
                         <li><a class="dropdown-item text-uppercase border-bottom" href="">Something else here </a></li>
                       </ul>
                     </li>
-                  </ul>
+                  </ul> */}
                 </li>
                 <li class="nav-item dropdown menu-large"><a class="nav-link dropdown-toggle" id="featuresMegamenu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Фотообои</a>
                   <ul class="dropdown-menu megamenu p-4" aria-labelledby="featuresMegamenu">
