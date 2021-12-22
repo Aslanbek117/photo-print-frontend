@@ -135,8 +135,8 @@ export const Shop = () => {
         <div className="wide" id="all">
           <TopBar />
           <SiteHeader />
-          <section className="py-5">
-            <div className="container py-4">
+          <section className="py-3">
+            <div className="container py-0">
               
               <div className="row g-5">
               <Categories />

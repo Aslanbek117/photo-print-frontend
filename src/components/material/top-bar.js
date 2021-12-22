@@ -5,6 +5,7 @@ import "./app.css";
 export default function TopBar() {
   return (
     <>
+{/*     
       <div class="top-bar py-2" id="topBar" style={{ background: "#555" }}>
         <div class="container px-lg-0 text-light py-1">
           <div class="row d-flex align-items-center">
@@ -87,7 +88,7 @@ export default function TopBar() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

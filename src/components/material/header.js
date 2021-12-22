@@ -24,15 +24,19 @@ export default function SiteHeader() {
     // } else if (window.screen.width <= 768) {
     //   bsCollapse.hide();
     // }
+    //navbar sticky-top navbar-expand-md bg-dark navbar-dark
 
+
+    //navbar sticky-top navbar-light  navbar-expand-lg py-0
   }, []);
 
 
   return (
     <>
       <header class="nav-holder make-sticky">
-        <div class="navbar navbar-light bg-primary navbar-expand-lg py-0">
-          <div class="container py-3 py-lg-0 px-lg-0">
+        
+        <nav class="navbar sticky-top navbar-expand-md bg-dark navbar-dark" id="navbar" style={{borderBottom: '2px solid #F88C00', backgroundColor: 'white'}} >
+          <div class="container py-2 py-lg-0 px-lg-0">
             <a class="navbar-brand" href="index.html">
               <img
                 class="d-none d-md-inline-block"
@@ -368,7 +372,7 @@ export default function SiteHeader() {
               </ul>
             </div>
           </div>
-        </div>
+        </nav>
       </header>
     </>
   );
