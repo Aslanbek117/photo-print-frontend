@@ -135,7 +135,7 @@ export const Shop = () => {
         <div className="wide" id="all">
           <TopBar />
           <SiteHeader />
-          <section className="py-3">
+          <section className="py-3" style={{backgroundColor: 'white'}}>
             <div className="container py-0">
               
               <div className="row g-5">
@@ -151,9 +151,9 @@ export const Shop = () => {
                         <Link to={"/item?id=" + d.id}>
                         <Card
                           title={d.title}
-                          src={d.full_img_path}
+                          src={"http://localhost:9092/" + d.complex_3}
                           price={d.id}
-                          isDiscountEnable={true}
+                          isDiscountEnable={false}
                         />
                         </Link>
                       </div>
@@ -165,7 +165,7 @@ export const Shop = () => {
             </div>
           </section>
 
-          <Footer />
+          {/* <Footer /> */}
         </div>
       )}
     </>

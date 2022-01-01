@@ -17,26 +17,25 @@ export const Card = (props: CardProps) => {
     <>
       <div className="product h-100">
         <div className="product-image">
-          {/* <a href="shop-detail.html">
+          <a href="shop-detail.html">
             <img
               className="img-fluid"
               src={props.src}
               alt={props.title}
             />
-          </a> */}
-           <img
+          </a>
+           {/* <img
               className="img-fluid"
               src={props.src}
               alt={props.title}
-            />
+              style={{ maxWidth: "95%" }}
+              /> */}
         </div>
-        <div className="py-4 px-3 text-center">
-          <h3 className="h5 text-uppercase mb-3">
-            <a className="reset-link" href="shop-detail.html">
+        <div className="py-2 px-2 text-center">
+          <h3 className="h5 text-uppercase mb-1" style={{wordWrap: 'break-word'}}>
               {props.title}
-            </a>
           </h3>
-          <p className="mb-0">{props.price}</p>
+          <p className="mb-0">12 000</p>
         </div>
         <ul className="list-unstyled p-0 ribbon-holder mb-0"></ul>
         {props.isDiscountEnable ? <Discount /> : null}

@@ -1,15 +1,15 @@
 import * as React from 'react';
 import "./app.css";
+import logo from "./logo2.png";
 
 
 export default function TopBar() {
   return (
     <>
-{/*     
-      <div class="top-bar py-2" id="topBar" style={{ background: "#555" }}>
+      <div class="top-bar py-3" id="topBar" style={{ background: "black" }}>
         <div class="container px-lg-0 text-light py-1">
           <div class="row d-flex align-items-center">
-            <div class="col-md-6 d-md-block d-none">
+          <div class="col-md-6 d-md-block d-none">
               <p class="mb-0 text-xs">
                 Contact us on +420 777 555 333 or hello@universal.com.
               </p>
@@ -37,7 +37,7 @@ export default function TopBar() {
                       data-bs-target="#login-modal"
                     >
                       <i class="fas fa-door-open me-2"></i>
-                      <span class="d-none d-md-inline-block">Sign In</span>
+                      <span class="d-none d-md-inline-block" style={{color: 'black'}}>Войти</span>
                     </a>
                   </li>
                   <li class="list-inline-item">
@@ -46,41 +46,32 @@ export default function TopBar() {
                       href="customer-register.html"
                     >
                       <i class="fas fa-user me-2"></i>
-                      <span class="d-none d-md-inline-block">Sign Up</span>
+                      <span class="d-none d-md-inline-block" style={{color:'black'}}>Регистрация</span>
                     </a>
                   </li>
                 </ul>
                 <ul class="list-inline mb-0 ms-lg-4">
-                  <li class="list-inline-item text-gray-600 m-0">
+                  <li class="list-inline-item text-gray-600">
                     <a
                       class="text-xs social-link-hover"
                       href="#"
-                      title="Facebook"
+                      title="Instargam"
                     >
-                      <i class="fab fa-facebook-f"></i>
+                      <i class="fab fa-instagram fa-2x"></i>
                     </a>
                   </li>
-                  <li class="list-inline-item text-gray-600 m-0">
+                  <li class="list-inline-item text-gray-600">
                     <a
                       class="text-xs social-link-hover"
                       href="#"
-                      title="Twitter"
+                      title="Whatsapp"
                     >
-                      <i class="fab fa-twitter"></i>
+                      <i class="fab fa-whatsapp fa-2x"></i>
                     </a>
                   </li>
-                  <li class="list-inline-item text-gray-600 m-0">
-                    <a
-                      class="text-xs social-link-hover"
-                      href="#"
-                      title="Linkedin"
-                    >
-                      <i class="fab fa-linkedin-in"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item text-gray-600 m-0">
+                  <li class="list-inline-item text-gray-600">
                     <a class="text-xs social-link-hover" href="#" title="Email">
-                      <i class="fas fa-envelope"></i>
+                      <i class="fas fa-envelope fa-2x"></i>
                     </a>
                   </li>
                 </ul>
@@ -88,7 +79,7 @@ export default function TopBar() {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }
