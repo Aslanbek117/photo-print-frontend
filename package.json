@@ -30,6 +30,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-yandex-maps": "^4.6.0",
+    "swiper": "^7.4.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

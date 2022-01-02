@@ -17,8 +17,17 @@ import not3x3 from "./3x3_not.png";
 import not1x1 from "./1x1_not.png";
 import is from "./out_5.png";
 
-import "./app.css";
+import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
+import SwiperCore, { Grid, Pagination, Navigation } from "swiper";
+// import { Swiper, SwiperSlide } from "swiper/react";
 import { PhotoPprint } from "models/search/Search";
+
+// Styles must use direct files imports
+import "swiper/swiper.scss"; // core Swiper
+import "swiper/modules/navigation/navigation.scss"; // Navigation module
+import "swiper/modules/grid/grid.scss"; // Navigation module
+
+import "./app.css";
 
 const { TabPane } = Tabs;
 
@@ -29,21 +38,21 @@ interface ShopItemProps {
   category: string;
 }
 
+SwiperCore.use([Grid, Navigation]);
+
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
-  console.log(query); //"app=article&act=news_content&aid=160990"
+  console.log(query);
   var vars = query.split("&");
-  console.log(vars); //[ 'app=article', 'act=news_content', 'aid=160990' ]
+  console.log(vars);
   for (var i = 0; i < vars.length; i++) {
     var pair = vars[i].split("=");
-    // console.log(pair)//[ 'app', 'article' ][ 'act', 'news_content' ][ 'aid', '160990' ]
     if (pair[0] == variable) {
       return pair[1];
     }
   }
   return false;
 }
-
 
 const sizes = [
   { id: 1, width: 15, heigth: 25, url: "" },
@@ -54,104 +63,6 @@ const sizes = [
   { id: 6, width: 60, heigth: 100 },
 ];
 
-const Height2x2 = 35;
-const Width2x2 = 35;
-
-const Height3x3 = 35;
-const Width3x3 = 35;
-
-const Image3x3 = () => {
-  return (
-    <>
-      <img
-        src="https://www.allstick.ru/ui/ht/als2/widgets/detail-product-card-module-picture-settings/300x300.png"
-        style={{
-          maxWidth: Width3x3,
-          maxHeight: Height3x3,
-          minWidth: Width3x3,
-          minHeight: Height3x3,
-          left: "-2px",
-          top: "-6px",
-        }}
-      ></img>
-
-      <img
-        src="https://www.allstick.ru/ui/ht/als2/widgets/detail-product-card-module-picture-settings/300x300.png"
-        style={{
-          maxWidth: Width3x3,
-          maxHeight: Height3x3,
-          minWidth: Width3x3,
-          minHeight: Height3x3,
-          marginLeft: "3px",
-          top: "-6px",
-        }}
-      ></img>
-      <img
-        src="https://www.allstick.ru/ui/ht/als2/widgets/detail-product-card-module-picture-settings/300x300.png"
-        style={{
-          maxWidth: Width3x3,
-          maxHeight: "18px",
-          minWidth: Width3x3,
-          minHeight: Height3x3,
-          marginLeft: "3px",
-          top: "-6px",
-        }}
-      ></img>
-    </>
-  );
-};
-
-const Image2x2 = () => {
-  return (
-    <>
-      <img
-        src="https://www.allstick.ru/ui/ht/als2/widgets/detail-product-card-module-picture-settings/300x300.png"
-        style={{
-          maxWidth: Width2x2,
-          maxHeight: Height2x2,
-          padding: "1px",
-          minWidth: Width2x2,
-          minHeight: Height2x2,
-          left: "-2px",
-          top: "-6px",
-        }}
-      ></img>
-
-      <img
-        src="https://www.allstick.ru/ui/ht/als2/widgets/detail-product-card-module-picture-settings/300x300.png"
-        style={{
-          maxWidth: Width2x2,
-          maxHeight: Height2x2,
-          padding: "1px",
-          minWidth: Width2x2,
-          minHeight: Height2x2,
-          marginLeft: "3px",
-          top: "-6px",
-        }}
-      ></img>
-    </>
-  );
-};
-
-const Image1x1 = () => {
-  return (
-    <>
-      <img
-        src="https://www.allstick.ru/ui/ht/als2/widgets/detail-product-card-module-picture-settings/300x300.png"
-        style={{
-          maxWidth: Width2x2 * 2,
-          maxHeight: Height2x2,
-          padding: "1px",
-          minWidth: Width2x2 * 2,
-          minHeight: Height2x2,
-          left: "-2px",
-          top: "-6px",
-        }}
-      ></img>
-    </>
-  );
-};
-
 export const ShopItem = (props: ShopItemProps) => {
   const [loading, setLoading] = React.useState(true);
 
@@ -161,34 +72,11 @@ export const ShopItem = (props: ShopItemProps) => {
 
   const [imgSelected, setImgSelected] = React.useState(1);
 
-  const [bgColor, setBgColor] = React.useState("white");
-
-  const [styles, setStyles] = React.useState(new Map());
-
   const [imageUrl, setImageUrl] = React.useState("");
 
   const onSelect = (id: number) => {
     console.log(id);
     setSelected(id);
-  };
-
-  const onSizeChange = (id: number) => {
-    setImgSelected(id);
-    return id;
-  };
-
-  const onMouseOver = (id: number) => {
-    let myMap = styles;
-
-    myMap.set(id, true);
-
-    for (let key of myMap.keys()) {
-      if (key != id) {
-        styles.set(key, false);
-      } //Lokesh Raj John
-    }
-
-    setStyles(myMap);
   };
 
   const onImageClick = (id: number) => {
@@ -204,70 +92,75 @@ export const ShopItem = (props: ShopItemProps) => {
       setImageUrl("http://localhost:9092/" + item!.complex_3_low);
     } else if (id == 6) {
       setImageUrl("http://localhost:9092/" + item!.transform);
+    } else if (id >= 7 && id <= 9) {
+      setImageUrl("http://localhost:9092/" + item!.transform);
     }
-    //setImageUrl("https://www.allstick.ru/@s/image-cache/78c/78cfe9e8de91-u..product~35~35892~5e8994591271a.fit.max.w.1000~xgxgxgx.jpg");
   };
 
-
-const ImageTypes = () => {
-  return (
-    <>
-      <div className="row justify-content-center">
-        <div
-          className={"py-3 col-lg-4 col-md-4 col-xs-4 col-4  text-center sepia px-0"}
-        >
+  const ImageTypes = () => {
+    return (
+      <Swiper
+        slidesPerView={3}
+        // grid={{
+        //   rows: 2,
+        // }}
+        spaceBetween={30}
+        navigation
+        slideToClickedSlide={true}
+      >
+        <SwiperSlide key={1}>
           <span>
             <img src={first} onClick={() => onImageClick(1)} />
           </span>
-        </div>
-        <div
-          className={"py-3 col-lg-4 col-md-4 col-xs-4 col-4 text-center sepia px-0"}
-        >
+        </SwiperSlide>
+        <SwiperSlide key={2}>
           <span>
             <img src={second} onClick={() => onImageClick(2)} />
           </span>
-        </div>
-
-        <div className={"py-3 col-lg-4 col-md-4 col-xs-4 col-4  text-center sepia"}>
+        </SwiperSlide>
+        <SwiperSlide key={3}>
           <span>
             <img src={one} onClick={() => onImageClick(3)} />
           </span>
-        </div>
-      </div>
-
-      <div className="row justify-content-center pt-3">
-        <div
-          className={"col-lg-4 col-md-4 col-xs-4 col-4  text-center sepia px-0"}
-        >
+        </SwiperSlide>
+        <SwiperSlide key={4}>
           <span>
             <img src={not} onClick={() => onImageClick(4)} />
           </span>
-        </div>
-        <div
-          className={"col-lg-4 col-md-4 col-xs-4 col-4 text-center sepia px-0"}
-        >
+        </SwiperSlide>
+        <SwiperSlide key={5}>
           <span>
             <img src={not3x3} onClick={() => onImageClick(5)} />
           </span>
-        </div>
-
-        <div className={"col-lg-4 col-md-4 col-xs-4 col-4  text-center sepia"}>
+        </SwiperSlide>
+        <SwiperSlide key={6}>
           <span>
             <img src={not1x1} onClick={() => onImageClick(6)} />
           </span>
-        </div>
-      </div>
-    </>
-  );
-};
+        </SwiperSlide>
+        <SwiperSlide key={7}>
+          <span>
+            <img src={not1x1} onClick={() => onImageClick(7)} />
+          </span>
+        </SwiperSlide>
+        <SwiperSlide key={8}>
+          <span>
+            <img src={not1x1} onClick={() => onImageClick(8)} />
+          </span>
+        </SwiperSlide>
+        <SwiperSlide key={9}>
+          <span>
+            <img src={not1x1} onClick={() => onImageClick(9)} />
+          </span>
+        </SwiperSlide>
+      </Swiper>
+    );
+  };
 
   React.useEffect(() => {
     async function fetch() {
       let response: any;
       let item_id = getQueryVariable("id");
-      setImageUrl(
-        "https://www.allstick.ru//@s/image-cache/bcf/bcf57e7f7d4e-u..product~35~35795~5e8a3d4ae89d1.fit.max.h.400.local.gallery~offset~50.w.400~xgxgxgxdxkx.jpg"
-      );
       if (item_id) response = await GetItem("token", parseInt(item_id, 10));
       setItem(response.result);
       setImageUrl("http://localhost:9092/" + response.result.complex_2);
@@ -275,7 +168,8 @@ const ImageTypes = () => {
       setLoading(false);
       setSelected(1);
     }
-
+    console.log("XUI");
+    console.log("REREREERE");
     fetch();
   }, []);
 
@@ -309,7 +203,13 @@ const ImageTypes = () => {
                         </div>
                       </div>
 
-                      <div className="col-lg-5" style={{border:"1px solid", borderColor: 'lightgray'}}>
+                      <div
+                        className="col-lg-5"
+                        style={{
+                          border: "1px solid",
+                          borderColor: "lightgray",
+                        }}
+                      >
                         <Image src={imageUrl} height={"100%"} />
                       </div>
 
@@ -318,13 +218,13 @@ const ImageTypes = () => {
                           <form action="#">
                             <h3 className="">Тип модуля</h3>
                             <div
-                              className="container"
+                              className="swiper"
                               style={{
                                 border: "1px solid",
                                 borderColor: "lightgray",
+                                height: "100px",
                               }}
                             >
-
                               <ImageTypes />
                             </div>
                             <h4 className="py-1 mb-2">Выберите размер (Ш×В)</h4>
