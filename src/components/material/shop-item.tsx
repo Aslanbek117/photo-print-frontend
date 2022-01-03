@@ -228,13 +228,15 @@ export const ShopItem = (props: ShopItemProps) => {
                       text="Характеристики"
                       href=""
                       id={1}
-                      setSelected={() => {}}
+                      setSelected={() => setSelected(1)}
+                      isSelected={selected === 1 ? true : false}
                     />
                     <TabItem
                       text="как повесить картину?"
                       href=""
                       id={3}
-                      setSelected={() => {}}
+                      setSelected={() => setSelected(2)}
+                      isSelected={selected ===2 ? true : false}
                     />
                   </ul>
 
