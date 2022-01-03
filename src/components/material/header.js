@@ -22,17 +22,17 @@ export default function SiteHeader() {
   return (
     <>
         
-        <nav class="navbar sticky-top navbar-expand-md navbar-light" id="navbar" style={{borderBottom: '2px solid #F88C00', backgroundColor: 'white'}} >
+        <nav class="navbar sticky-top navbar-expand-md navbar-light navbar-left" id="navbar" style={{borderBottom: '2px solid #F88C00', backgroundColor: 'white'}} >
           <div class="container py-0 py-lg-0 px-lg-0">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="/">
               <img
-                class="d-none d-md-inline-block"
+                class=" d-md-inline-block"
                 src={logo}
                 alt="Universal logo"
               />
             </a>
             <button
-              class="navbar-toggler text-primary border-primary"
+              class="navbar-toggler text-primary border-primary order-first"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navigationCollapse"
