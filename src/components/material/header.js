@@ -25,8 +25,11 @@ export default function SiteHeader() {
             <img class=" d-md-inline-block" src={logo} alt="Universal logo" />
           </a> */}
 
-          <a class="d-md-none  navbar-brand" >
-            <i class="fas fa-shopping-cart" > пусто</i>
+          <a class="d-md-none  navbar-brand">
+            <span style={{textTransform: 'uppercase', color: 'black', fontFamily: 'Ubuntu, Ubuntu Regular, serif', lineHeight: '20px', fontSize: '14px', fontWeight: 600, whiteSpace: 'nowrap'}}>
+            <i class="fas fa-shopping-cart fa-lg" style={{color: '#4fbfa8', marginRight: 10}}/>
+              пусто
+            </span>
           </a>
 
           <button
@@ -76,7 +79,11 @@ export default function SiteHeader() {
                   role="button"
                   aria-expanded="false"
                 >
-                  <i class="fas fa-shopping-cart" > пусто</i>
+                  <span style={{textTransform: 'uppercase', color: 'black', lineHeight: '20px', fontSize: '14px', fontWeight: 300, whiteSpace: 'nowrap'}}>
+                  <i class="fas fa-shopping-cart fa-lg" style={{color: 'orange', marginRight: 10}} > </i>
+                  0
+                  </span>
+                  
                 </a>
               </li>
             </ul>
