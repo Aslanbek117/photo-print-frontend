@@ -10,13 +10,6 @@ import { Tabs } from "antd";
 import { TabItem } from "./tab-item";
 import { Nav } from "./nav";
 import SiteHeader from "./header.js";
-import first from "./2x2.png";
-import second from "./3x3.png";
-import one from "./1x1.png";
-import not from "./2x2_not.png";
-import not3x3 from "./3x3_not.png";
-import not1x1 from "./1x1_not.png";
-import is from "./out_5.png";
 import Slider from "react-slick";
 
 import "./app.css";
@@ -90,16 +83,22 @@ export const ShopItem = (props: ShopItemProps) => {
   const onImageClick = (id: number) => {
     if (id == 1) {
       setImageUrl("http://localhost:9092/" + item!.complex_2);
+      setIndex(1);
     } else if (id == 2) {
       setImageUrl("http://localhost:9092/" + item!.complex_3);
+      setIndex(2);
     } else if (id == 3) {
       setImageUrl("http://localhost:9092/" + item!.original); //break
+      setIndex(3);
     } else if (id == 4) {
       setImageUrl("http://localhost:9092/" + item!.complex_2_low); // break
+      setIndex(4);
     } else if (id == 5) {
       setImageUrl("http://localhost:9092/" + item!.complex_3_low); // break
+      setIndex(5);
     } else if (id == 6) {
       setImageUrl("http://localhost:9092/" + item!.transform); // break
+      // setIndex(6);
     } else if (id >= 7 && id <= 9) {
       setImageUrl("http://localhost:9092/" + item!.complex_2);
     }
@@ -107,7 +106,7 @@ export const ShopItem = (props: ShopItemProps) => {
 
   const ImageTypes = () => {
     return (
-      <CustomSwiper onClick={(id) => onImageClick(id)} onSlideChange={onSlideChange} slideTo={index} />
+      <CustomSwiper onClick={(id) => onImageClick(id)} onSlideChange={onSlideChange} slideTo={index} activeIndex={index} />
     );
   };
 

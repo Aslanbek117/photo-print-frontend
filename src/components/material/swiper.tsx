@@ -30,6 +30,7 @@ interface Props {
   onClick: Function;
   onSlideChange: Function;
   slideTo: number;
+  activeIndex: number;
 }
 
 export const CustomSwiper = (props: Props) => {
@@ -38,6 +39,10 @@ export const CustomSwiper = (props: Props) => {
   const [value, setValue] = React.useState(0);
 
   const [index, setIndex] = React.useState(0);
+
+  const [selected, setSelected] = React.useState(0);
+
+  const [isActive, setIsActive]= React.useState(new Map());
 
   const handleExternalChangeSlide = (newSlideIndexToShow) => {
     // console.log("NEW", newSlideIndexToShow.realIndex)
@@ -49,9 +54,27 @@ export const CustomSwiper = (props: Props) => {
     setValue(newSlideIndexToShow.realIndex);
   };
 
+  const toggleClass = (id) => {
+    let oldMap = new Map(isActive)
+    oldMap.set(id, true)
+    props.onClick(id)
+    setIsActive(oldMap)
+    // props.onClick(id)
+  };
+
   const nextTo = () => {
     swiperInstance?.slideNext();
   };
+
+  React.useEffect(() => {
+    console.log("props", props.activeIndex)
+    let oldMap = new Map(isActive)
+    oldMap.set(props.activeIndex, true)
+    setIsActive(oldMap)
+  }, []);
+
+
+
 
   return (
     <>
@@ -68,43 +91,114 @@ export const CustomSwiper = (props: Props) => {
             props.onSlideChange(swiper.realIndex * 2);
           }}
           style={{ border: "1px solid black" }}
+          onSlideChange={() => setSelected(1)}
+//          on={{'click': function() { setSelected(1); console.log("selected 1")} }}
         >
-          <SwiperSlide onClick={() => props.onClick(1)}>
-            <span className="sepia">
-              <img src={first} onClick={() => props.onClick(1)} />
+          <SwiperSlide
+            onClick={() => toggleClass(1)}
+          >
+            <span className={isActive?.get(1) ? 'sepia-active': 'sepia'} >
+              <img src={first} />
             </span>
           </SwiperSlide>
-          <SwiperSlide onClick={() => props.onClick(2)}>
-            <span className="sepia">
-              <img src={second} onClick={() => props.onClick(2)} />
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(2);
+              // props.onClick(2);
+            }}
+          >
+            <span className={isActive?.get(2) ? 'sepia-active': 'sepia'}>
+              <img src={second} />
             </span>
           </SwiperSlide>
-          <SwiperSlide onClick={() => props.onClick(3)}>
-            <span className="sepia">
-              <img src={one} onClick={() => props.onClick(3)} />
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(3);
+              props.onClick(3);
+            }}
+          >
+            <span className={isActive?.get(3) ? 'sepia-active': 'sepia'}>
+              <img src={one} />
             </span>
           </SwiperSlide>
-          <SwiperSlide onClick={() => props.onClick(4)}>
-            <span className="sepia">
-              <img src={not} onClick={() => props.onClick(4)} />
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(4);
+              props.onClick(4);
+            }}
+          >
+            <span className={isActive?.get(4) ? 'sepia-active': 'sepia'}>
+              <img src={not} />
             </span>
           </SwiperSlide>
-          <SwiperSlide onClick={() => props.onClick(5)}>
-            <span className="sepia">
-              <img src={not3x3} onClick={() => props.onClick(5)} />
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(5);
+              props.onClick(5);
+            }}
+          >
+            <span className={isActive?.get(5) ? 'sepia-active': 'sepia'}>
+              <img src={not3x3} />
             </span>
           </SwiperSlide>
-          <SwiperSlide onClick={() => props.onClick(6)}>
-            <span className="sepia">
-              <img src={not1x1} onClick={() => props.onClick(6)} />
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(6);
+              props.onClick(6);
+            }}
+          >
+            <span className={isActive?.get(6) ? 'sepia-active': 'sepia'}>
+              <img src={not1x1} />
             </span>
           </SwiperSlide>
-          <SwiperSlide onClick={() => props.onClick(7)}>Slide 7</SwiperSlide>
-          <SwiperSlide onClick={() => props.onClick(8)}>Slide 8</SwiperSlide>
-          <SwiperSlide onClick={() => props.onClick(9)}>Slide 9</SwiperSlide>
-          <SwiperSlide onClick={() => props.onClick(10)}>Slide 10</SwiperSlide>
-          <SwiperSlide onClick={() => props.onClick(11)}>Slide 11</SwiperSlide>
-          <SwiperSlide onClick={() => props.onClick(12)}>Slide 12</SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(7);
+              props.onClick(7);
+            }}
+          >
+            Slide 7
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(8);
+              props.onClick(8);
+            }}
+          >
+            Slide 8
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(9);
+              props.onClick(9);
+            }}
+          >
+            Slide 9
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(10);
+              props.onClick(10);
+            }}
+          >
+            Slide 10
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(11);
+              props.onClick(11);
+            }}
+          >
+            Slide 11
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(12);
+              props.onClick(12);
+            }}
+          >
+            Slide 12
+          </SwiperSlide>
         </Swiper>
       </div>
     </>

@@ -13464,6 +13464,10 @@
     
     }
 
+  .sepia-active {
+    filter: invert(54%) sepia(90%) saturate(381%) hue-rotate(344deg) brightness(87%) contrast(96%);
+  }
+
   /* .sepia:hover {
     filter: invert(93%) sepia(1%) saturate(140%) hue-rotate(316deg) brightness(94%) contrast(79%);
   } */
