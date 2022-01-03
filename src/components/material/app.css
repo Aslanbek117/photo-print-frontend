@@ -13476,6 +13476,11 @@
     padding-right:0;
     padding-left:0;
 }
+.slick-slider div { transition: none; }
+
+.slick-slider div { transition: none; }
+
+
 
 .swiper {
   width: 100%;
@@ -13505,10 +13510,3 @@
   align-items: center;
 }
 
-
-
-.swiper-container { height: 800px; }
-
-.swiper-container-multirow-column > .swiper-wrapper {
-  flex-direction: inherit;
-}

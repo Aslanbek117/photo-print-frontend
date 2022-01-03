@@ -1,4 +1,5 @@
 import * as React from "react";
+import ReactDOM from "react-dom";
 import Loader from "components/loader";
 import TopBar from "./top-bar";
 import Header from "./header.js";
@@ -16,18 +17,14 @@ import not from "./2x2_not.png";
 import not3x3 from "./3x3_not.png";
 import not1x1 from "./1x1_not.png";
 import is from "./out_5.png";
-
-import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
-import SwiperCore, { Grid, Pagination, Navigation } from "swiper";
-// import { Swiper, SwiperSlide } from "swiper/react";
-import { PhotoPprint } from "models/search/Search";
-
-// Styles must use direct files imports
-import "swiper/swiper.scss"; // core Swiper
-import "swiper/modules/navigation/navigation.scss"; // Navigation module
-import "swiper/modules/grid/grid.scss"; // Navigation module
+import Slider from "react-slick";
 
 import "./app.css";
+
+
+// import "./app.css";
+import { PhotoPprint } from "models/search/Search";
+import { CustomSwiper } from "./swiper";
 
 const { TabPane } = Tabs;
 
@@ -37,8 +34,6 @@ interface ShopItemProps {
   pages: number[];
   category: string;
 }
-
-SwiperCore.use([Grid, Navigation]);
 
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
@@ -63,6 +58,10 @@ const sizes = [
   { id: 6, width: 60, heigth: 100 },
 ];
 
+
+
+
+
 export const ShopItem = (props: ShopItemProps) => {
   const [loading, setLoading] = React.useState(true);
 
@@ -70,14 +69,23 @@ export const ShopItem = (props: ShopItemProps) => {
 
   const [item, setItem] = React.useState<PhotoPprint>();
 
-  const [imgSelected, setImgSelected] = React.useState(1);
-
   const [imageUrl, setImageUrl] = React.useState("");
 
-  const onSelect = (id: number) => {
-    console.log(id);
-    setSelected(id);
-  };
+  const [current, setCurrent] = React.useState(0);
+
+  const [swiper, setSwiper] = React.useState<any>();
+
+  const [index, setIndex] =  React.useState(0);
+
+  // const onSelect = (id: number) => {
+  //   console.log(id);
+  //   setSelected(id);
+  // };
+
+  const onSlideChange = (index: number) => {
+    console.log("index in shop", index);
+    setIndex(index);
+  }
 
   const onImageClick = (id: number) => {
     if (id == 1) {
@@ -85,75 +93,21 @@ export const ShopItem = (props: ShopItemProps) => {
     } else if (id == 2) {
       setImageUrl("http://localhost:9092/" + item!.complex_3);
     } else if (id == 3) {
-      setImageUrl("http://localhost:9092/" + item!.original);
+      setImageUrl("http://localhost:9092/" + item!.original); //break
     } else if (id == 4) {
-      setImageUrl("http://localhost:9092/" + item!.complex_2_low);
+      setImageUrl("http://localhost:9092/" + item!.complex_2_low); // break
     } else if (id == 5) {
-      setImageUrl("http://localhost:9092/" + item!.complex_3_low);
+      setImageUrl("http://localhost:9092/" + item!.complex_3_low); // break
     } else if (id == 6) {
-      setImageUrl("http://localhost:9092/" + item!.transform);
+      setImageUrl("http://localhost:9092/" + item!.transform); // break
     } else if (id >= 7 && id <= 9) {
-      setImageUrl("http://localhost:9092/" + item!.transform);
+      setImageUrl("http://localhost:9092/" + item!.complex_2);
     }
   };
 
   const ImageTypes = () => {
     return (
-      <Swiper
-        slidesPerView={3}
-        // grid={{
-        //   rows: 2,
-        // }}
-        spaceBetween={30}
-        navigation
-        slideToClickedSlide={true}
-      >
-        <SwiperSlide key={1}>
-          <span>
-            <img src={first} onClick={() => onImageClick(1)} />
-          </span>
-        </SwiperSlide>
-        <SwiperSlide key={2}>
-          <span>
-            <img src={second} onClick={() => onImageClick(2)} />
-          </span>
-        </SwiperSlide>
-        <SwiperSlide key={3}>
-          <span>
-            <img src={one} onClick={() => onImageClick(3)} />
-          </span>
-        </SwiperSlide>
-        <SwiperSlide key={4}>
-          <span>
-            <img src={not} onClick={() => onImageClick(4)} />
-          </span>
-        </SwiperSlide>
-        <SwiperSlide key={5}>
-          <span>
-            <img src={not3x3} onClick={() => onImageClick(5)} />
-          </span>
-        </SwiperSlide>
-        <SwiperSlide key={6}>
-          <span>
-            <img src={not1x1} onClick={() => onImageClick(6)} />
-          </span>
-        </SwiperSlide>
-        <SwiperSlide key={7}>
-          <span>
-            <img src={not1x1} onClick={() => onImageClick(7)} />
-          </span>
-        </SwiperSlide>
-        <SwiperSlide key={8}>
-          <span>
-            <img src={not1x1} onClick={() => onImageClick(8)} />
-          </span>
-        </SwiperSlide>
-        <SwiperSlide key={9}>
-          <span>
-            <img src={not1x1} onClick={() => onImageClick(9)} />
-          </span>
-        </SwiperSlide>
-      </Swiper>
+      <CustomSwiper onClick={(id) => onImageClick(id)} onSlideChange={onSlideChange} slideTo={index} />
     );
   };
 
@@ -164,14 +118,13 @@ export const ShopItem = (props: ShopItemProps) => {
       if (item_id) response = await GetItem("token", parseInt(item_id, 10));
       setItem(response.result);
       setImageUrl("http://localhost:9092/" + response.result.complex_2);
-      console.log(response.result);
       setLoading(false);
-      setSelected(1);
+      setSelected(1); 
     }
-    console.log("XUI");
-    console.log("REREREERE");
     fetch();
+    
   }, []);
+
 
   return (
     <>
@@ -218,7 +171,7 @@ export const ShopItem = (props: ShopItemProps) => {
                           <form action="#">
                             <h3 className="">Тип модуля</h3>
                             <div
-                              className="swiper"
+                              className=""
                               style={{
                                 border: "1px solid",
                                 borderColor: "lightgray",
@@ -231,11 +184,6 @@ export const ShopItem = (props: ShopItemProps) => {
                             <select
                               className="form-select js-sizes mb-1"
                               data-customclass="bg-white rounded-0 border-2 text-uppercase border-gray-200"
-                              onChange={(e) => (
-                                console.log(e.target.value),
-                                setImgSelected(parseInt(e.target.value))
-                              )}
-                              value={imgSelected}
                             >
                               {sizes.map((i) => (
                                 <option value={i.id}>
@@ -281,13 +229,13 @@ export const ShopItem = (props: ShopItemProps) => {
                       text="Характеристики"
                       href=""
                       id={1}
-                      setSelected={onSelect}
+                      setSelected={() => {}}
                     />
                     <TabItem
                       text="как повесить картину?"
                       href=""
                       id={3}
-                      setSelected={onSelect}
+                      setSelected={() => {}}
                     />
                   </ul>
 
