@@ -13515,3 +13515,15 @@
 }
 
 
+
+.input-box {
+  position: relative;
+  width: 50%;
+}
+
+.input-box i {
+  position: absolute;
+  right: 13px;
+  top: 13px;
+  color: green
+}

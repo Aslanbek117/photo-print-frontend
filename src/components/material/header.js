@@ -21,17 +21,30 @@ export default function SiteHeader() {
         style={{ borderBottom: "2px solid #F88C00", backgroundColor: "white" }}
       >
         <div class="container py-0 py-lg-0 px-lg-0">
-          {/* <a class="navbar-brand" href="/">
-            <img class=" d-md-inline-block" src={logo} alt="Universal logo" />
-          </a> */}
+          <div class="input-box">
+            <input type="text" class="form-control" style={{borderColor: 'green'}} />
+            <i class="fa fa-search"></i>
+          </div>
 
           <a class="d-md-none  navbar-brand">
-            <span style={{textTransform: 'uppercase', color: 'black', fontFamily: 'Ubuntu, Ubuntu Regular, serif', lineHeight: '20px', fontSize: '14px', fontWeight: 600, whiteSpace: 'nowrap'}}>
-            <i class="fas fa-shopping-cart fa-lg" style={{color: '#4fbfa8', marginRight: 10}}/>
+            <span
+              style={{
+                textTransform: "uppercase",
+                color: "black",
+                fontFamily: "Ubuntu, Ubuntu Regular, serif",
+                lineHeight: "20px",
+                fontSize: "14px",
+                fontWeight: 600,
+                whiteSpace: "nowrap",
+              }}
+            >
+              <i
+                class="fas fa-shopping-cart fa-lg"
+                style={{ color: "#4fbfa8", marginRight: 10 }}
+              />
               пусто
             </span>
           </a>
-
           <button
             class="navbar-toggler text-primary border-primary order-first"
             type="button"
@@ -60,7 +73,6 @@ export default function SiteHeader() {
                 </a>
               </li>
 
-
               <li class="nav-item dropdown">
                 <a
                   class="nav-link"
@@ -79,11 +91,24 @@ export default function SiteHeader() {
                   role="button"
                   aria-expanded="false"
                 >
-                  <span style={{textTransform: 'uppercase', color: 'black', lineHeight: '20px', fontSize: '14px', fontWeight: 300, whiteSpace: 'nowrap'}}>
-                  <i class="fas fa-shopping-cart fa-lg" style={{color: 'orange', marginRight: 10}} > </i>
-                  0
+                  <span
+                    style={{
+                      textTransform: "uppercase",
+                      color: "black",
+                      lineHeight: "20px",
+                      fontSize: "14px",
+                      fontWeight: 300,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    <i
+                      class="fas fa-shopping-cart fa-lg"
+                      style={{ color: "orange", marginRight: 10 }}
+                    >
+                      {" "}
+                    </i>
+                    0
                   </span>
-                  
                 </a>
               </li>
             </ul>
