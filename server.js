@@ -10,9 +10,9 @@ let listenPort = process.env.PORT || 3000;
   //  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 //  });
 
-server.configure(function(){
-  server.use('/media', express.static(__dirname + '/media'));
-  server.use(express.static(__dirname + '/public'));
+app.configure(function(){
+  app.use('/media', express.static(__dirname + '/media'));
+  app.use(express.static(__dirname + '/public'));
 });
 
 app.listen(listenPort, ()=> {
