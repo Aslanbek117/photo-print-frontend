@@ -3,76 +3,30 @@ import * as React from "react";
 export default function Auth() {
   return (
     <>
-      <div
-        class="modal fade"
-        id="modalLoginForm"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="myModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
+       <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="login-modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header text-center">
-              <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
+            <div class="modal-header">
+              <h4 class="modal-title text-uppercase" id="login-modalLabel">Customer Login</h4>
+              <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body mx-3">
-              <div class="md-form mb-5">
-                <i class="fas fa-envelope prefix grey-text"></i>
-                <input
-                  type="email"
-                  id="defaultForm-email"
-                  class="form-control validate"
-                />
-                <label
-                  data-error="wrong"
-                  data-success="right"
-                  for="defaultForm-email"
-                >
-                  Your email
-                </label>
-              </div>
-
-              <div class="md-form mb-4">
-                <i class="fas fa-lock prefix grey-text"></i>
-                <input
-                  type="password"
-                  id="defaultForm-pass"
-                  class="form-control validate"
-                />
-                <label
-                  data-error="wrong"
-                  data-success="right"
-                  for="defaultForm-pass"
-                >
-                  Your password
-                </label>
-              </div>
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-              <button class="btn btn-default">Login</button>
+            <div class="modal-body">
+              <form action="customer-orders.html" method="get">
+                <div class="form-group mb-3">
+                  <input class="form-control" id="email_modal" type="text" placeholder="email" />
+                </div>
+                <div class="form-group mb-3">
+                  <input class="form-control" id="password_modal" type="password" placeholder="password" />
+                </div>
+                <p class="text-center">
+                  <button class="btn btn-outline-primary"><i class="fas fa-door-open"></i> Log in</button>
+                </p>
+              </form>
+              <p class="text-center text-muted small">Not registered yet?</p>
+              <p class="text-center text-muted small"><a href="customer-register.html"><strong>Register now</strong></a>! It is easy and done in 1 minute and gives you access to special discounts and much more!</p>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="text-center">
-        <a
-          href=""
-          class="btn btn-default btn-rounded mb-4"
-          data-toggle="modal"
-          data-target="#modalLoginForm"
-        >
-          Launch Modal Login Form
-        </a>
       </div>
     </>
   );

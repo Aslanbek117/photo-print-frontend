@@ -2,6 +2,7 @@ import * as React from "react";
 import logo from "./logo2.png";
 import { Modal, Button } from "antd";
 import "./app.css";
+import Auth from "./auth";
 
 export default function TopBar() {
   return (
@@ -23,7 +24,7 @@ export default function TopBar() {
                     </a>
                   </li>
                 </ul>
-                {/* <ul class="list-inline mb-0">
+                <ul class="list-inline mb-0">
                   <li class="list-inline-item">
                     <a
                       class="text-xs text-uppercase fw-bold text-reset"
@@ -54,7 +55,7 @@ export default function TopBar() {
                       </span>
                     </a>
                   </li>
-                </ul> */}
+                </ul>
                 <ul class="list-inline mb-0 ms-lg-4 d-flex justify-content-center">
                   <li class="list-inline-item text-gray-600">
                     <a
@@ -80,6 +81,8 @@ export default function TopBar() {
           </div>
         </div>
       </div>
+
+      <Auth />
     </>
   );
 }
