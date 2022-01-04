@@ -1,18 +1,16 @@
 import * as React from 'react';
-import "./app.css";
 import logo from "./logo2.png";
-
+import "./app.css";
 
 export default function TopBar() {
   return (
     <>
-      <div class="top-bar py-3" id="topBar" style={{ background: "black" }}>
+      <div class="top-bar py-3" id="topBar" style={{ backgroundColor: "#f1f1f1" }}>
         <div class="container px-lg-0 text-light py-1">
           <div class="row d-flex align-items-center">
           <div class="col-md-6 d-md-block d-none">
-              <p class="mb-0 text-xs">
-                Contact us on +420 777 555 333 or hello@universal.com.
-              </p>
+              <img src={logo}>
+              </img>
             </div>
             <div class="col-md-6">
               <div class="d-flex justify-content-md-end justify-content-between">
