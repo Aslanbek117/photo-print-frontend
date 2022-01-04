@@ -136,7 +136,7 @@ export const ShopItem = (props: ShopItemProps) => {
             <SiteHeader />
             <section className="py-3" style={{ backgroundColor: "white" }}>
               <div className="container">
-                <Nav />
+                <Nav toShow={true} title={item?.title} />
                 <div className="row g-5">
                   <div className="col-lg-12">
                     <div className="row gy-5 align-items-stretch">

@@ -141,7 +141,7 @@ export const Shop = () => {
               <div className="row g-5">
               <Categories />
                 <div className="col-lg-9">
-                  <Nav />
+                  <Nav toShow={false} title="" firstTitle="Картины" firstTitleHref="/"/>
                   <h3 className="h4 text-uppercase mb-4 text-center">
                   Модульные картины
                   </h3>

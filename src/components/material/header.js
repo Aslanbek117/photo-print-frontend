@@ -22,7 +22,11 @@ export default function SiteHeader() {
       >
         <div class="container py-0 py-lg-0 px-lg-0">
           <div class="input-box">
-            <input type="text" class="form-control" style={{borderColor: 'green'}} />
+            <input
+              type="text"
+              class="form-control"
+              style={{ borderColor: "green" }}
+            />
             <i class="fa fa-search"></i>
           </div>
 
@@ -75,13 +79,41 @@ export default function SiteHeader() {
 
               <li class="nav-item dropdown">
                 <a
-                  class="nav-link"
-                  href="/"
+                  class="nav-link dropdown-toggle"
+                  id="hpDropdown"
+                  href="#"
                   role="button"
+                  data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Фотообои
+                  Информация
                 </a>
+                <ul class="dropdown-menu" aria-labelledby="hpDropdown">
+                  <li>
+                    <a
+                      class="dropdown-item text-uppercase border-bottom"
+                      href="/delivery"
+                    >
+                      Оплата и доставка
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-uppercase border-bottom"
+                      href="/warranty"
+                    >
+                      Гарантия
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-uppercase border-bottom"
+                      href="/contacts"
+                    >
+                      Контакты
+                    </a>
+                  </li>
+                </ul>
               </li>
 
               <li class="d-none d-sm-block nav-item">

@@ -15,6 +15,9 @@ import { Route, Switch } from 'react-router';
 import CardList from 'components/material/card-list';
 import { Shop }  from 'components/material/shop';
 import { ShopItem } from 'components/material/shop-item';
+import Delivery from 'components/material/delivery';
+import Warranty from 'components/material/warranty';
+import Contacts from 'components/material/contact';
 const { Header, Content, Footer } = Layout;
 
 
@@ -25,6 +28,9 @@ export default function Index() {
     <BrowserRouter>
     <Switch>
       <Route exact path='/item' component={ShopItem}/>
+      <Route exact path='/delivery' component={Delivery}/>
+      <Route exact path='/warranty' component={Warranty}/>
+      <Route exact path='/contacts' component={Contacts}/>
       <Route  path='/' component={Shop}/>
     </Switch>
   </BrowserRouter>
