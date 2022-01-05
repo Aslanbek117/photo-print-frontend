@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "https://dsomething.cloudfront.net/static/css/main.30626766.chunk.css",
-    "main.js": "https://dsomething.cloudfront.net/static/js/main.ea444bfa.chunk.js",
-    "main.js.map": "https://dsomething.cloudfront.net/static/js/main.ea444bfa.chunk.js.map",
-    "runtime-main.js": "https://dsomething.cloudfront.net/static/js/runtime-main.3ed4a07e.js",
-    "runtime-main.js.map": "https://dsomething.cloudfront.net/static/js/runtime-main.3ed4a07e.js.map",
-    "static/css/2.3d7e86af.chunk.css": "https://dsomething.cloudfront.net/static/css/2.3d7e86af.chunk.css",
-    "static/js/2.956f18c6.chunk.js": "https://dsomething.cloudfront.net/static/js/2.956f18c6.chunk.js",
-    "static/js/2.956f18c6.chunk.js.map": "https://dsomething.cloudfront.net/static/js/2.956f18c6.chunk.js.map",
-    "index.html": "https://dsomething.cloudfront.net/index.html",
-    "static/css/2.3d7e86af.chunk.css.map": "https://dsomething.cloudfront.net/static/css/2.3d7e86af.chunk.css.map",
-    "static/css/main.30626766.chunk.css.map": "https://dsomething.cloudfront.net/static/css/main.30626766.chunk.css.map",
-    "static/js/2.956f18c6.chunk.js.LICENSE.txt": "https://dsomething.cloudfront.net/static/js/2.956f18c6.chunk.js.LICENSE.txt",
-    "static/media/index.css": "https://dsomething.cloudfront.net/static/media/Roboto-Regular.f25bd059.ttf"
+    "main.css": "/static/css/main.774bb39c.chunk.css",
+    "main.js": "/static/js/main.664079d7.chunk.js",
+    "main.js.map": "/static/js/main.664079d7.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.8f09e1d7.js",
+    "runtime-main.js.map": "/static/js/runtime-main.8f09e1d7.js.map",
+    "static/css/2.3d7e86af.chunk.css": "/static/css/2.3d7e86af.chunk.css",
+    "static/js/2.956f18c6.chunk.js": "/static/js/2.956f18c6.chunk.js",
+    "static/js/2.956f18c6.chunk.js.map": "/static/js/2.956f18c6.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.3d7e86af.chunk.css.map": "/static/css/2.3d7e86af.chunk.css.map",
+    "static/css/main.774bb39c.chunk.css.map": "/static/css/main.774bb39c.chunk.css.map",
+    "static/js/2.956f18c6.chunk.js.LICENSE.txt": "/static/js/2.956f18c6.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/static/media/Roboto-Regular.f25bd059.ttf"
   },
   "entrypoints": [
-    "static/js/runtime-main.3ed4a07e.js",
+    "static/js/runtime-main.8f09e1d7.js",
     "static/css/2.3d7e86af.chunk.css",
     "static/js/2.956f18c6.chunk.js",
-    "static/css/main.30626766.chunk.css",
-    "static/js/main.ea444bfa.chunk.js"
+    "static/css/main.774bb39c.chunk.css",
+    "static/js/main.664079d7.chunk.js"
   ]
 }
