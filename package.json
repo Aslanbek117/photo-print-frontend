@@ -33,6 +33,7 @@
     "react-scripts": "4.0.1",
     "react-slick": "^0.28.1",
     "react-yandex-maps": "^4.6.0",
+    "serve-favicon": "^2.5.0",
     "slick-carousel": "^1.8.1",
     "swiper": "^7.4.1",
     "web-vitals": "^0.2.4"
