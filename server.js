@@ -8,7 +8,7 @@ let listenPort = process.env.PORT || 3000;
  //здесь наше приложение отдаёт статику
  app.use(express.static(__dirname));
  app.use(express.static(path.join(__dirname, 'build')));
- app.use(favicon(__dirname + '/public/favicon.ico'));
+ app.use(express.static(path.join(__dirname, 'public')));
  //простой тест сервера
  app.get('/ping', function (req, res) {
   return res.send('pong');
