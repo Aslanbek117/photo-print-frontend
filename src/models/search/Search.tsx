@@ -86,3 +86,10 @@ export interface Category {
     name: string; 
     count: number;
 }
+
+
+export interface SearchDTO {
+    message: string;
+    result: PhotoPprint[];
+    status: boolean;
+}

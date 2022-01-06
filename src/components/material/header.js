@@ -1,17 +1,53 @@
 import * as React from "react";
 import { Collapse } from "bootstrap";
 import logo from "./logo2.png";
+import  { SearchItems  } from "components/backend-api/api";
+import { useHistory } from 'react-router-dom';
+
+
+function getQueryVariable(variable)
+{
+        var query = window.location.search.substring(1);
+        console.log(query)//"app=article&act=news_content&aid=160990"
+        var vars = query.split("&");
+        console.log(vars) //[ 'app=article', 'act=news_content', 'aid=160990' ]
+        for (var i=0;i<vars.length;i++) {
+                    var pair = vars[i].split("=");
+                    // console.log(pair)//[ 'app', 'article' ][ 'act', 'news_content' ][ 'aid', '160990' ] 
+        if(pair[0] == variable){return pair[1];}
+         }
+         return(false);
+}
+
+
 
 export default function SiteHeader() {
+
+  const history = useHistory()
+
+
   const [visible, setVisible] = React.useState(false);
 
   const [width, setWidth] = React.useState(window.innerWidth);
+
+  const [searchText, setSearchText] = React.useState('')
+
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
   }
 
   React.useEffect(() => {}, []);
+
+  async function onSearch() {
+    
+    history.push({
+      pathname: '/search/pictures?search=' + searchText,
+      state: { searchValue: searchText },
+    });
+    window.location.reload()
+    // history.push("/search?search="+ searchText, state: "XUI");
+  }
 
   return (
     <>
@@ -26,8 +62,11 @@ export default function SiteHeader() {
               type="text"
               class="form-control"
               style={{ borderColor: "green" }}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              
             />
-            <i class="fa fa-search"></i>
+            <i class="fa fa-search" onClick={(e) => onSearch()}  > </i>
           </div>
 
           <a class="d-md-none  navbar-brand">
@@ -137,7 +176,6 @@ export default function SiteHeader() {
                       class="fas fa-shopping-cart fa-lg"
                       style={{ color: "orange", marginRight: 10 }}
                     >
-                      {" "}
                     </i>
                     0
                   </span>

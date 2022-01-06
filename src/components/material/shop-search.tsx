@@ -7,7 +7,7 @@ import { Categories } from "./categories";
 import { Footer } from "./footer";
 import { PhotoPprint } from "../../models/search/Search";
 import { useState, useEffect } from "react";
-import { GetPhotoPrints } from "components/backend-api/api";
+import { GetPhotoPrints, SearchItems } from "components/backend-api/api";
 import Loader from "components/loader";
 import { ShopPagination } from "./shop-pagination";
 import { useHistory } from "react-router";
@@ -35,8 +35,9 @@ function getQueryVariable(variable)
 }
 
 
-export const Shop = () => {
-  let location = useLocation();
+export const ShopSearch = () => {
+
+let location = useLocation();
 
 
   const [data, setData] = useState<PhotoPprint[]>([]);
@@ -51,85 +52,30 @@ export const Shop = () => {
 
   const [category, setCategory] = useState<string>("");
 
-
+  const [searchValue, setSearchValue] = useState("")
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-   
-    //160990
-    console.log("SHOP COMPONENT")
-
+      console.log("SEaRCH COMPONENT")
     async function fetch() {
-      let response: any;
-      let page = getQueryVariable('page')
-      let perPage =  getQueryVariable('per_page');   
-      let category = getQueryVariable('category')
-      
-      if (!category) {
-        category = ""
-      } 
+        console.log("localtion", window.location.pathname)
+        let response: any;
+        let text = getQueryVariable('search')
 
-      if (page === null || page === false) {
-        setCurrentPage("1")
-      } else {
-        setCurrentPage(page.toString());
-      }
-
-      if (perPage === null  || perPage === false) {
-        setCurrentPerpage("50");
-      } else {
-        setCurrentPerpage("50")
-      }
-
-      if (perPage === null || perPage === false  || page === null || page === false) {
-        if (!category) {
-          response = await GetPhotoPrints("some_token", "1", "50", "");  
-        } else {
-          response = await GetPhotoPrints("some_token", "1", "50", category);
+        if ((text.toString().length) >0 ) {
+            response = await SearchItems("token", text.toString());
+            setData(response.result);
         }
-        
-      } else {
-        if (!category) {
-          response = await GetPhotoPrints("some_token", page.toString(), "50", "");  
-        } else {
-          response = await GetPhotoPrints("some_token", page.toString(), "50", category);
-        }
-      }
-      setCategory(category.toString());
-      setData(response.result.merchants);
-      let count = response.result.rows_count / 50;
-      let page_count =  Math.floor(count);
-      let pages: Number[] = [];
-      if (!page || page == '' ) {
-        if (count > 10 ) {
-          for (var i=0; i < 10; i++) {
-            pages.push(i)
-          }  
-        } else {
-          for (var i=0; i < count; i++) {
-            pages.push(i)
-          }
-        }
-      } else {
-
-        if (count > 10 ) {
-          for (var i=parseInt(page.toString(), 10); i < parseInt(page.toString(), 10) + 10; i++) {
-            pages.push(i+1)
-          }  
-        } else {
-          for (var i=parseInt(page.toString(), 10); i < count; i++) {
-            pages.push(i+1)
-          }
-        }
-        
-      }
-      
-      setPages(pages);
-      setLoading(false);
+        setLoading(false);
     }
 
+    const { state } = location;
+    const { searchValue, categoryToExpand } = state;
+    setSearchValue(searchValue)
+
+
     fetch();
-  }, [location.pathname]);
+  }, [location.pathname, location]);
 
   return (
     <>
@@ -163,7 +109,7 @@ export const Shop = () => {
                       </div>
                     ))}
                   </div>
-                  <ShopPagination page={currentPage} per_page={currentPerPage} pages={pages as number[]} category={category}/>
+                  {/* <ShopPagination page={currentPage} per_page={currentPerPage} pages={pages as number[]} category={category}/> */}
                 </div>
               </div>
             </div>

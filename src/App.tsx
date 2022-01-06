@@ -18,6 +18,7 @@ import { ShopItem } from 'components/material/shop-item';
 import Delivery from 'components/material/delivery';
 import Warranty from 'components/material/warranty';
 import Contacts from 'components/material/contact';
+import { ShopSearch }  from 'components/material/shop-search';
 const { Header, Content, Footer } = Layout;
 
 
@@ -31,7 +32,8 @@ export default function Index() {
       <Route exact path='/delivery' component={Delivery}/>
       <Route exact path='/warranty' component={Warranty}/>
       <Route exact path='/contacts' component={Contacts}/>
-      <Route  path='/' component={Shop}/>
+      <Route exact path='/' component={Shop}/>
+      <Route  path='/search/pictures' component={ShopSearch}/>
     </Switch>
   </BrowserRouter>
   );
