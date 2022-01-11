@@ -1,16 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom";
 
 import { Navigation } from "swiper";
 // Direct React component imports
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
 
-import first from "./2x2.png";
-import second from "./3x3.png";
-import one from "./1x1.png";
-import not from "./2x2_not.png";
-import not3x3 from "./3x3_not.png";
-import not1x1 from "./1x1_not.png";
+import first from "../files//2x2.png";
+import second from "../files/3x3.png";
+import one from "../files/1x1.png";
+import not from "../files/2x2_not.png";
+import not3x3 from "../files/3x3_not.png";
+import not1x1 from "../files/1x1_not.png";
 import is from "./out_5.png";
 import SwiperCore, { Grid } from "swiper";
 // Styles must use direct files imports
@@ -20,9 +19,7 @@ import "swiper/modules/grid/grid.scss"; // Navigation module
 import "swiper/modules/navigation/navigation.scss"; // Navigation module
 import "swiper/modules/pagination/pagination.scss"; // Pagination module
 
-import "./app.css";
-import { read } from "fs";
-import { relative } from "path/posix";
+import "../../styles/app.css";
 
 SwiperCore.use([Grid, Navigation]);
 

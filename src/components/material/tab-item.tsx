@@ -1,23 +1,5 @@
 import * as React from "react";
-import TopBar from "./top-bar.js";
-import Header from "./header.js";
-import "./app.css";
-import { Card } from "./card";
-import { Categories } from "./categories";
-import { Footer } from "./footer";
-import { PhotoPprint } from "../../models/search/Search";
-import { useState, useEffect } from "react";
-import { GetPhotoPrints } from "components/backend-api/api";
-import Loader from "components/loader";
-import { ShopPagination } from "./shop-pagination";
-import { useHistory } from "react-router";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import { BorderBottomOutlined } from "@ant-design/icons";
+import "../../styles//app.css";
 
 interface Props {
   id: number;
@@ -29,7 +11,7 @@ interface Props {
 
 export const TabItem = (props: Props)  => {
     return (
-      props.isSelected  ? (<li className="nav-item">
+      props.isSelected  ? (<li className="nav-item" key={props.id}>
       <a
         className="nav-link active"
         role="presentation"
@@ -51,7 +33,7 @@ export const TabItem = (props: Props)  => {
       >
         {props.text}
       </a>
-    </li>) : (<li className="nav-item">
+    </li>) : (<li className="nav-item" key={props.id}>
         <a
           className="nav-link active"
           role="presentation"

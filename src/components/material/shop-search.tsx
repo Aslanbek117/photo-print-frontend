@@ -1,24 +1,17 @@
 import * as React from "react";
-import TopBar from "./top-bar.js";
-import Header from "./header.js";
-import "./app.css";
-import { Card } from "./card";
+import TopBar from "../headers/top-bar.js";
+import "../../styles//app.css";
+import { Card } from "../card/card";
 import { Categories } from "./categories";
-import { Footer } from "./footer";
 import { PhotoPprint } from "../../models/search/Search";
 import { useState, useEffect } from "react";
-import { GetPhotoPrints, SearchItems } from "components/backend-api/api";
+import { SearchItems } from "components/backend-api/api";
 import Loader from "components/loader";
-import { ShopPagination } from "./shop-pagination";
-import { useHistory } from "react-router";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
 import { Nav } from "./nav";
-import SiteHeader from "./header.js";
+import { SiteHeader } from "../headers/header";
 import { useLocation } from 'react-router-dom';
 
 
@@ -42,23 +35,11 @@ let location = useLocation();
 
   const [data, setData] = useState<PhotoPprint[]>([]);
 
-  const [pages, setPages] = useState<Number[]>([]);
-
-  const [arrPages, setArrPages] = useState<number[]>([]);
-
-  const [currentPage, setCurrentPage] = useState<string>("1");
-
-  const [currentPerPage, setCurrentPerpage] = useState<string>("50");
-
-  const [category, setCategory] = useState<string>("");
-
   const [searchValue, setSearchValue] = useState("")
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-      console.log("SEaRCH COMPONENT")
     async function fetch() {
-        console.log("localtion", window.location.pathname)
         let response: any;
         let text = getQueryVariable('search')
 

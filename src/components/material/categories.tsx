@@ -1,15 +1,12 @@
 import * as React from "react";
-import "./app.css";
+import "../../styles//app.css";
 import { Category } from "models/search/Search";
 import { GetCategories } from "components/backend-api/api";
+import Loader from "components/loader";
 
-interface CardProps {
-  title: string;
-  src: string;
-  price: number;
-}
 
-export const Categories = (props?: any) => {
+
+export const Categories = () => {
   const [data, setData] = React.useState<Category[]>([]);
 
   const [loading, setLoading] = React.useState(true);
@@ -27,13 +24,13 @@ export const Categories = (props?: any) => {
   return (
     <>
       {loading ? (
-        "xui"
+        <Loader />
       ) : (
         <div className="col-lg-3">
           <h3 className="h4 lined text-uppercase mb-4">Категории</h3>
           <ul className="nav flex-column nav-pills mb-4">
             {data.map((d) => (
-              <li className="nav-item">
+              <li className="nav-item" key={d.name}>
                 <a className="nav-link" href={"http://localhost:3000?page=1&per_page=50&category=" + d.name}>
                   <div className="d-flex align-items-center justify-content-between">
                     <span className="fw-bold text-uppercase">{d.name}</span>

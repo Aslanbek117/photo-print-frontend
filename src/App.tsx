@@ -1,28 +1,19 @@
 import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { CarouselComponent } from 'components/material/carousel';
-import { CardComponent } from 'components/material/cards';
 import { BrowserRouter } from 'react-router-dom';
 
 import "antd/dist/antd.css";
-import Sider from 'antd/lib/layout/Sider';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-import App from 'components/material/main';
 import { Route, Switch } from 'react-router';
-import CardList from 'components/material/card-list';
 import { Shop }  from 'components/material/shop';
 import { ShopItem } from 'components/material/shop-item';
-import Delivery from 'components/material/delivery';
-import Warranty from 'components/material/warranty';
-import Contacts from 'components/material/contact';
+import Delivery from 'components/info-page/delivery';
+import Warranty from 'components/info-page/warranty';
+import Contacts from 'components/info-page/contact';
 import { ShopSearch }  from 'components/material/shop-search';
-const { Header, Content, Footer } = Layout;
-
-
-const { SubMenu } = Menu;
+import { Comments } from 'components/comments/comment';
+import { Account } from 'components/customer/account';
+import { ShopBasket } from 'components/shop-basket/shop-basket';
+import { OrderHistory } from 'components/customer/order-history';
+import { OrderReview } from 'components/customer/order-review';
 
 export default function Index() {
   return (
@@ -32,6 +23,11 @@ export default function Index() {
       <Route exact path='/delivery' component={Delivery}/>
       <Route exact path='/warranty' component={Warranty}/>
       <Route exact path='/contacts' component={Contacts}/>
+      <Route exact path='/comments' component={Comments}/>
+      <Route exact path='/account' component={Account}/>
+      <Route exact path='/shop-basket' component={ShopBasket}/>
+      <Route exact path='/orders' component={OrderHistory}/>
+      <Route exact path='/order' component={OrderReview}/>
       <Route exact path='/' component={Shop}/>
       <Route  path='/search/pictures' component={ShopSearch}/>
     </Switch>

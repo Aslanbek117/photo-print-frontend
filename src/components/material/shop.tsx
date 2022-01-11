@@ -1,25 +1,20 @@
 import * as React from "react";
-import TopBar from "./top-bar.js";
-import Header from "./header.js";
-import "./app.css";
-import { Card } from "./card";
+import TopBar from "../headers/top-bar.js";
+import { Card } from "../card/card";
 import { Categories } from "./categories";
-import { Footer } from "./footer";
 import { PhotoPprint } from "../../models/search/Search";
 import { useState, useEffect } from "react";
-import { GetPhotoPrints } from "components/backend-api/api";
+import { GetBasketList, GetPhotoPrints } from "components/backend-api/api";
 import Loader from "components/loader";
 import { ShopPagination } from "./shop-pagination";
-import { useHistory } from "react-router";
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
 import { Nav } from "./nav";
-import SiteHeader from "./header.js";
+import { SiteHeader } from "../headers/header";
 import { useLocation } from 'react-router-dom';
+import "../../styles//app.css";
 
 
 function getQueryVariable(variable)
@@ -47,18 +42,20 @@ export const Shop = () => {
 
   const [currentPage, setCurrentPage] = useState<string>("1");
 
-  const [currentPerPage, setCurrentPerpage] = useState<string>("50");
+  const [currentPerPage, setCurrentPerpage] = useState<string>("5");
 
   const [category, setCategory] = useState<string>("");
 
+  const [count, setCount] = React.useState(0);
+
+  const [userID, setUserID] = React.useState(0);
+
+  
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
    
-    //160990
-    console.log("SHOP COMPONENT")
-
     async function fetch() {
       let response: any;
       let page = getQueryVariable('page')
@@ -78,52 +75,65 @@ export const Shop = () => {
       if (perPage === null  || perPage === false) {
         setCurrentPerpage("50");
       } else {
-        setCurrentPerpage("50")
+        setCurrentPerpage("5")
       }
 
       if (perPage === null || perPage === false  || page === null || page === false) {
         if (!category) {
-          response = await GetPhotoPrints("some_token", "1", "50", "");  
+          response = await GetPhotoPrints("some_token", "1", "5", "");  
         } else {
-          response = await GetPhotoPrints("some_token", "1", "50", category);
+          response = await GetPhotoPrints("some_token", "1", "5", category);
         }
         
       } else {
         if (!category) {
-          response = await GetPhotoPrints("some_token", page.toString(), "50", "");  
+          response = await GetPhotoPrints("some_token", page.toString(), "5", "");  
         } else {
-          response = await GetPhotoPrints("some_token", page.toString(), "50", category);
+          response = await GetPhotoPrints("some_token", page.toString(), "5", category);
         }
       }
       setCategory(category.toString());
       setData(response.result.merchants);
-      let count = response.result.rows_count / 50;
+      let count = response.result.rows_count / 5;
       let page_count =  Math.floor(count);
       let pages: Number[] = [];
       if (!page || page == '' ) {
         if (count > 10 ) {
           for (var i=0; i < 10; i++) {
-            pages.push(i)
+            pages.push(i+1)
           }  
         } else {
           for (var i=0; i < count; i++) {
-            pages.push(i)
+            pages.push(i+1)
           }
         }
       } else {
 
         if (count > 10 ) {
-          for (var i=parseInt(page.toString(), 10); i < parseInt(page.toString(), 10) + 10; i++) {
+          for (var i=0; i < parseInt(page.toString(), 10) + 10; i++) {
             pages.push(i+1)
           }  
         } else {
-          for (var i=parseInt(page.toString(), 10); i < count; i++) {
+          for (var i=0; i < count; i++) {
             pages.push(i+1)
           }
         }
         
       }
-      
+
+
+      let user = JSON.parse(localStorage.getItem("user")!);
+      let user_id;
+      if (user != null) {
+        user_id = user.id
+        setUserID(parseInt(user.id));
+      } else {
+        user_id = 0
+        setUserID(0);
+      }
+
+      const response2 = await GetBasketList("token", user_id);
+      setCount(response2.result.length)
       setPages(pages);
       setLoading(false);
     }
@@ -136,17 +146,17 @@ export const Shop = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="wide" id="all">
+        <div className="wide">
           <TopBar />
-          <SiteHeader />
+          <SiteHeader ordersCount={count}/>
           <section className="py-3" style={{backgroundColor: 'white'}}>
             <div className="container py-0">
               
-              <div className="row g-5">
+              <div className="row">
               <Categories />
                 <div className="col-lg-9">
                   <Nav toShow={false} title="" firstTitle="Картины" firstTitleHref="/"/>
-                  <h3 className="h4 text-uppercase mb-4 text-center">
+                  <h3 className="h4 text-uppercase mb-1 text-center">
                   Модульные картины
                   </h3>
                   <div className="row gy-5 align-items-stretch">
@@ -156,7 +166,7 @@ export const Shop = () => {
                         <Card
                           title={d.title}
                           src={"http://localhost:9092/" + d.complex_3}
-                          price={d.id}
+                          price={d.price}
                           isDiscountEnable={false}
                         />
                         </Link>

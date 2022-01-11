@@ -1,25 +1,18 @@
 import * as React from "react";
-import ReactDOM from "react-dom";
 import Loader from "components/loader";
-import TopBar from "./top-bar";
-import Header from "./header.js";
-import { GetItem } from "components/backend-api/api";
-import { Card } from "./card";
+import TopBar from "../headers/top-bar";
+import { AddToBasketAPI, GetBasketList, GetItem } from "components/backend-api/api";
 import { Image } from "antd";
-import { Tabs } from "antd";
 import { TabItem } from "./tab-item";
 import { Nav } from "./nav";
-import SiteHeader from "./header.js";
-import Slider from "react-slick";
+import { SiteHeader } from "../headers/header";
 
-import "./app.css";
+import "../../styles//app.css";
 
 
-// import "./app.css";
 import { PhotoPprint } from "models/search/Search";
 import { CustomSwiper } from "./swiper";
-
-const { TabPane } = Tabs;
+import { errorMessage, successMessage } from "utils/Notifications";
 
 interface ShopItemProps {
   page: string;
@@ -30,12 +23,10 @@ interface ShopItemProps {
 
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
-  console.log(query);
   var vars = query.split("&");
-  console.log(vars);
   for (var i = 0; i < vars.length; i++) {
     var pair = vars[i].split("=");
-    if (pair[0] == variable) {
+    if (pair[0] === variable) {
       return pair[1];
     }
   }
@@ -64,12 +55,21 @@ export const ShopItem = (props: ShopItemProps) => {
 
   const [imageUrl, setImageUrl] = React.useState("");
 
-  const [current, setCurrent] = React.useState(0);
-
-  const [swiper, setSwiper] = React.useState<any>();
-
   const [index, setIndex] =  React.useState(0);
 
+  const [moduleID, setModuleID] = React.useState(1);
+
+  const [sizeID, setSizeID] = React.useState(1);
+
+  const [pictureID, setPictureID] = React.useState(0);
+
+  const [userID, setUserID] = React.useState(0);
+
+  const [materialID, setMaterialID] = React.useState(1);
+
+  const [count, setCount] = React.useState(0);
+
+  const [title, setTitle] = React.useState("");
   // const onSelect = (id: number) => {
   //   console.log(id);
   //   setSelected(id);
@@ -81,28 +81,55 @@ export const ShopItem = (props: ShopItemProps) => {
   }
 
   const onImageClick = (id: number) => {
-    if (id == 1) {
+    setModuleID(id)
+    setSizeID(id)
+    if (id === 1) {
       setImageUrl("http://localhost:9092/" + item!.complex_2);
       setIndex(1);
-    } else if (id == 2) {
+    } else if (id === 2) {
       setImageUrl("http://localhost:9092/" + item!.complex_3);
       setIndex(2);
-    } else if (id == 3) {
+    } else if (id === 3) {
       setImageUrl("http://localhost:9092/" + item!.original); //break
       setIndex(3);
-    } else if (id == 4) {
+    } else if (id === 4) {
       setImageUrl("http://localhost:9092/" + item!.complex_2_low); // break
       setIndex(4);
-    } else if (id == 5) {
+    } else if (id === 5) {
       setImageUrl("http://localhost:9092/" + item!.complex_3_low); // break
       setIndex(5);
-    } else if (id == 6) {
+    } else if (id === 6) {
       setImageUrl("http://localhost:9092/" + item!.transform); // break
       // setIndex(6);
     } else if (id >= 7 && id <= 9) {
       setImageUrl("http://localhost:9092/" + item!.complex_2);
     }
   };
+
+  async function inform() {
+    let response = await GetBasketList("", userID);
+    if (response.status === true &&  response.message === "ok") {
+      console.log("DADADA")
+      setCount(response.result.length)
+      console.log("COUNT ss", response.result.length)
+      setLoading(false)
+    }
+  }
+
+  async function addToBasket() {
+    if (pictureID === 0) {
+      return;
+    } else {
+      let response = await AddToBasketAPI("", pictureID, sizeID, materialID, moduleID, userID, item?.price || 5000, imageUrl, title);
+
+      if (response.status === true && response.message === "ok") {
+        successMessage("Успех", "Позиция добавлена в корзину.");
+      } else {
+        errorMessage("Ошибка", "Что-то пошло не так")
+      }
+    }
+    inform();
+  }
 
   const ImageTypes = () => {
     return (
@@ -114,9 +141,24 @@ export const ShopItem = (props: ShopItemProps) => {
     async function fetch() {
       let response: any;
       let item_id = getQueryVariable("id");
-      if (item_id) response = await GetItem("token", parseInt(item_id, 10));
+      if (item_id) {
+        response = await GetItem("token", parseInt(item_id, 10));
+        setPictureID(parseInt(item_id));
+      } else {
+        setPictureID(0);
+      }
+
+      let user = JSON.parse(localStorage.getItem("user")!);
+
+      if (user != null) {
+        setUserID(parseInt(user.id));
+      } else {
+        setUserID(0);
+      }
       setItem(response.result);
       setImageUrl("http://localhost:9092/" + response.result.complex_2);
+      inform()
+      setTitle(response.result.title)
       setLoading(false);
       setSelected(1); 
     }
@@ -133,10 +175,10 @@ export const ShopItem = (props: ShopItemProps) => {
         <>
           <div className="wide" id="all">
             <TopBar />
-            <SiteHeader />
+            <SiteHeader  ordersCount={count} />
             <section className="py-3" style={{ backgroundColor: "white" }}>
               <div className="container">
-                <Nav toShow={true} title={item?.title} />
+                <Nav toShow={true} title={item?.title} firstTitleHref={"/"} firstTitle="Картины"/>
                 <div className="row g-5">
                   <div className="col-lg-12">
                     <div className="row gy-5 align-items-stretch">
@@ -167,7 +209,6 @@ export const ShopItem = (props: ShopItemProps) => {
 
                       <div className="col-lg-4 flex-column justify-content-between">
                         <div className="lg-5">
-                          <form action="#">
                             <h3 className="">Тип модуля</h3>
                             <div
                               className=""
@@ -185,7 +226,7 @@ export const ShopItem = (props: ShopItemProps) => {
                               data-customclass="bg-white rounded-0 border-2 text-uppercase border-gray-200"
                             >
                               {sizes.map((i) => (
-                                <option value={i.id}>
+                                <option value={i.id} key={i.id}>
                                   {i.width}x{i.heigth}{" "}
                                 </option>
                               ))}
@@ -194,30 +235,29 @@ export const ShopItem = (props: ShopItemProps) => {
                             <select
                               className="form-select js-sizes mb-4"
                               data-customclass="bg-white rounded-0 border-2 text-uppercase border-gray-200"
+                              onChange={(e) => setMaterialID(parseInt(e.target.value))}
                             >
-                              <option value="b1">Глянцевая</option>
-                              <option value="b2">Матовая</option>
+                              <option value={1}>Глянцевая</option>
+                              <option value={2}>Матовая</option>
                             </select>
-                            <p className="h3 text-muted fw-normal">8000 tg</p>
+                              <p className="h3 text-muted fw-normal">{item?.price} тг.</p>
                             <p className="text-center">
                               <button
                                 className="btn btn-outline-primary"
                                 type="submit"
+                                onClick={() => addToBasket()}
                               >
                                 <i className="fas fa-shopping-cart"></i> В
                                 корзину
                               </button>
                               <button
                                 className="btn btn-secondary"
-                                type="submit"
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
+                                type="button"
                                 title="Add to wishlist"
                               >
                                 <i className="far fa-heart"></i>
                               </button>
                             </p>
-                          </form>
                         </div>
                       </div>
                     </div>
@@ -236,12 +276,12 @@ export const ShopItem = (props: ShopItemProps) => {
                       href=""
                       id={3}
                       setSelected={() => setSelected(2)}
-                      isSelected={selected ===2 ? true : false}
+                      isSelected={selected === 2 ? true : false}
                     />
                   </ul>
 
                   <div className="tab-content" id="myTabContent">
-                    {selected == 1 ? (
+                    {selected === 1 ? (
                       <div
                         className="tab-pane fade show active"
                         id="1"
@@ -311,7 +351,7 @@ export const ShopItem = (props: ShopItemProps) => {
                       </div>
                     ) : null}
 
-                    {selected == 2 ? (
+                    {selected === 2 ? (
                       <div
                         className="tab-pane fade show active"
                         id="2"
@@ -322,7 +362,7 @@ export const ShopItem = (props: ShopItemProps) => {
                       </div>
                     ) : null}
 
-                    {selected == 3 ? (
+                    {selected === 3 ? (
                       <div
                         className="tab-pane fade show active"
                         id="3"
