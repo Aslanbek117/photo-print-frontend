@@ -23,6 +23,7 @@ export const OrderHistory = () => {
             response.result[i].created_at = new Date(response.result[i].created_at).toISOString().split('T')[0] 
         }
         setData(response.result);
+        setLoading(false);
       } else {
       }
     }
@@ -33,7 +34,7 @@ export const OrderHistory = () => {
   }
   async function fetch(user_id: number) {
     getList(user_id);
-    setLoading(false);
+    
   }
 
   React.useEffect(() => {

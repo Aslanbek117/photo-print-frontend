@@ -14,6 +14,8 @@ import { Account } from 'components/customer/account';
 import { ShopBasket } from 'components/shop-basket/shop-basket';
 import { OrderHistory } from 'components/customer/order-history';
 import { OrderReview } from 'components/customer/order-review';
+import { Registration } from 'components/material/auth';
+import { LoginComponent } from 'components/login/login';
 
 export default function Index() {
   return (
@@ -28,6 +30,8 @@ export default function Index() {
       <Route exact path='/shop-basket' component={ShopBasket}/>
       <Route exact path='/orders' component={OrderHistory}/>
       <Route exact path='/order' component={OrderReview}/>
+      <Route exact path='/registration' component={Registration}/>
+      <Route exact path='/login' component={LoginComponent}/>
       <Route exact path='/' component={Shop}/>
       <Route  path='/search/pictures' component={ShopSearch}/>
     </Switch>

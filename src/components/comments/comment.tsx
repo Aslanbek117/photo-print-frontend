@@ -25,6 +25,8 @@ export const Comments = () => {
 
   const [isAuthorized, setAuthorized] = React.useState(false);
 
+  const [user, setUser] = React.useState();
+
   async function LeaveComment() {
     const response = await Comment("", email, name, text, state);
     if (response.status === true && response.message === "ok") {
@@ -53,6 +55,9 @@ export const Comments = () => {
     let user_id;
     if (user != null) {
       setAuthorized(true);
+      setUser(user);
+      setName(user.name)
+      setEmail(user.email);
     } else {
       setAuthorized(false);
     }
@@ -93,9 +98,16 @@ export const Comments = () => {
                         />
                       ))}
 
-                      <h4 className="text-uppercase mb-3">Оставить отзыв (Требуется зайти в аккаунт)</h4>
-                      <div className="row">
-                        <div className="col-md-6 mb-3">
+                      {isAuthorized ? (
+                      <h4 className="text-uppercase mb-3">Оставить отзыв</h4>  
+                      ) : (
+                        <h4 className="text-uppercase mb-3">Оставить отзыв (Требуется зайти в аккаунт)</h4>
+                      ) }
+                      
+                        {!isAuthorized ? (
+                          <>
+                          <div className="row">
+                          <div className="col-md-6 mb-3">
                           <label className="form-label">
                             Имя
                             <sup className="required text-primary">
@@ -111,9 +123,10 @@ export const Comments = () => {
                             onChange={(e) => setName(e.target.value)}
                           />
                         </div>
+                        
                       </div>
                       <div className="row">
-                        <div className="col-md-6 mb-3">
+                      <div className="col-md-6 mb-3">
                           <label className="form-label">
                             Емейл
                             <sup className="required text-primary">
@@ -128,6 +141,11 @@ export const Comments = () => {
                             onChange={(e) => setEmail(e.target.value)}
                           />
                         </div>
+                      </div>
+                          </>
+                        ) : null}
+                        
+                      <div className="row">
                         <div className="col-12 mb-3">
                           <label className="form-label">
                             Отзыв{" "}

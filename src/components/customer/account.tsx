@@ -89,65 +89,11 @@ export const Account = () => {
                 <div className="row gy-5">
                   <div className="col-lg-9">
                     <p className="lead mb-4">Личный кабинет</p>
-                    <p className="text-muted mb-5">
-                      Здесь вы сможете изменить ваш пароль, добавить имя и
-                      адрес. Имейл, телефонный телефон и адрес никогда не будут
+                    <p className="text-muted mb-3">
+                      Здесь вы сможете добавить или изменить имя и адрес. Имейл, телефонный телефон и адрес никогда не будут
                       показаны на сайте!.
                     </p>
-                    <form
-                      className="py-4 border-top border-bottom mb-5"
-                      action="#"
-                    >
-                      <div className="row">
-                        <div className="col-12 mb-4">
-                          <h3 className="text-uppercase lined">
-                            Изменение пароля
-                          </h3>
-                        </div>
-                        <div className="col-lg-6 mb-3">
-                          <label className="form-label">Старый пароль</label>
-                          <input
-                            className="form-control"
-                            id="password_old"
-                            type="password"
-                            name="password_old"
-                          />
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-lg-6 mb-3">
-                          <label className="form-label">Новый пароль</label>
-                          <input
-                            className="form-control"
-                            id="password_1"
-                            type="password"
-                            name="password_1"
-                          />
-                        </div>
-                        <div className="col-lg-6 mb-3">
-                          <label className="form-label">
-                            Повторите новый пароль
-                          </label>
-                          <input
-                            className="form-control"
-                            id="password_2"
-                            type="password"
-                            name="password_2"
-                          />
-                        </div>
-                        <div className="col-lg-12 text-center">
-                          <button
-                            className="btn btn-outline-primary"
-                            type="button"
-                          >
-                            {" "}
-                            <i className="fas fa-save me-2"></i>Сохранить новый
-                            пароль
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                    <form className="py-4" action="#">
+                    <form className="py-2" action="#">
                       <div className="row">
                         <div className="col-12 mb-4">
                           <h3 className="text-uppercase lined">

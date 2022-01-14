@@ -1,4 +1,8 @@
 import { Login } from "components/backend-api/api";
+import { SiteHeader } from "components/headers/header";
+import TopBar from "components/headers/top-bar";
+import Loader from "components/loader";
+import { Nav } from "components/material/nav";
 import { UserPost } from "models/search/Search";
 import * as React from "react";
 import { errorMessage } from "utils/Notifications";
@@ -15,7 +19,9 @@ export  const LoginComponent = (props: Props)  => {
 
   const [password, setPassword] = React.useState("");
 
-  async function RegisterUser() {
+  const [loading, setLoading] = React.useState(true);
+
+  async function LogiuUser() {
     const user: UserPost = {
       email: email, 
       password: password
@@ -24,40 +30,70 @@ export  const LoginComponent = (props: Props)  => {
 
     if (response.status === true && response.message ==="ok") {
         localStorage.setItem("user", JSON.stringify(response.result))
+        window.location.href="/account";
     } else  {
       errorMessage("Ошибка", response.message)
     }
-
   }
+
+  React.useEffect(() => {
+    setLoading(false);    
+  }, []);
+
   return (
     <>
-       <div className="modal fade show" id="login-modal" tab-index="-1" aria-labelledby="login-modalLabel" role="dialog" style={{display: props.showModal ? 'block' : 'none'}}>
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h4 className="modal-title text-uppercase" id="login-modalLabel">Вход</h4>
-              <button className="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" onClick={(e) => {
-                props.onClose()
-              }} ></button>
-            </div>
-            <div className="modal-body">
-              {/* <form> */}
-                <div className="form-group mb-3">
-                  <input className="form-control" id="email_modal" type="text" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <div className="wide" id="all">
+            <TopBar />
+            <SiteHeader ordersCount={0} />
+            <section className="py-3" style={{ backgroundColor: "white" }}>
+              <div className="container">
+                <Nav
+                  toShow={false}
+                  title={""}
+                  firstTitleHref={"/"}
+                  firstTitle="Регистрация"
+                />
+                <div className="row g-5">
+                <div className="col-lg-6">
+              <header className="mb-2">
+                <h2 className="text-uppercase mb-2">Зайти в аккаунт</h2>
+              </header>
+                <div className="form-group mb-1">
+                  <label className="form-label"></label>
+                  <input className="form-control" id="useremail" type="text" name="useremail" placeholder="Введите имейл" value={email} onChange={(e) => setEmail(e.target.value) } />
                 </div>
-                <div className="form-group mb-3">
-                  <input className="form-control" id="password_modal" type="password" placeholder="пароль"  value={password} onChange={(e) => setPassword(e.target.value)}  />
+                <div className="form-group mb-1">
+                  <label className="form-label" ></label>
+                  <input className="form-control" id="userpassword" type="text" name="userpassword" placeholder="Введите пароль" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
-                <p className="text-center">
-                  <button className="btn btn-outline-primary" onClick={() => RegisterUser()}><i className="fas fa-door-open"></i>Войти</button>
-                </p>
-              {/* </form> */}
-              <p className="text-center text-muted small">Еще не зарегистрированы?</p>
-              <p className="text-center text-muted small"><a href="customer-register.html"><strong>Зарегистрироваться</strong></a>! Это займет не более 5 секунд!</p>
+                <div className="form-group mb-3 text-center">
+                  <button className="btn btn-outline-primary" type="submit" onClick={() => LogiuUser()} ><i className="fas fa-user me-2"></i>Войти</button>
+                </div>
             </div>
+                </div>
+              </div>
+            </section>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };
+
+
+
+
+
+
+
+
+
+
+
+
+{/* <p className="text-center text-muted small">Еще не зарегистрированы?</p> */}
+            //   <p className="text-center text-muted small"><a href="customer-register.html"><strong>Зарегистрироваться</strong></a>! Это займет не более 5 секунд!</p>

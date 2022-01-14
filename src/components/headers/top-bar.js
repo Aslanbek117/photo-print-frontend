@@ -1,7 +1,7 @@
 import * as React from "react";
 import logo from "../files/logo2.png";
 import "../../styles//app.css";
-import { Auth } from "../material/auth";
+import { Registration } from "../material/auth";
 import { LoginComponent } from "components/login/login";
 
 export default function TopBar() {
@@ -19,6 +19,11 @@ export default function TopBar() {
 
   const onLoginClose = () => {
     setShowLogin(false);
+  }
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    window.location.href="/"
   }
 
 
@@ -49,7 +54,29 @@ export default function TopBar() {
                   </li>
                 </ul>
                 <ul className="list-inline mb-0">
-                  {isAuthorized ? null : (
+                  {isAuthorized ? (
+                    <>
+                    <li className="list-inline-item" key={231312}>
+                    <a
+                      className="text-xs text-uppercase fw-bold text-reset"
+                      role="button"
+                      onClick={() => logout()}
+                    >
+                      <span
+                        className="d-none d-md-inline-block"
+                        style={{ color: "black" }}
+                      >
+                        <i class="fas fa-user me-2">
+                      
+                      </i>
+                        Выйти
+                      </span>
+                      
+                      
+                    </a>
+                  </li>
+                    </>
+                  ) : (
                     <>
                     <li className="list-inline-item" key={13123132}>
                     <a
@@ -59,13 +86,15 @@ export default function TopBar() {
                       onClick={() => setShowModal(!showModal)}
                       // data-toggle="modalLoginForm"
                       // data-target="#modalLoginForm"
+                      href="/registration"
                     >
-                      <i className="fas fa-door-open me-2"></i>
                       <span
                         className="d-none d-md-inline-block"
                         style={{ color: "black" }}
                       >
-                        Регистрация
+                        
+                      <i className="fas fa-door-open me-2" />
+                      Регистрация
                       </span>
                     </a>
                   </li>
@@ -74,14 +103,15 @@ export default function TopBar() {
                       className="text-xs text-uppercase fw-bold text-reset"
                       onClick={() => setShowLogin(!showLogin)}
                       role="button"
-
+                      href="/login"
                     >
-                      <i className="fas fa-user me-2"></i>
-                      <span
+                       <span
                         className="d-none d-md-inline-block"
                         style={{ color: "black" }}
                       >
-                        Вход
+                      <i className="fas fa-user me-2" />
+                      Вход
+
                       </span>
                     </a>
                   </li>
@@ -116,10 +146,6 @@ export default function TopBar() {
           </div>
         </div>
       </div>
-
-      <Auth showModal={showModal} onClose={onClose} />
-
-      <LoginComponent showModal={showLogin} onClose={onLoginClose} />
     </>
   );
 }
