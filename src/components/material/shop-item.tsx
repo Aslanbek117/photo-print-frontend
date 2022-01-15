@@ -8,11 +8,33 @@ import { Nav } from "./nav";
 import { SiteHeader } from "../headers/header";
 
 import "../../styles//app.css";
+import { Navigation } from "swiper";
+// Direct React component imports
+import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
 
-
+import first from "../files//2x2.png";
+import second from "../files/3x3.png";
+import one from "../files/1x1.png";
+import not from "../files/2x2_not.png";
+import not3x3 from "../files/3x3_not.png";
+import not1x1 from "../files/1x1_not.png";
+import is from "./out_5.png";
+import SwiperCore, { Grid } from "swiper";
 import { PhotoPprint } from "models/search/Search";
 import { CustomSwiper } from "./swiper";
 import { errorMessage, successMessage } from "utils/Notifications";
+import { env } from "process";
+// Styles must use direct files imports
+// Styles must use direct files imports
+import "swiper/swiper.scss"; // core Swiper
+import "swiper/modules/grid/grid.scss"; // Navigation module
+import "swiper/modules/navigation/navigation.scss"; // Navigation module
+import "swiper/modules/pagination/pagination.scss"; // Pagination module
+
+import "../../styles/app.css";
+
+SwiperCore.use([Grid, Navigation]);
+
 
 interface ShopItemProps {
   page: string;
@@ -46,7 +68,10 @@ const sizes = [
 
 
 
+
+
 export const ShopItem = (props: ShopItemProps) => {
+
   const [loading, setLoading] = React.useState(true);
 
   const [selected, setSelected] = React.useState(0);
@@ -70,39 +95,40 @@ export const ShopItem = (props: ShopItemProps) => {
   const [count, setCount] = React.useState(0);
 
   const [title, setTitle] = React.useState("");
+
+  const [origImage, setOrigImage] = React.useState("");
+
+  const [activeIndex, setActiveIndex] = React.useState(0);
+
+  const [swiperRef, setSwiperRef] = React.useState(null);
+
   // const onSelect = (id: number) => {
   //   console.log(id);
   //   setSelected(id);
   // };
+  
 
   const onSlideChange = (index: number) => {
-    console.log("index in shop", index);
-    setIndex(index);
+    return index
+  }
+
+
+  const imagePath = (id) => {
+    return "https://photo-print.fra1.digitaloceanspaces.com/V_Parizhe/module_" +id + "/complex_"+id + ".jpg"
   }
 
   const onImageClick = (id: number) => {
     setModuleID(id)
     setSizeID(id)
-    if (id === 1) {
-      setImageUrl("http://localhost:9092/" + item!.complex_2);
-      setIndex(1);
-    } else if (id === 2) {
-      setImageUrl("http://localhost:9092/" + item!.complex_3);
-      setIndex(2);
-    } else if (id === 3) {
-      setImageUrl("http://localhost:9092/" + item!.original); //break
+    setImageUrl(imagePath(id));
+    if (id <=6) {
+      setIndex(1); 
+    } else if (id >= 6 && id <=12) {
       setIndex(3);
-    } else if (id === 4) {
-      setImageUrl("http://localhost:9092/" + item!.complex_2_low); // break
-      setIndex(4);
-    } else if (id === 5) {
-      setImageUrl("http://localhost:9092/" + item!.complex_3_low); // break
-      setIndex(5);
-    } else if (id === 6) {
-      setImageUrl("http://localhost:9092/" + item!.transform); // break
-      // setIndex(6);
-    } else if (id >= 7 && id <= 9) {
-      setImageUrl("http://localhost:9092/" + item!.complex_2);
+    } else if(id >=12 && id <= 18) {
+      setIndex(6);
+    } else if (id >= 18 && id <=24) {
+      setIndex(9);
     }
   };
 
@@ -161,9 +187,10 @@ export const ShopItem = (props: ShopItemProps) => {
       setTitle(response.result.title)
       setLoading(false);
       setSelected(1); 
+      setOrigImage("https://photo-print.fra1.digitaloceanspaces.com/V_Parizhe/paris-2499022_1920.jpg")
     }
     fetch();
-    
+ 
   }, []);
 
 
@@ -188,7 +215,7 @@ export const ShopItem = (props: ShopItemProps) => {
                             <div className="swiper-slide">
                               <img
                                 className="img-fluid"
-                                src={"http://localhost:9092/" + item?.original}
+                                src={origImage}
                                 alt="..."
                                 style={{ maxWidth: "95%" }}
                               />

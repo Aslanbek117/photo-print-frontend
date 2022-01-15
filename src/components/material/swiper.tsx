@@ -48,7 +48,7 @@ export const CustomSwiper = (props: Props) => {
     // console.log(newSlideIndexToShow.activeIndex, newSlideIndexToShow.realIndex);
     // let currentSlide = swiperInstance?.slides[newSlideIndexToShow.realIndex]
     // swiperInstance?.slideTo(newSlideIndexToShow.realIndex);
-    setValue(newSlideIndexToShow.realIndex);
+    // setValue(newSlideIndexToShow.realIndex);
   };
 
   const toggleClass = (id) => {
@@ -68,7 +68,7 @@ export const CustomSwiper = (props: Props) => {
     let oldMap = new Map(isActive)
     oldMap.set(props.activeIndex, true)
     setIsActive(oldMap)
-  }, []);
+  }, [props.activeIndex]);
 
 
 
@@ -80,15 +80,15 @@ export const CustomSwiper = (props: Props) => {
           spaceBetween={30}
           grid={{ rows: 2 }}
           slidesPerView={3}
-          slidesPerGroup={6}
+          slidesPerGroup={3}
           navigation={true}
           className="mySwiper"
           initialSlide={props.slideTo}
           onTransitionEnd={(swiper) => {
-            props.onSlideChange(swiper.realIndex * 2);
+            // props.onSlideChange(swiper.realIndex * 2);
           }}
           style={{ border: "1px solid black" }}
-          onSlideChange={() => setSelected(1)}
+          // onSlideChange={() => setSelected(1)}
 //          on={{'click': function() { setSelected(1); console.log("selected 1")} }}
         >
           <SwiperSlide
@@ -195,6 +195,102 @@ export const CustomSwiper = (props: Props) => {
             }}
           >
             Slide 12
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(13);
+              props.onClick(13);
+            }}
+          >
+            Slide 13
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(14);
+              props.onClick(14);
+            }}
+          >
+            Slide 14
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(15);
+              props.onClick(15);
+            }}
+          >
+            Slide 15
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(16);
+              props.onClick(16);
+            }}
+          >
+            Slide 16
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(17);
+              props.onClick(17);
+            }}
+          >
+            Slide 17
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(18);
+              props.onClick(18);
+            }}
+          >
+            Slide 18
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(19);
+              props.onClick(19);
+            }}
+          >
+            Slide 19
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(20);
+              props.onClick(20);
+            }}
+          >
+            Slide 20
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(21);
+              props.onClick(21);
+            }}
+          >
+            Slide 21
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(2);
+              props.onClick(22);
+            }}
+          >
+            Slide 22
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(23);
+              props.onClick(23);
+            }}
+          >
+            Slide 23
+          </SwiperSlide>
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(24);
+              props.onClick(24);
+            }}
+          >
+            Slide 24
           </SwiperSlide>
         </Swiper>
       </div>
