@@ -4,7 +4,7 @@ import { Card } from "../card/card";
 import { Categories } from "./categories";
 import { PhotoPprint } from "../../models/search/Search";
 import { useState, useEffect } from "react";
-import { GetBasketList, GetPhotoPrints } from "components/backend-api/api";
+import { GetBasketList, GetComments, GetPhotoPrints } from "components/backend-api/api";
 import Loader from "components/loader";
 import { ShopPagination } from "./shop-pagination";
 import {
@@ -50,11 +50,14 @@ export const Shop = () => {
 
   const [userID, setUserID] = React.useState(0);
 
+  const [comments, setComments] = React.useState();
+
   
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
    
     async function fetch() {
       let response: any;
@@ -132,9 +135,12 @@ export const Shop = () => {
         setUserID(0);
       }
 
-      const response2 = await GetBasketList("token", user_id);
-      setCount(response2.result.length)
       setPages(pages);
+      const responseComments = await GetComments("");
+      if (responseComments.status === true && responseComments.message === "ok") {
+        setComments(responseComments.result);
+      } else {
+      }
       setLoading(false);
     }
 
@@ -153,7 +159,7 @@ export const Shop = () => {
             <div className="container py-0">
               
               <div className="row">
-              <Categories />
+              <Categories comments={comments}/>
                 <div className="col-lg-9">
                   <Nav toShow={false} title="" firstTitle="Картины" firstTitleHref="/"/>
                   <h3 className="h4 text-uppercase mb-1 text-center">
@@ -165,7 +171,7 @@ export const Shop = () => {
                         <Link to={"/item?id=" + d.id}>
                         <Card
                           title={d.title}
-                          src={"http://localhost:9092/" + d.complex_3}
+                          src={"https://photo-print.fra1.digitaloceanspaces.com/" + d.directory_name + "/module_2/complex_2.jpg"}
                           price={d.price}
                           isDiscountEnable={false}
                         />

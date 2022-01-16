@@ -26,8 +26,6 @@ export default function TopBar() {
     window.location.href="/"
   }
 
-
-
   React.useEffect(() => {
     if (localStorage.getItem("user") != null ) {
       setIsAuthorized(true)
@@ -49,7 +47,7 @@ export default function TopBar() {
                 <ul className="list-inline d-block d-md-none mb-0">
                   <li className="list-inline-item" key={123132}>
                     <a className="text-xs" href="/">
-                      <img src={logo} alt="logo"/>
+                      <img src={logo} alt="logo" style={{maxWidth: 100}}/>
                     </a>
                   </li>
                 </ul>
@@ -78,26 +76,6 @@ export default function TopBar() {
                     </>
                   ) : (
                     <>
-                    <li className="list-inline-item" key={13123132}>
-                    <a
-                      className="text-xs text-uppercase fw-bold text-reset"
-                      // href="#"
-                      role="button"
-                      onClick={() => setShowModal(!showModal)}
-                      // data-toggle="modalLoginForm"
-                      // data-target="#modalLoginForm"
-                      href="/registration"
-                    >
-                      <span
-                        className="d-none d-md-inline-block"
-                        style={{ color: "black" }}
-                      >
-                        
-                      <i className="fas fa-door-open me-2" />
-                      Регистрация
-                      </span>
-                    </a>
-                  </li>
                   <li className="list-inline-item" key={231312}>
                     <a
                       className="text-xs text-uppercase fw-bold text-reset"
@@ -106,7 +84,7 @@ export default function TopBar() {
                       href="/login"
                     >
                        <span
-                        className="d-none d-md-inline-block"
+                        className="d-md-inline-block"
                         style={{ color: "black" }}
                       >
                       <i className="fas fa-user me-2" />

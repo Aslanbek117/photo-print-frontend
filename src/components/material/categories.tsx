@@ -3,10 +3,13 @@ import "../../styles//app.css";
 import { Category } from "models/search/Search";
 import { GetCategories } from "components/backend-api/api";
 import Loader from "components/loader";
+import { CommentCard } from "components/comments/comment-card";
 
+interface Props {
+  comments?: any[];
+}
 
-
-export const Categories = () => {
+export const Categories = (props: Props) => {
   const [data, setData] = React.useState<Category[]>([]);
 
   const [loading, setLoading] = React.useState(true);
@@ -40,6 +43,20 @@ export const Categories = () => {
               </li>
             ))}
           </ul>
+
+          <div className="comments d-none d-md-inline-block">
+            <h3 className="h4 lined text-uppercase mb-4">Отзывы</h3>
+            {props.comments && props.comments.map((c) => (
+                        <CommentCard
+                          loading={loading}
+                          name={c.name}
+                          text={c.text}
+                          img={""}
+                          created_at={c.created_at}
+                          displayImg={false}
+                        />
+                      ))}
+          </div>
         </div>
       )}
     </>

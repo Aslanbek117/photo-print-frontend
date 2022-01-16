@@ -12,6 +12,7 @@ export interface PhotoPprint {
     transform: string;
     original: string;
     price: number;
+    directory_name: string;
 }
 
 export interface Category {

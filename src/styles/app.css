@@ -13527,3 +13527,7 @@
   top: 13px;
   color: green
 }
+
+img.loading {
+  background: transparent url("") no-repeat scroll center center;
+}

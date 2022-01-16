@@ -28,12 +28,9 @@ export const SiteHeader = (props: Props) => {
       let response = await GetBasketList("", user_id);
       if (response.status === true && response.message === "ok") {
         if (props.ordersCount != undefined) {
-          console.log("COMPARE", props.ordersCount, response.result.length);
           if (props.ordersCount > response.result.length) {
-            console.log("props_count", props.ordersCount);
             setCount(props.ordersCount);
           } else if (props.ordersCount < response.result.length) {
-            console.log("WININN");
             setCount(response.result.length);
           }
         }
@@ -44,7 +41,6 @@ export const SiteHeader = (props: Props) => {
   }
 
   React.useEffect(() => {
-    console.log("COUNT ZAEBAL", props.ordersCount);
     let user = JSON.parse(localStorage.getItem("user")!);
     let user_id;
     if (user != null) {
@@ -52,7 +48,6 @@ export const SiteHeader = (props: Props) => {
     } else {
       user_id = 0;
     }
-    console.log("user_id", user_id);
     if (localStorage.getItem("user") != null) {
       setIsAuthorized(true);
     }

@@ -55,7 +55,7 @@ export  const LoginComponent = (props: Props)  => {
                   toShow={false}
                   title={""}
                   firstTitleHref={"/"}
-                  firstTitle="Регистрация"
+                  firstTitle="Вход"
                 />
                 <div className="row g-5">
                 <div className="col-lg-6">
@@ -72,7 +72,9 @@ export  const LoginComponent = (props: Props)  => {
                 </div>
                 <div className="form-group mb-3 text-center">
                   <button className="btn btn-outline-primary" type="submit" onClick={() => LogiuUser()} ><i className="fas fa-user me-2"></i>Войти</button>
+                  <a className="btn btn-outline-primary" href="/registration" type="button" onClick={() => LogiuUser()} style={{marginLeft: 10}}><i className="fas fa-user me-2"></i>Зарегистрироваться</a>
                 </div>
+                
             </div>
                 </div>
               </div>

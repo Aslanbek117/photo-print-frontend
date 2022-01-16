@@ -1,29 +1,25 @@
 import * as React from "react";
 import Loader from "components/loader";
 import TopBar from "../headers/top-bar";
-import { AddToBasketAPI, GetBasketList, GetItem } from "components/backend-api/api";
+import {
+  AddToBasketAPI,
+  GetBasketList,
+  GetItem,
+} from "components/backend-api/api";
 import { Image } from "antd";
 import { TabItem } from "./tab-item";
 import { Nav } from "./nav";
 import { SiteHeader } from "../headers/header";
+import { Tooltip } from "antd";
 
-import "../../styles//app.css";
 import { Navigation } from "swiper";
-// Direct React component imports
-import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
+import Select from "react-select";
 
-import first from "../files//2x2.png";
-import second from "../files/3x3.png";
-import one from "../files/1x1.png";
-import not from "../files/2x2_not.png";
-import not3x3 from "../files/3x3_not.png";
-import not1x1 from "../files/1x1_not.png";
-import is from "./out_5.png";
 import SwiperCore, { Grid } from "swiper";
 import { PhotoPprint } from "models/search/Search";
 import { CustomSwiper } from "./swiper";
 import { errorMessage, successMessage } from "utils/Notifications";
-import { env } from "process";
+import { sizesFormatted } from './sizes.js'
 // Styles must use direct files imports
 // Styles must use direct files imports
 import "swiper/swiper.scss"; // core Swiper
@@ -34,7 +30,6 @@ import "swiper/modules/pagination/pagination.scss"; // Pagination module
 import "../../styles/app.css";
 
 SwiperCore.use([Grid, Navigation]);
-
 
 interface ShopItemProps {
   page: string;
@@ -55,23 +50,7 @@ function getQueryVariable(variable) {
   return false;
 }
 
-const sizes = [
-  { id: 1, width: 15, heigth: 25, url: "" },
-  { id: 2, width: 20, heigth: 33 },
-  { id: 3, width: 30, heigth: 50 },
-  { id: 4, width: 40, heigth: 67 },
-  { id: 5, width: 50, heigth: 83 },
-  { id: 6, width: 60, heigth: 100 },
-];
-
-
-
-
-
-
-
 export const ShopItem = (props: ShopItemProps) => {
-
   const [loading, setLoading] = React.useState(true);
 
   const [selected, setSelected] = React.useState(0);
@@ -80,7 +59,7 @@ export const ShopItem = (props: ShopItemProps) => {
 
   const [imageUrl, setImageUrl] = React.useState("");
 
-  const [index, setIndex] =  React.useState(0);
+  const [index, setIndex] = React.useState(0);
 
   const [moduleID, setModuleID] = React.useState(1);
 
@@ -98,47 +77,59 @@ export const ShopItem = (props: ShopItemProps) => {
 
   const [origImage, setOrigImage] = React.useState("");
 
-  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [activeSlide, setActiveSlide] = React.useState(0);
 
-  const [swiperRef, setSwiperRef] = React.useState(null);
+  const [swiperRef, setSwiperRef] = React.useState<Select>();
+
+  const selectRef = React.useRef<any>(null);
 
   // const onSelect = (id: number) => {
   //   console.log(id);
   //   setSelected(id);
   // };
-  
 
   const onSlideChange = (index: number) => {
-    return index
-  }
-
+    return index;
+  };
 
   const imagePath = (id) => {
-    return "https://photo-print.fra1.digitaloceanspaces.com/V_Parizhe/module_" +id + "/complex_"+id + ".jpg"
-  }
+    return (
+      "https://photo-print.fra1.digitaloceanspaces.com/" +
+      item?.directory_name.trim() +
+      "/module_" +
+      id +
+      "/complex_" +
+      id +
+      ".jpg"
+    );
+  };
 
   const onImageClick = (id: number) => {
-    setModuleID(id)
-    setSizeID(id)
+    setModuleID(id);
     setImageUrl(imagePath(id));
-    if (id <=6) {
-      setIndex(1); 
-    } else if (id >= 6 && id <=12) {
+    setActiveSlide(id);
+    selectRef.current.clearValue();
+    if (id <= 6) {
+      setIndex(1);
+    } else if (id >= 6 && id <= 12) {
       setIndex(3);
-    } else if(id >=12 && id <= 18) {
+    } else if (id >= 12 && id <= 18) {
       setIndex(6);
-    } else if (id >= 18 && id <=24) {
+    } else if (id >= 18 && id <= 24) {
       setIndex(9);
     }
   };
 
   async function inform() {
-    let response = await GetBasketList("", userID);
-    if (response.status === true &&  response.message === "ok") {
-      console.log("DADADA")
-      setCount(response.result.length)
-      console.log("COUNT ss", response.result.length)
-      setLoading(false)
+    if (userID != 0) {
+      let response = await GetBasketList("", userID);
+      if (response.status === true && response.message === "ok") {
+        setCount(response.result.length);
+        setLoading(false);
+      }
+    } else {
+      setCount(0);
+      setLoading(false);
     }
   }
 
@@ -146,12 +137,22 @@ export const ShopItem = (props: ShopItemProps) => {
     if (pictureID === 0) {
       return;
     } else {
-      let response = await AddToBasketAPI("", pictureID, sizeID, materialID, moduleID, userID, item?.price || 5000, imageUrl, title);
+      let response = await AddToBasketAPI(
+        "",
+        pictureID,
+        sizeID,
+        materialID,
+        moduleID,
+        userID,
+        item?.price || 5000,
+        imageUrl,
+        title
+      );
 
       if (response.status === true && response.message === "ok") {
         successMessage("Успех", "Позиция добавлена в корзину.");
       } else {
-        errorMessage("Ошибка", "Что-то пошло не так")
+        errorMessage("Ошибка", "Что-то пошло не так");
       }
     }
     inform();
@@ -159,7 +160,13 @@ export const ShopItem = (props: ShopItemProps) => {
 
   const ImageTypes = () => {
     return (
-      <CustomSwiper onClick={(id) => onImageClick(id)} onSlideChange={onSlideChange} slideTo={index} activeIndex={index} />
+      <CustomSwiper
+        onClick={(id) => onImageClick(id)}
+        onSlideChange={onSlideChange}
+        slideTo={index}
+        activeIndex={index}
+        activeSlide={activeSlide}
+      />
     );
   };
 
@@ -182,17 +189,23 @@ export const ShopItem = (props: ShopItemProps) => {
         setUserID(0);
       }
       setItem(response.result);
-      setImageUrl("http://localhost:9092/" + response.result.complex_2);
-      inform()
-      setTitle(response.result.title)
+      setImageUrl(
+        "https://photo-print.fra1.digitaloceanspaces.com/" +
+          response.result.directory_name +
+          "/module_2/complex_2.jpg"
+      );
+      inform();
+      setTitle(response.result.title);
       setLoading(false);
-      setSelected(1); 
-      setOrigImage("https://photo-print.fra1.digitaloceanspaces.com/V_Parizhe/paris-2499022_1920.jpg")
+      setSelected(1);
+      setOrigImage(
+        "https://photo-print.fra1.digitaloceanspaces.com/" +
+          response.result.directory_name +
+          "/paris-2499022_1920.jpg"
+      );
     }
     fetch();
- 
   }, []);
-
 
   return (
     <>
@@ -202,10 +215,15 @@ export const ShopItem = (props: ShopItemProps) => {
         <>
           <div className="wide" id="all">
             <TopBar />
-            <SiteHeader  ordersCount={count} />
+            <SiteHeader ordersCount={count} />
             <section className="py-3" style={{ backgroundColor: "white" }}>
               <div className="container">
-                <Nav toShow={true} title={item?.title} firstTitleHref={"/"} firstTitle="Картины"/>
+                <Nav
+                  toShow={true}
+                  title={item?.title}
+                  firstTitleHref={"/"}
+                  firstTitle="Картины"
+                />
                 <div className="row g-5">
                   <div className="col-lg-12">
                     <div className="row gy-5 align-items-stretch">
@@ -231,60 +249,67 @@ export const ShopItem = (props: ShopItemProps) => {
                           borderColor: "lightgray",
                         }}
                       >
-                        <Image src={imageUrl} height={"100%"} />
+                        <Image
+                          src={imageUrl}
+                          height={"100%"}
+                          width={"100%"}
+                          fallback="data:image/png;base64,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"
+                        />
                       </div>
 
                       <div className="col-lg-4 flex-column justify-content-between">
                         <div className="lg-5">
-                            <h3 className="">Тип модуля</h3>
-                            <div
-                              className=""
-                              style={{
-                                border: "1px solid",
-                                borderColor: "lightgray",
-                                height: "100px",
-                              }}
-                            >
-                              <ImageTypes />
-                            </div>
-                            <h4 className="py-1 mb-2">Выберите размер (Ш×В)</h4>
-                            <select
-                              className="form-select js-sizes mb-1"
-                              data-customclass="bg-white rounded-0 border-2 text-uppercase border-gray-200"
-                            >
-                              {sizes.map((i) => (
-                                <option value={i.id} key={i.id}>
-                                  {i.width}x{i.heigth}{" "}
-                                </option>
-                              ))}
-                            </select>
-                            <h4 className="py-1 mb-1"> Поверхность холста </h4>
-                            <select
-                              className="form-select js-sizes mb-4"
-                              data-customclass="bg-white rounded-0 border-2 text-uppercase border-gray-200"
-                              onChange={(e) => setMaterialID(parseInt(e.target.value))}
-                            >
-                              <option value={1}>Глянцевая</option>
-                              <option value={2}>Матовая</option>
-                            </select>
-                              <p className="h3 text-muted fw-normal">{item?.price} тг.</p>
-                            <p className="text-center">
+                          <h3 className="">Тип модуля + {moduleID} </h3>
+                          <div
+                            className=""
+                            style={{
+                              border: "1px solid",
+                              borderColor: "lightgray",
+                              height: "100px",
+                            }}
+                          >
+                            <ImageTypes />
+                          </div>
+                          <h4 className="py-1 mb-2">Выберите размер (Ш×В)</h4>
+
+                          <Select
+                            ref={selectRef}
+                            className="basic-single"
+                            classNamePrefix="select"
+                            name="color"
+                            options={sizesFormatted.find(s => s.module_id === moduleID)?.innerSizes}
+                            onChange={(e) => console.log("DSALDJSA", e?.value)}
+                            placeholder="Выберите размер"
+                          />
+                          <p className="h3 text-muted fw-normal">
+                            {item?.price} тг.
+                          </p>
+                          <p className="text-center">
+                            {userID == 0 ? (
+                              <Tooltip title="Войдите, чтобы добавить">
+                                <button
+                                  className="btn btn-outline-primary"
+                                  type="submit"
+                                  onClick={() => addToBasket()}
+                                  disabled={userID == 0 ? true : false}
+                                  style={{ border: "none" }}
+                                >
+                                  <i className="fas fa-shopping-cart"></i> В
+                                  корзину
+                                </button>
+                              </Tooltip>
+                            ) : (
                               <button
                                 className="btn btn-outline-primary"
                                 type="submit"
                                 onClick={() => addToBasket()}
+                                disabled={userID == 0 ? true : false}
                               >
                                 <i className="fas fa-shopping-cart"></i> В
                                 корзину
                               </button>
-                              <button
-                                className="btn btn-secondary"
-                                type="button"
-                                title="Add to wishlist"
-                              >
-                                <i className="far fa-heart"></i>
-                              </button>
-                            </p>
+                            )}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -329,7 +354,7 @@ export const ShopItem = (props: ShopItemProps) => {
                             <div className="col-lg-6 col-sm-6">
                               <img
                                 className="img-fluid"
-                                src="https://www.allstick.ru/uploads/manager/harakteristiki/kr-1.jpg"
+                                src="https://photo-print.fra1.digitaloceanspaces.com/static/characteristic-1.jpg"
                                 alt="..."
                                 style={{ width: 400, height: 350 }}
                               />
@@ -349,26 +374,7 @@ export const ShopItem = (props: ShopItemProps) => {
                             <div className="col-lg-6 col-sm-6">
                               <img
                                 className="img-fluid"
-                                src="https://www.allstick.ru/uploads/manager/harakteristiki/kr-2.jpg"
-                                alt="..."
-                                style={{ width: 400, height: 350 }}
-                              />
-                            </div>
-                          </div>
-                          <div className="row mt-4">
-                            <div className="col-lg-6 col-sm-6">
-                              <p className="text-center">
-                                Натуральный плотный холст. Печать УФ стойкими
-                                красками. Матовое или глянцевое покрытие на
-                                выбор. Насыщенные цвета изображения.
-                                Изготовление на заказ.
-                              </p>
-                            </div>
-
-                            <div className="col-lg-6 col-sm-6">
-                              <img
-                                className="img-fluid"
-                                src="	https://www.allstick.ru/uploads/manager/harakteristiki/kr-3.jpg"
+                                src="https://photo-print.fra1.digitaloceanspaces.com/static/characteristic-2.jpg"
                                 alt="..."
                                 style={{ width: 400, height: 350 }}
                               />
@@ -385,18 +391,63 @@ export const ShopItem = (props: ShopItemProps) => {
                         role="tabpanel"
                         aria-labelledby="info_2"
                       >
-                        second
-                      </div>
-                    ) : null}
+                        <div className="container">
+                          <div className="row">
+                            <div className="col-lg-4 col-sm-4">
+                              <img
+                                className="img-fluid mb-2"
+                                src="https://photo-print.fra1.digitaloceanspaces.com/static/how-to-3.jpg"
+                                alt="..."
+                              />
+                              <h4 className="h4 text-uppercase text-center">
+                                ШАГ 1
+                              </h4>
+                              <p
+                                className="text-lg mb-3"
+                                style={{ whiteSpace: "initial" }}
+                              >
+                                Прикрепите крепление с задней стороны картины по
+                                центру подрамника
+                              </p>
+                            </div>
 
-                    {selected === 3 ? (
-                      <div
-                        className="tab-pane fade show active"
-                        id="3"
-                        role="tabpanel"
-                        aria-labelledby="info_3"
-                      >
-                        third
+                            <div className="col-lg-4 col-sm-4">
+                              <img
+                                className="img-fluid mb-2"
+                                src="https://photo-print.fra1.digitaloceanspaces.com/static/how-to-4.jpg"
+                                alt="..."
+                                style={{ maxHeight: "380px" }}
+                              />
+                              <h4 className="h4 text-uppercase text-center">
+                                ШАГ 2
+                              </h4>
+                              <p
+                                className="text-lg mb-3"
+                                style={{ whiteSpace: "initial" }}
+                              >
+                                Вбейте в стену молотком крючек, который будет
+                                держать картину
+                              </p>
+                            </div>
+                            <div className="col-lg-4 col-sm-4">
+                              <img
+                                className="img-fluid mb-2"
+                                src="https://photo-print.fra1.digitaloceanspaces.com/static/characteristic-1.jpg"
+                                alt="..."
+                                style={{ height: 380 }}
+                              />
+                              <h4 className="h4 text-uppercase text-center">
+                                ШАГ 3
+                              </h4>
+                              <p
+                                className="text-lg mb-3"
+                                style={{ whiteSpace: "initial" }}
+                              >
+                                Повесьте картину
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     ) : null}
                   </div>
@@ -409,3 +460,14 @@ export const ShopItem = (props: ShopItemProps) => {
     </>
   );
 };
+
+// <select
+// className="form-select js-sizes mb-1"
+// data-customclass="bg-white rounded-0 border-2 text-uppercase border-gray-200"
+// >
+// {sizes.map((i) => (
+//   <option value={i.id} key={i.id}>
+//     {i.width}x{i.heigth}{" "}
+//   </option>
+// ))}
+// </select>

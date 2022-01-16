@@ -28,6 +28,7 @@ interface Props {
   onSlideChange: Function;
   slideTo: number;
   activeIndex: number;
+  activeSlide: number;
 }
 
 export const CustomSwiper = (props: Props) => {
@@ -40,6 +41,8 @@ export const CustomSwiper = (props: Props) => {
   const [selected, setSelected] = React.useState(0);
 
   const [isActive, setIsActive]= React.useState(new Map());
+
+  const swiperRef = React.useRef<any>(null);
 
   const handleExternalChangeSlide = (newSlideIndexToShow) => {
     // console.log("NEW", newSlideIndexToShow.realIndex)
@@ -66,9 +69,10 @@ export const CustomSwiper = (props: Props) => {
   React.useEffect(() => {
     console.log("props", props.activeIndex)
     let oldMap = new Map(isActive)
-    oldMap.set(props.activeIndex, true)
+    oldMap.set(props.activeSlide, true)
     setIsActive(oldMap)
-  }, [props.activeIndex]);
+    swiperRef.current.swiper();
+  }, [props.activeSlide]);
 
 
 
@@ -77,12 +81,14 @@ export const CustomSwiper = (props: Props) => {
     <>
       <div className="swiper">
         <Swiper
+          
           spaceBetween={30}
           grid={{ rows: 2 }}
           slidesPerView={3}
           slidesPerGroup={3}
           navigation={true}
           className="mySwiper"
+          preloadImages={true}
           initialSlide={props.slideTo}
           onTransitionEnd={(swiper) => {
             // props.onSlideChange(swiper.realIndex * 2);

@@ -82,8 +82,8 @@ let location = useLocation();
                         <Link to={"/item?id=" + d.id}>
                         <Card
                           title={d.title}
-                          src={"http://localhost:9092/" + d.complex_3}
-                          price={d.id}
+                          src={"https://photo-print.fra1.digitaloceanspaces.com/" + d.directory_name + "/module_2/complex_2.jpg"}
+                          price={d.price}
                           isDiscountEnable={false}
                         />
                         </Link>
