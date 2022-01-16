@@ -99,7 +99,7 @@ export const ShopItem = (props: ShopItemProps) => {
       "/module_" +
       id +
       "/complex_" +
-      id +
+      id + "_resized"+
       ".jpg"
     );
   };
