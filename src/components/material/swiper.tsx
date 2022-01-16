@@ -42,6 +42,8 @@ export const CustomSwiper = (props: Props) => {
 
   const [isActive, setIsActive]= React.useState(new Map());
 
+  const [bir, setBir] = React.useState(1);
+
   const swiperRef = React.useRef<any>(null);
 
   const handleExternalChangeSlide = (newSlideIndexToShow) => {
@@ -67,18 +69,15 @@ export const CustomSwiper = (props: Props) => {
   };
 
   React.useEffect(() => {
-    console.log("props", props.activeIndex)
     let oldMap = new Map(isActive)
     oldMap.set(props.activeSlide, true)
     setIsActive(oldMap)
-    swiperRef.current.swiper();
-  }, [props.activeSlide]);
-
-
+  }, []);
 
 
   return (
     <>
+    {console.log("SWIPER INIT")}    
       <div className="swiper">
         <Swiper
           
@@ -90,12 +89,8 @@ export const CustomSwiper = (props: Props) => {
           className="mySwiper"
           preloadImages={true}
           initialSlide={props.slideTo}
-          onTransitionEnd={(swiper) => {
-            // props.onSlideChange(swiper.realIndex * 2);
-          }}
+          lazy = {{loadPrevNext: true}}
           style={{ border: "1px solid black" }}
-          // onSlideChange={() => setSelected(1)}
-//          on={{'click': function() { setSelected(1); console.log("selected 1")} }}
         >
           <SwiperSlide
             onClick={() => toggleClass(1)}
