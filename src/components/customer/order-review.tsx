@@ -8,6 +8,8 @@ import {
 import Loader from "components/loader/index";
 import "../../styles/app.css";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import { sizesFormatted } from '../material/sizes.js'
+
 
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
@@ -124,6 +126,9 @@ export const OrderReview = () => {
                               Наименование
                             </th>
                             <th className="border-gray-300 border-top py-3">
+                              Размеры
+                            </th>
+                            <th className="border-gray-300 border-top py-3">
                               Дата
                             </th>
                             <th className="border-gray-300 border-top py-3">
@@ -153,6 +158,9 @@ export const OrderReview = () => {
                                  </td>
                                  <td className="align-middle border-gray-300 py-3">
                                    {c?.title}
+                                 </td>
+                                 <td className="align-middle border-gray-300 py-3">
+                                   {sizesFormatted.find(s => s.module_id === c?.module_id)?.innerSizes.find(i => i.id === c?.size_id)?.label}
                                  </td>
                                  <td className="align-middle border-gray-300 py-3">
                                    {c?.created_at}
@@ -186,12 +194,7 @@ export const OrderReview = () => {
                               {item?.delivery_price} тг.
                             </th>
                           </tr>
-                          <tr>
-                            <th className="text-end lead py-3" col-span="10">
-                              Коммиссия
-                            </th>
-                            <th className="lead py-3">0.00 тг.</th>
-                          </tr>
+                        
                           <tr>
                             <th
                               className="border-0 text-end lead py-3"

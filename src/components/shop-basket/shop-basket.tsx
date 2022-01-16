@@ -11,6 +11,7 @@ import {
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import Loader from "components/loader/index";
 import { infoMessage, successMessage } from "utils/Notifications";
+import { Tooltip } from "antd";
 import "../../styles/app.css";
 
 export const ShopBasket = () => {
@@ -66,6 +67,7 @@ export const ShopBasket = () => {
   async function DeleteOrder(userId: number, orderId: number) {
     const response = await RemoveOrder("", userId, orderId);
     if (response.status === true && response.message === "ok") {
+      localStorage.removeItem("basket")
     } else {
     }
     GetList(userId);
@@ -73,32 +75,62 @@ export const ShopBasket = () => {
 
   async function GetList(user_id: number) {
     if (user_id != 0) {
-      let response = await GetBasketList("", user_id);
-      if (response.status === true && response.message === "ok") {
-        var date = new Date();
-        for (var i = 0; i < response.result.length; i++) {
-          response.result[i].created_at = new Date(
-            response.result[i].created_at
-          )
-            .toISOString()
-            .split("T")[0];
-        }
-        setData(response.result);
-        let finalPrice = 0;
-        let temp = "";
-        for (var i = 0; i < response.result.length; i++) {
-          finalPrice += response.result[i].price;
-          temp += response.result[i].id;
-          if (temp.endsWith(",", temp.length - 1) === false) {
-            temp += ",";
+      if (localStorage.getItem("basket") === null) {
+        let response = await GetBasketList("", user_id);
+        if (response.status === true && response.message === "ok") {
+          var date = new Date();
+          for (var i = 0; i < response.result.length; i++) {
+            response.result[i].created_at = new Date(
+              response.result[i].created_at
+            )
+              .toISOString()
+              .split("T")[0];
           }
+          setData(response.result);
+          let finalPrice = 0;
+          let temp = "";
+          for (var i = 0; i < response.result.length; i++) {
+            finalPrice += response.result[i].price;
+            temp += response.result[i].id;
+            if (temp.endsWith(",", temp.length - 1) === false) {
+              temp += ",";
+            }
+          }
+          if (temp.endsWith(",", temp.length) === true) {
+            temp = temp.substring(0, temp.length - 1);
+          }
+          setFinalPrice(finalPrice);
+          setOrdersIds(temp);
+          localStorage.setItem("basket", JSON.stringify(response.result))
         }
-        if (temp.endsWith(",", temp.length) === true) {
-          temp = temp.substring(0, temp.length - 1);
-        }
-        setFinalPrice(finalPrice);
-        setOrdersIds(temp);
+      } else {
+       let basket = JSON.parse(localStorage.getItem("basket")!)
+       var date = new Date();
+          for (var i = 0; i < basket.length; i++) {
+            basket[i].created_at = new Date(
+              basket[i].created_at
+            )
+              .toISOString()
+              .split("T")[0];
+          }
+          setData(basket);
+          let finalPrice = 0;
+          let temp = "";
+          for (var i = 0; i < basket.length; i++) {
+            finalPrice += basket[i].price;
+            temp += basket[i].id;
+            if (temp.endsWith(",", temp.length - 1) === false) {
+              temp += ",";
+            }
+          }
+          if (temp.endsWith(",", temp.length) === true) {
+            temp = temp.substring(0, temp.length - 1);
+          }
+          setFinalPrice(finalPrice);
+          setOrdersIds(temp);
+        
       }
+      
     }
   }
 
@@ -144,6 +176,10 @@ export const ShopBasket = () => {
     let user = JSON.parse(localStorage.getItem("user")!);
 
     if (user === null) {
+      setDeliveryNumber("");
+      setLastNameOrder("");
+      setNameOrder("");
+      setDeliverAddress("")
     } else if (user != null) {
       setId(user.id);
       setName(user.name);
@@ -215,7 +251,7 @@ export const ShopBasket = () => {
                               Позиция
                             </th>
                             <th className="border-gray-300 border-top py-3">
-                              Цена
+                              Наименование
                             </th>
                             <th className="border-gray-300 border-top py-3">
                               Всего
@@ -332,15 +368,34 @@ export const ShopBasket = () => {
                         </a>
                       </div>
                       <div className="col-md-6 text-md-end py-1">
-                        <button
+
+
+                        {(data.length === 0 ? true : false ) || (nameOrder == "" || lastNameOrder == "" || deliveryNumber == "" || deliveryAddress == "") ? (
+                            <Tooltip title="Войдите, чтобы добавить">
+                            <button
+                            className="btn btn-primary my-1"
+                            type="submit"
+                            aria-disabled={true}
+                           disabled={(data.length === 0 ? true : false ) || (nameOrder == "" || lastNameOrder == "" || deliveryNumber == "" || deliveryAddress == "") ? true : false}
+                            onClick={() => CreateInvoice()}
+                            
+                          >
+                            Подтвердить
+                            <i className="fas fa-angle-right ms-1"></i>
+                          </button>
+                          </Tooltip>
+                        ) :  (
+                          <button
                           className="btn btn-outline-primary my-1"
                           type="submit"
-                          disabled={data.length === 0 ? true : false}
+                          disabled={(data.length === 0 ? true : false ) || (nameOrder == "" || lastNameOrder == "" || deliveryNumber == "" || deliveryAddress == "") ? true : false }
                           onClick={() => CreateInvoice()}
                         >
                           Подтвердить
                           <i className="fas fa-angle-right ms-1"></i>
                         </button>
+                        ) }
+                           
                       </div>
                     </div>
                   </div>
@@ -421,7 +476,7 @@ export const ShopBasket = () => {
                         <form action="#">
                           <div className="input-group">
                             <input className="form-control" type="text" />
-                            <button className="btn btn-primary" type="submit">
+                            <button className="btn btn-primary" type="submit" disabled={true}>
                               <i className="fas fa-gift"></i>
                             </button>
                           </div>
@@ -437,4 +492,4 @@ export const ShopBasket = () => {
       )}
     </>
   );
-};
+}

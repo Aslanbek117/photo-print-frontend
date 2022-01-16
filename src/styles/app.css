@@ -13531,3 +13531,20 @@
 img.loading {
   background: transparent url("") no-repeat scroll center center;
 }
+
+
+.container-shop-card {
+  position: relative;
+  max-width: 800px; /* Maximum width */
+  margin: 0 auto; /* Center it */
+}
+
+.container-shop-card .content-shop-card {
+  position: absolute; /* Position the background text */
+  bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+  background: rgb(0, 0, 0); /* Fallback color */
+  background: rgb(234,233,231, 0.9); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 20px; /* Some padding */
+}

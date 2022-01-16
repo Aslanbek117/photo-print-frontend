@@ -16,6 +16,7 @@ import { OrderHistory } from 'components/customer/order-history';
 import { OrderReview } from 'components/customer/order-review';
 import { Registration } from 'components/material/auth';
 import { LoginComponent } from 'components/login/login';
+import { ShopCategoriesPage } from 'components/material/shop-caterories-page';
 
 export default function Index() {
   return (
@@ -32,6 +33,7 @@ export default function Index() {
       <Route exact path='/order' component={OrderReview}/>
       <Route exact path='/registration' component={Registration}/>
       <Route exact path='/login' component={LoginComponent}/>
+      {/* <Route exact path='/categories' component={ShopCategoriesPage}/> */}
       <Route exact path='/' component={Shop}/>
       <Route  path='/search/pictures' component={ShopSearch}/>
     </Switch>

@@ -46,7 +46,7 @@ export const sizesFormatted = [
         { id: 3, width: 50, height: 25, sizeString: "25x25, 25x25", value: 3, label: "50x50 (25x25, 25x25)" },
         { id: 4, width: 60, height: 30, sizeString: "30x30, 30x30", value: 4, label: "60x60 (30x30, 30x30)" },
         { id: 5, width: 70, height: 35, sizeString: "35x35, 35x35", value: 5, label: "70x70 (35x35, 35x35)" },
-        { id: 5, width: 80, height: 40, sizeString: "40x40, 40x40", value: 6, label: "80x80 (40x40, 40x40)" },
+        { id: 6, width: 80, height: 40, sizeString: "40x40, 40x40", value: 6, label: "80x80 (40x40, 40x40)" },
       ],
     },
     {
@@ -57,7 +57,7 @@ export const sizesFormatted = [
         { id: 3, width: 50, height: 25, sizeString: "25x25, 25x25", value: 3, label: "50x50 (25x25, 25x25)" },
         { id: 4, width: 60, height: 30, sizeString: "30x30, 30x30", value: 4, label: "60x60 (30x30, 30x30)" },
         { id: 5, width: 70, height: 35, sizeString: "35x35, 35x35", value: 5, label: "70x70 (35x35, 35x35)" },
-        { id: 5, width: 80, height: 45, sizeString: "40x40, 40x40", value: 6, label: "80x80 (40x40, 40x40)" },
+        { id: 6, width: 80, height: 45, sizeString: "40x40, 40x40", value: 6, label: "80x80 (40x40, 40x40)" },
       ],
     },
     {
@@ -68,7 +68,7 @@ export const sizesFormatted = [
           { id: 3, width: 80, height: 50, sizeString: "25x50, 55x50", value: 3, label: "80x50 (25x50, 55x50)" },
           { id: 4, width: 95, height: 60, sizeString: "30x60, 65x60", value: 4, label: "95x60 (30x60, 65x60)" },
           { id: 5, width: 105, height: 70, sizeString: "35x70, 75x70", value: 5, label: "105x70 (35x70, 75x70)" },
-          { id: 5, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
+          { id: 6, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
         ],
     },
     {
@@ -79,7 +79,7 @@ export const sizesFormatted = [
           { id: 3, width: 80, height: 50, sizeString: "25x50, 55x50", value: 3, label: "80x50 (25x50, 55x50)" },
           { id: 4, width: 95, height: 60, sizeString: "30x60, 65x60", value: 4, label: "95x60 (30x60, 65x60)" },
           { id: 5, width: 105, height: 70, sizeString: "35x70, 75x70", value: 5, label: "105x70 (35x70, 75x70)" },
-          { id: 5, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
+          { id: 6, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
         ],
     },
     {
@@ -90,7 +90,7 @@ export const sizesFormatted = [
           { id: 3, width: 80, height: 50, sizeString: "25x50, 55x50", value: 3, label: "80x50 (25x50, 55x50)" },
           { id: 4, width: 95, height: 60, sizeString: "30x60, 65x60", value: 4, label: "95x60 (30x60, 65x60)" },
           { id: 5, width: 105, height: 70, sizeString: "35x70, 75x70", value: 5, label: "105x70 (35x70, 75x70)" },
-          { id: 5, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
+          { id: 6, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
         ],
     },
     {
@@ -101,7 +101,7 @@ export const sizesFormatted = [
           { id: 3, width: 80, height: 50, sizeString: "25x50, 55x50", value: 3, label: "80x50 (25x50, 55x50)" },
           { id: 4, width: 95, height: 60, sizeString: "30x60, 65x60", value: 4, label: "95x60 (30x60, 65x60)" },
           { id: 5, width: 105, height: 70, sizeString: "35x70, 75x70", value: 5, label: "105x70 (35x70, 75x70)" },
-          { id: 5, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
+          { id: 6, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
         ],
     },
     {
@@ -112,7 +112,7 @@ export const sizesFormatted = [
           { id: 3, width: 80, height: 50, sizeString: "25x50, 55x50", value: 3, label: "80x50 (25x50, 55x50)" },
           { id: 4, width: 95, height: 60, sizeString: "30x60, 65x60", value: 4, label: "95x60 (30x60, 65x60)" },
           { id: 5, width: 105, height: 70, sizeString: "35x70, 75x70", value: 5, label: "105x70 (35x70, 75x70)" },
-          { id: 5, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
+          { id: 6, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
         ],
     },
     {
@@ -123,7 +123,7 @@ export const sizesFormatted = [
           { id: 3, width: 80, height: 50, sizeString: "25x50, 55x50", value: 3, label: "80x50 (25x50, 55x50)" },
           { id: 4, width: 95, height: 60, sizeString: "30x60, 65x60", value: 4, label: "95x60 (30x60, 65x60)" },
           { id: 5, width: 105, height: 70, sizeString: "35x70, 75x70", value: 5, label: "105x70 (35x70, 75x70)" },
-          { id: 5, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
+          { id: 6, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
         ],
     },
     {
@@ -134,7 +134,7 @@ export const sizesFormatted = [
           { id: 3, width: 80, height: 50, sizeString: "25x50, 55x50", value: 3, label: "80x50 (25x50, 55x50)" },
           { id: 4, width: 95, height: 60, sizeString: "30x60, 65x60", value: 4, label: "95x60 (30x60, 65x60)" },
           { id: 5, width: 105, height: 70, sizeString: "35x70, 75x70", value: 5, label: "105x70 (35x70, 75x70)" },
-          { id: 5, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
+          { id: 6, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
         ],
     },
     {
@@ -145,7 +145,7 @@ export const sizesFormatted = [
           { id: 3, width: 80, height: 50, sizeString: "25x50, 55x50", value: 3, label: "80x50 (25x50, 55x50)" },
           { id: 4, width: 95, height: 60, sizeString: "30x60, 65x60", value: 4, label: "95x60 (30x60, 65x60)" },
           { id: 5, width: 105, height: 70, sizeString: "35x70, 75x70", value: 5, label: "105x70 (35x70, 75x70)" },
-          { id: 5, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
+          { id: 6, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
         ],
     },
     {
@@ -156,7 +156,7 @@ export const sizesFormatted = [
           { id: 3, width: 80, height: 50, sizeString: "25x50, 55x50", value: 3, label: "80x50 (25x50, 55x50)" },
           { id: 4, width: 95, height: 60, sizeString: "30x60, 65x60", value: 4, label: "95x60 (30x60, 65x60)" },
           { id: 5, width: 105, height: 70, sizeString: "35x70, 75x70", value: 5, label: "105x70 (35x70, 75x70)" },
-          { id: 5, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
+          { id: 6, width: 120, height: 80, sizeString: "40x80, 85x80", value: 6, label: "120x80 (40x80, 85x80)" },
         ],
     },
     {

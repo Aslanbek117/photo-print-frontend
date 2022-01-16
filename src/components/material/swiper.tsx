@@ -34,27 +34,7 @@ interface Props {
 export const CustomSwiper = (props: Props) => {
   const [swiperInstance, setSwiperInstance] = React.useState<SwiperCore>();
 
-  const [value, setValue] = React.useState(0);
-
-  const [index, setIndex] = React.useState(0);
-
-  const [selected, setSelected] = React.useState(0);
-
   const [isActive, setIsActive]= React.useState(new Map());
-
-  const [bir, setBir] = React.useState(1);
-
-  const swiperRef = React.useRef<any>(null);
-
-  const handleExternalChangeSlide = (newSlideIndexToShow) => {
-    // console.log("NEW", newSlideIndexToShow.realIndex)
-    // console.log(newSlideIndexToShow.activeIndex, newSlideIndexToShow.realIndex);
-    // swiperInstance?.slideTo(newSlideIndexToShow.realIndex);
-    // console.log(newSlideIndexToShow.activeIndex, newSlideIndexToShow.realIndex);
-    // let currentSlide = swiperInstance?.slides[newSlideIndexToShow.realIndex]
-    // swiperInstance?.slideTo(newSlideIndexToShow.realIndex);
-    // setValue(newSlideIndexToShow.realIndex);
-  };
 
   const toggleClass = (id) => {
     let oldMap = new Map(isActive)

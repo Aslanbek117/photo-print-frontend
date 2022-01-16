@@ -105,6 +105,7 @@ export const ShopItem = (props: ShopItemProps) => {
   };
 
   const onImageClick = (id: number) => {
+    setSizeID(0)
     setModuleID(id);
     setImageUrl(imagePath(id));
     setActiveSlide(id);
@@ -140,8 +141,8 @@ export const ShopItem = (props: ShopItemProps) => {
       let response = await AddToBasketAPI(
         "",
         pictureID,
-        sizeID,
-        materialID,
+        sizeID || 0,
+        materialID || 0,
         moduleID,
         userID,
         item?.price || 5000,
@@ -259,7 +260,7 @@ export const ShopItem = (props: ShopItemProps) => {
 
                       <div className="col-lg-4 flex-column justify-content-between">
                         <div className="lg-5">
-                          <h3 className="">Тип модуля + {moduleID} </h3>
+                          <h3 className="">Тип модуля </h3>
                           <div
                             className=""
                             style={{
@@ -278,7 +279,8 @@ export const ShopItem = (props: ShopItemProps) => {
                             classNamePrefix="select"
                             name="color"
                             options={sizesFormatted.find(s => s.module_id === moduleID)?.innerSizes}
-                            onChange={(e) => console.log("DSALDJSA", e?.value)}
+                            // defaultValue={sizesFormatted.find(s => s.module_id ===0)?.innerSizes[0].value}
+                            onChange={(e) => e != null && e!= undefined && setSizeID(e.id)}
                             placeholder="Выберите размер"
                           />
                           <p className="h3 text-muted fw-normal">
@@ -303,7 +305,7 @@ export const ShopItem = (props: ShopItemProps) => {
                                 className="btn btn-outline-primary"
                                 type="submit"
                                 onClick={() => addToBasket()}
-                                disabled={userID == 0 ? true : false}
+                                disabled={(userID == 0 ? true : false) || (moduleID === 0 || sizeID === 0) ? true  : false}
                               >
                                 <i className="fas fa-shopping-cart"></i> В
                                 корзину

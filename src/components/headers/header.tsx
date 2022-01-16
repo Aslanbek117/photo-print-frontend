@@ -25,19 +25,21 @@ export const SiteHeader = (props: Props) => {
 
   async function GetCount(user_id: number) {
     if (user_id != 0) {
-      let response = await GetBasketList("", user_id);
-      if (response.status === true && response.message === "ok") {
-        if (props.ordersCount != undefined) {
-          if (props.ordersCount > response.result.length) {
-            setCount(props.ordersCount);
-          } else if (props.ordersCount < response.result.length) {
-            setCount(response.result.length);
+      
+        let response = await GetBasketList("", user_id);
+        if (response.status === true && response.message === "ok") {
+          localStorage.setItem("basket", JSON.stringify(response.result))
+          if (props.ordersCount != undefined) {
+            if (props.ordersCount > response.result.length) {
+              setCount(props.ordersCount);
+            } else if (props.ordersCount < response.result.length) {
+              setCount(response.result.length);
+            }
           }
+        } else {
+          setCount(0);
         }
-      } else {
-        setCount(0);
-      }
-    }
+      } 
   }
 
   React.useEffect(() => {
