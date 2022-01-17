@@ -83,16 +83,16 @@ export const Shop = () => {
 
       if (perPage === null || perPage === false  || page === null || page === false) {
         if (!category) {
-          response = await GetPhotoPrints("some_token", "1", "5", "");  
+          response = await GetPhotoPrints("some_token", "1", "100", "");  
         } else {
-          response = await GetPhotoPrints("some_token", "1", "5", category);
+          response = await GetPhotoPrints("some_token", "1", "100", category);
         }
         
       } else {
         if (!category) {
-          response = await GetPhotoPrints("some_token", page.toString(), "5", "");  
+          response = await GetPhotoPrints("some_token", page.toString(), "100", "");  
         } else {
-          response = await GetPhotoPrints("some_token", page.toString(), "5", category);
+          response = await GetPhotoPrints("some_token", page.toString(), "100", category);
         }
       }
       setCategory(category.toString());

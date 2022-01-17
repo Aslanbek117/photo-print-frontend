@@ -57,7 +57,6 @@ export const CustomSwiper = (props: Props) => {
 
   return (
     <>
-    {console.log("SWIPER INIT")}    
       <div className="swiper">
         <Swiper
           

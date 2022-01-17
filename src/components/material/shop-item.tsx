@@ -61,9 +61,9 @@ export const ShopItem = (props: ShopItemProps) => {
 
   const [index, setIndex] = React.useState(0);
 
-  const [moduleID, setModuleID] = React.useState(1);
+  const [moduleID, setModuleID] = React.useState(0);
 
-  const [sizeID, setSizeID] = React.useState(1);
+  const [sizeID, setSizeID] = React.useState(0);
 
   const [pictureID, setPictureID] = React.useState(0);
 
@@ -152,6 +152,7 @@ export const ShopItem = (props: ShopItemProps) => {
 
       if (response.status === true && response.message === "ok") {
         successMessage("Успех", "Позиция добавлена в корзину.");
+        localStorage.removeItem("basket");
       } else {
         errorMessage("Ошибка", "Что-то пошло не так");
       }
@@ -282,6 +283,7 @@ export const ShopItem = (props: ShopItemProps) => {
                             // defaultValue={sizesFormatted.find(s => s.module_id ===0)?.innerSizes[0].value}
                             onChange={(e) => e != null && e!= undefined && setSizeID(e.id)}
                             placeholder="Выберите размер"
+                            isSearchable={false}
                           />
                           <p className="h3 text-muted fw-normal">
                             {item?.price} тг.
@@ -305,7 +307,7 @@ export const ShopItem = (props: ShopItemProps) => {
                                 className="btn btn-outline-primary"
                                 type="submit"
                                 onClick={() => addToBasket()}
-                                disabled={(userID == 0 ? true : false) || (moduleID === 0 || sizeID === 0) ? true  : false}
+                                disabled={(moduleID === 0 || sizeID === 0) ? true  : false}
                               >
                                 <i className="fas fa-shopping-cart"></i> В
                                 корзину
