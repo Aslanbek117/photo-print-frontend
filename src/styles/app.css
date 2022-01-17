@@ -13550,5 +13550,5 @@ img.loading {
 }
 
 .swiper-button-prev, .swiper-button-next {
-  top: 50%;
+  top: 50% !important;
 }
