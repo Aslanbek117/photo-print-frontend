@@ -218,15 +218,17 @@ export const ShopItem = (props: ShopItemProps) => {
           <div className="wide" id="all">
             <TopBar />
             <SiteHeader ordersCount={count} />
+           
             <section className="py-3" style={{ backgroundColor: "white" }}>
+            
               <div className="container">
+                <div className="row g-5">
                 <Nav
                   toShow={true}
                   title={item?.title}
                   firstTitleHref={"/"}
                   firstTitle="Картины"
                 />
-                <div className="row g-5">
                   <div className="col-lg-12">
                     <div className="row gy-5 align-items-stretch">
                       <div className="col-lg-3">
@@ -272,7 +274,7 @@ export const ShopItem = (props: ShopItemProps) => {
                           >
                             <ImageTypes />
                           </div>
-                          <h4 className="py-1 mb-2">Выберите размер (Ш×В)</h4>
+                          <h4 className="" style={{paddingTop: '3rem', paddingBottom: '0 !important'}}>Выберите размер (Ш×В)</h4>
 
                           <Select
                             ref={selectRef}

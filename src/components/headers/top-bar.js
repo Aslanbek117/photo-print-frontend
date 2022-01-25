@@ -1,5 +1,4 @@
 import * as React from "react";
-import logo from "../files/logo2.png";
 import "../../styles//app.css";
 import { Registration } from "../material/auth";
 import { LoginComponent } from "components/login/login";
@@ -39,7 +38,7 @@ export default function TopBar() {
           <div className="row d-flex align-items-center">
             <div className="col-md-6 d-md-block d-none">
               <a className="text-xs" href="/">
-                <img src={logo} alt="logo"></img>
+                <img src="https://photo-print.fra1.digitaloceanspaces.com/static/logo2.png" alt="logo"></img>
               </a>
             </div>
             <div className="col-md-6">
@@ -47,7 +46,7 @@ export default function TopBar() {
                 <ul className="list-inline d-block d-md-none mb-0">
                   <li className="list-inline-item" key={123132}>
                     <a className="text-xs" href="/">
-                      <img src={logo} alt="logo" style={{maxWidth: 100}}/>
+                      <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/logo2.png"} alt="logo" style={{maxWidth: 100}}/>
                     </a>
                   </li>
                 </ul>

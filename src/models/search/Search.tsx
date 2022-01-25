@@ -5,12 +5,6 @@ export interface PhotoPprint {
     img: string;
     path: string;
     category: string;
-    complex_2: string;
-    complex_2_low: string;
-    complex_3_low: string;
-    complex_3: string;
-    transform: string;
-    original: string;
     price: number;
     directory_name: string;
 }

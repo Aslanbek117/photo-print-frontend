@@ -5,7 +5,7 @@ import './styles.css';
 const Loader = () => {
   return (
     <div className="loader-container">
-      <Spin />
+      <Spin size={'large'} tip="Загрузка..." />
     </div>
   );
 };

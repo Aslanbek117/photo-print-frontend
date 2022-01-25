@@ -13022,7 +13022,13 @@
   .swiper-pagination-bullet-active {
     background: #4fbfa8;
   }
-
+  
+  .swiper-button-next,
+  .swiper-button-prev {
+    top: 0;
+    width: 3rem;
+  }
+  
   .swiper-button-next::after,
   .swiper-button-prev::after {
     font-size: 1.7rem;
