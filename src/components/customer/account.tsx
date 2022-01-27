@@ -87,6 +87,34 @@ export const Account = () => {
                   firstTitleHref="/account"
                 />
                 <div className="row gy-5">
+                <div className="col-lg-3">
+                    <h3 className="h4 text-uppercase lined mb-4">
+                      Дополнительно
+                    </h3>
+                    <nav className="nav flex-column nav-pills">
+                      <a
+                        className="nav-link text-sm"
+                        href="/orders"
+                      >
+                        {" "}
+                        <i className="me-2 fas fa-list"></i>
+                        <span>Мои заказы</span>
+                      </a>
+                      <a
+                        className="nav-link text-sm active"
+                        href="/account"
+                      >
+                        {" "}
+                        <i className="me-2 fas fa-user"></i>
+                        <span>Личный кабинет</span>
+                      </a>
+                      <a className="nav-link text-sm" href="/" onClick={() => logout()}>
+                        {" "}
+                        <i className="me-2 fas fa-door-open"></i>
+                        <span>Выйти</span>
+                      </a>
+                    </nav>
+                  </div>
                   <div className="col-lg-9">
                     <p className="lead mb-4">Личный кабинет</p>
                     <p className="text-muted mb-3">
@@ -185,34 +213,7 @@ export const Account = () => {
                       </div>
                     </form>
                   </div>
-                  <div className="col-lg-3">
-                    <h3 className="h4 text-uppercase lined mb-4">
-                      Дополнительно
-                    </h3>
-                    <nav className="nav flex-column nav-pills">
-                      <a
-                        className="nav-link text-sm"
-                        href="/orders"
-                      >
-                        {" "}
-                        <i className="me-2 fas fa-list"></i>
-                        <span>Мои заказы</span>
-                      </a>
-                      <a
-                        className="nav-link text-sm active"
-                        href="/account"
-                      >
-                        {" "}
-                        <i className="me-2 fas fa-user"></i>
-                        <span>Личный кабинет</span>
-                      </a>
-                      <a className="nav-link text-sm" href="/" onClick={() => logout()}>
-                        {" "}
-                        <i className="me-2 fas fa-door-open"></i>
-                        <span>Выйти</span>
-                      </a>
-                    </nav>
-                  </div>
+                 
                 </div>
               </div>
             </section>

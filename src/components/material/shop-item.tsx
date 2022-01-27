@@ -106,19 +106,31 @@ export const ShopItem = (props: ShopItemProps) => {
 
   const onImageClick = (id: number) => {
     setSizeID(0)
-    setModuleID(id);
-    setImageUrl(imagePath(id));
-    setActiveSlide(id);
+    if (id == 7 ) {
+      setModuleID(38)
+      setImageUrl(imagePath(38))
+    } else {
+      setModuleID(id);
+      setImageUrl(imagePath(id));
+      setActiveSlide(id);
+    }
+
+    console.log("CLICKED", id)
+    
     selectRef.current.clearValue();
     if (id <= 6) {
       setIndex(1);
     } else if (id >= 6 && id <= 12) {
       setIndex(3);
-    } else if (id >= 12 && id <= 18) {
+    } else if (id >= 13 && id <= 18) {
       setIndex(6);
-    } else if (id >= 18 && id <= 24) {
+    } else if (id >= 19 && id <= 24) {
       setIndex(9);
-    }
+    } else if (id >= 25 && id <= 31) {
+      setIndex(12);
+    } else if (id >= 30 && id <=36) {
+      setIndex(15);
+    } 
   };
 
   async function inform() {
@@ -287,8 +299,12 @@ export const ShopItem = (props: ShopItemProps) => {
                             placeholder="Выберите размер"
                             isSearchable={false}
                           />
-                          <p className="h3 text-muted fw-normal">
+                          <p className="h3 py-3">
+                            <del className="text-secondary me-2">$200.00</del> 
+                            <span className="text-primary">
                             {item?.price} тг.
+                            </span>
+
                           </p>
                           <p className="text-center">
                             {userID == 0 ? (

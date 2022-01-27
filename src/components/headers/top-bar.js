@@ -50,17 +50,17 @@ export default function TopBar() {
                     </a>
                   </li>
                 </ul>
-                <ul className="list-inline mb-0">
+                <ul className="list-inline mb-0 ms-lg-4 d-flex">
                   {isAuthorized ? (
                     <>
-                    <li className="list-inline-item" key={231312}>
+                    <li className="list-inline-item" key={23133312}>
                     <a
                       className="text-xs text-uppercase fw-bold text-reset"
                       role="button"
                       onClick={() => logout()}
                     >
                       <span
-                        className="d-none d-md-inline-block"
+                        className="d-md-inline-block"
                         style={{ color: "black" }}
                       >
                         <i class="fas fa-user me-2">
@@ -75,7 +75,7 @@ export default function TopBar() {
                     </>
                   ) : (
                     <>
-                  <li className="list-inline-item" key={231312}>
+                  <li className="list-inline-item" key={23111312}>
                     <a
                       className="text-xs text-uppercase fw-bold text-reset"
                       onClick={() => setShowLogin(!showLogin)}
@@ -86,7 +86,7 @@ export default function TopBar() {
                         className="d-md-inline-block"
                         style={{ color: "black" }}
                       >
-                      <i className="fas fa-user me-2" />
+                      <i className="fas fa-user me-2" style={{color: 'rgb(79, 191, 168)'}}/>
                       Вход
 
                       </span>
@@ -95,9 +95,9 @@ export default function TopBar() {
                     </>
                   
                   )}
-                  
-                  
                 </ul>
+
+
                 <ul className="list-inline mb-0 ms-lg-4 d-flex justify-content-center">
                   <li className="list-inline-item text-gray-600" key={132243}>
                     <a

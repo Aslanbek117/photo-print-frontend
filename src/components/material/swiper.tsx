@@ -123,14 +123,19 @@ export const CustomSwiper = (props: Props) => {
             <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-6.png"} />
             </span>
           </SwiperSlide>
+          
+
           <SwiperSlide
             onClick={() => {
               toggleClass(7);
               props.onClick(7);
             }}
           >
-            Slide 7
+                 <span className={isActive?.get(7) ? 'sepia-active': 'sepia'}>
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-38.png"} />
+            </span>
           </SwiperSlide>
+
           <SwiperSlide
             onClick={() => {
               toggleClass(8);
@@ -302,6 +307,150 @@ export const CustomSwiper = (props: Props) => {
               <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-24.png"} />
             </span>
           </SwiperSlide>
+
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(26);
+              props.onClick(26);
+            }}
+          >
+                 <span className={isActive?.get(26) ? 'sepia-active': 'sepia'}>
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-26.png"} />
+            </span>
+          </SwiperSlide>
+
+
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(27);
+              props.onClick(27);
+            }}
+          >
+                 <span className={isActive?.get(27) ? 'sepia-active': 'sepia'}>
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-27.png"} />
+            </span>
+          </SwiperSlide>
+
+
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(28);
+              props.onClick(28);
+            }}
+          >
+                 <span className={isActive?.get(28) ? 'sepia-active': 'sepia'}>
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-28.png"} />
+            </span>
+          </SwiperSlide>
+
+
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(29);
+              props.onClick(29);
+            }}
+          >
+                 <span className={isActive?.get(29) ? 'sepia-active': 'sepia'}>
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-29.png"} />
+            </span>
+          </SwiperSlide>
+
+
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(30);
+              props.onClick(30);
+            }}
+          >
+                 <span className={isActive?.get(30) ? 'sepia-active': 'sepia'}>
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-30.png"} />
+            </span>
+          </SwiperSlide>
+
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(31);
+              props.onClick(31);
+            }}
+          >
+                 <span className={isActive?.get(31) ? 'sepia-active': 'sepia'}>
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-31.png"} />
+            </span>
+          </SwiperSlide>
+
+
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(32);
+              props.onClick(32);
+            }}
+          >
+                 <span className={isActive?.get(32) ? 'sepia-active': 'sepia'}>
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-32.png"} />
+            </span>
+          </SwiperSlide>
+
+
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(33);
+              props.onClick(33);
+            }}
+          >
+                 <span className={isActive?.get(33) ? 'sepia-active': 'sepia'}>
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-33.png"} />
+            </span>
+          </SwiperSlide>
+
+
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(34);
+              props.onClick(34);
+            }}
+          >
+                 <span className={isActive?.get(34) ? 'sepia-active': 'sepia'}>
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-34.png"} />
+            </span>
+          </SwiperSlide>
+
+
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(35);
+              props.onClick(35);
+            }}
+          >
+                 <span className={isActive?.get(35) ? 'sepia-active': 'sepia'}>
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-35.png"} />
+            </span>
+          </SwiperSlide>
+
+
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(36);
+              props.onClick(36);
+            }}
+          >
+                 <span className={isActive?.get(36) ? 'sepia-active': 'sepia'}>
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-36.png"} />
+            </span>
+          </SwiperSlide>
+
+
+
+          <SwiperSlide
+            onClick={() => {
+              toggleClass(37);
+              props.onClick(37);
+            }}
+          >
+                 <span className={isActive?.get(37) ? 'sepia-active': 'sepia'}>
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-37.png"} />
+            </span>
+          </SwiperSlide>
+
         </Swiper>
       </div>
     </>
