@@ -74,7 +74,7 @@ let location = useLocation();
                 <div className="col-lg-9">
                   <Nav toShow={false} title="" firstTitle="Картины" firstTitleHref="/"/>
                   <h3 className="h4 text-uppercase mb-4 text-center">
-                  Модульные картины
+                  картины
                   </h3>
                   <div className="row gy-5 align-items-stretch">
                     {data.map((d) => (

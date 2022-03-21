@@ -1,24 +1,13 @@
 import * as React from "react";
 import "../../styles//app.css";
-import { Registration } from "../material/auth";
-import { LoginComponent } from "components/login/login";
+
 
 export default function TopBar() {
-
-  const [showModal, setShowModal] = React.useState(false);
 
   const [showLogin, setShowLogin] = React.useState(false)
 
   const [isAuthorized, setIsAuthorized] = React.useState(false);
 
-
-  const onClose = () => {
-    setShowModal(false);
-  }
-
-  const onLoginClose = () => {
-    setShowLogin(false);
-  }
 
   const logout = () => {
     localStorage.removeItem("user");
@@ -37,16 +26,16 @@ export default function TopBar() {
         <div className="container px-lg-0 text-light py-1">
           <div className="row d-flex align-items-center">
             <div className="col-md-6 d-md-block d-none">
-              <a className="text-xs" href="/">
-                <img src="https://photo-print.fra1.digitaloceanspaces.com/static/logo2.png" alt="logo"></img>
-              </a>
+              <a className="text-lg" href="/"> 
+                <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/site-image-2.png"} style={{maxWidth: 250}} alt="logo"></img>
+              </a> 
             </div>
             <div className="col-md-6">
               <div className="d-flex justify-content-md-end justify-content-between">
                 <ul className="list-inline d-block d-md-none mb-0">
                   <li className="list-inline-item" key={123132}>
                     <a className="text-xs" href="/">
-                      <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/logo2.png"} alt="logo" style={{maxWidth: 100}}/>
+                      <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/site-image-2.png"} alt="logo" style={{maxWidth: 125}}/>
                     </a>
                   </li>
                 </ul>

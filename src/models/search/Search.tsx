@@ -7,6 +7,7 @@ export interface PhotoPprint {
     category: string;
     price: number;
     directory_name: string;
+    category_dir: string;
 }
 
 export interface Category {

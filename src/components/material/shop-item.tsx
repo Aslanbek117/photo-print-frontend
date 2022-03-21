@@ -79,9 +79,15 @@ export const ShopItem = (props: ShopItemProps) => {
 
   const [activeSlide, setActiveSlide] = React.useState(0);
 
+  const [price, setPrice] = React.useState();
+
   const [swiperRef, setSwiperRef] = React.useState<Select>();
 
   const selectRef = React.useRef<any>(null);
+
+  const [loadingButton, setLoadingButton] = React.useState(false);
+
+
 
   // const onSelect = (id: number) => {
   //   console.log(id);
@@ -93,18 +99,25 @@ export const ShopItem = (props: ShopItemProps) => {
   };
 
   const imagePath = (id) => {
+    console.log("PATH", "https://photo-print.fra1.digitaloceanspaces.com/" +
+    item?.category_dir.trim() + "/" +
+    item?.directory_name.trim() + "/" +
+    "/complex_" +
+    id + "_resized"+
+    ".jpg")
     return (
       "https://photo-print.fra1.digitaloceanspaces.com/" +
-      item?.directory_name.trim() +
-      "/module_" +
-      id +
+      item?.category_dir.trim() + "/" +
+      item?.directory_name.trim()  +
       "/complex_" +
       id + "_resized"+
       ".jpg"
     );
+    
   };
 
   const onImageClick = (id: number) => {
+    // setDefaultValue(sizesFormatted.find(s => s.module_id === id)?.innerSizes[0])
     setSizeID(0)
     if (id == 7 ) {
       setModuleID(38)
@@ -115,8 +128,6 @@ export const ShopItem = (props: ShopItemProps) => {
       setActiveSlide(id);
     }
 
-    console.log("CLICKED", id)
-    
     selectRef.current.clearValue();
     if (id <= 6) {
       setIndex(1);
@@ -147,6 +158,7 @@ export const ShopItem = (props: ShopItemProps) => {
   }
 
   async function addToBasket() {
+    setLoadingButton(true);
     if (pictureID === 0) {
       return;
     } else {
@@ -157,7 +169,7 @@ export const ShopItem = (props: ShopItemProps) => {
         materialID || 0,
         moduleID,
         userID,
-        item?.price || 5000,
+        sizesFormatted.find(s => s.module_id === moduleID)?.innerSizes.find(m => m.id == sizeID)?.price || 20000,
         imageUrl,
         title
       );
@@ -168,6 +180,7 @@ export const ShopItem = (props: ShopItemProps) => {
       } else {
         errorMessage("Ошибка", "Что-то пошло не так");
       }
+      setLoadingButton(false);
     }
     inform();
   }
@@ -205,17 +218,16 @@ export const ShopItem = (props: ShopItemProps) => {
       setItem(response.result);
       setImageUrl(
         "https://photo-print.fra1.digitaloceanspaces.com/" +
-          response.result.directory_name +
-          "/module_2/complex_2.jpg"
+          response.result.category_dir + "/" +
+          response.result.directory_name +  "/" +
+          "complex_2_resized.jpg"
       );
       inform();
       setTitle(response.result.title);
       setLoading(false);
       setSelected(1);
       setOrigImage(
-        "https://photo-print.fra1.digitaloceanspaces.com/" +
-          response.result.directory_name +
-          "/paris-2499022_1920.jpg"
+        "https://photo-print.fra1.digitaloceanspaces.com/Bambuk/parrot-3601194_1920.jpg"
       );
     }
     fetch();
@@ -294,15 +306,26 @@ export const ShopItem = (props: ShopItemProps) => {
                             classNamePrefix="select"
                             name="color"
                             options={sizesFormatted.find(s => s.module_id === moduleID)?.innerSizes}
-                            // defaultValue={sizesFormatted.find(s => s.module_id ===0)?.innerSizes[0].value}
                             onChange={(e) => e != null && e!= undefined && setSizeID(e.id)}
                             placeholder="Выберите размер"
                             isSearchable={false}
                           />
-                          <p className="h3 py-3">
-                            <del className="text-secondary me-2">$200.00</del> 
+                          <p className="h3 py-3 text-center">
+                            <del className="text-danger me-2" style={{fontSize: 17}}>
+                              {sizeID != 0 ? (
+                                <p>
+                                  {Math.floor((sizesFormatted.find(s => s.module_id === moduleID)?.innerSizes.find(m => m.id == sizeID)?.price || 0) + (sizesFormatted.find(s => s.module_id === moduleID)?.innerSizes.find(m => m.id == sizeID)?.price || 0) / 4) } тг. 
+                                </p>
+                              ) : null} 
+                              </del> 
                             <span className="text-primary">
-                            {item?.price} тг.
+                            {sizeID != 0 ? ( 
+                              <span>
+                                {sizesFormatted.find(s => s.module_id === moduleID)?.innerSizes.find(m => m.id == sizeID)?.price} тг.
+                                </span>
+
+                            ) : null}
+                            {moduleID} + module
                             </span>
 
                           </p>
@@ -315,9 +338,10 @@ export const ShopItem = (props: ShopItemProps) => {
                                   onClick={() => addToBasket()}
                                   disabled={userID == 0 ? true : false}
                                   style={{ border: "none" }}
+                                  
                                 >
-                                  <i className="fas fa-shopping-cart"></i> В
-                                  корзину
+                                  <i className="fas fa-shopping-cart"></i> 
+                                  {loadingButton ? "Добавляется..." : 'В корзину'}
                                 </button>
                               </Tooltip>
                             ) : (
@@ -327,8 +351,8 @@ export const ShopItem = (props: ShopItemProps) => {
                                 onClick={() => addToBasket()}
                                 disabled={(moduleID === 0 || sizeID === 0) ? true  : false}
                               >
-                                <i className="fas fa-shopping-cart"></i> В
-                                корзину
+                                <i className="fas fa-shopping-cart"></i> 
+                                {loadingButton ? "Добавляется..." : 'В корзину'}
                               </button>
                             )}
                           </p>
@@ -366,10 +390,7 @@ export const ShopItem = (props: ShopItemProps) => {
                           <div className="row">
                             <div className="col-lg-6 col-sm-6">
                               <p className="text-center">
-                                Натуральный плотный холст. Печать УФ стойкими
-                                красками. Матовое или глянцевое покрытие на
-                                выбор. Насыщенные цвета изображения.
-                                Изготовление на заказ.
+                                Натуральный и плотный холст. Реалистичные цвета. Печать безвредными красками.
                               </p>
                             </div>
 
@@ -377,26 +398,6 @@ export const ShopItem = (props: ShopItemProps) => {
                               <img
                                 className="img-fluid"
                                 src="https://photo-print.fra1.digitaloceanspaces.com/static/characteristic-1.jpg"
-                                alt="..."
-                                style={{ width: 400, height: 350 }}
-                              />
-                            </div>
-                          </div>
-
-                          <div className="row mt-4">
-                            <div className="col-lg-6 col-sm-6">
-                              <p className="text-center">
-                                Натуральный плотный холст. Печать УФ стойкими
-                                красками. Матовое или глянцевое покрытие на
-                                выбор. Насыщенные цвета изображения.
-                                Изготовление на заказ.
-                              </p>
-                            </div>
-
-                            <div className="col-lg-6 col-sm-6">
-                              <img
-                                className="img-fluid"
-                                src="https://photo-print.fra1.digitaloceanspaces.com/static/characteristic-2.jpg"
                                 alt="..."
                                 style={{ width: 400, height: 350 }}
                               />
@@ -447,7 +448,7 @@ export const ShopItem = (props: ShopItemProps) => {
                                 className="text-lg mb-3"
                                 style={{ whiteSpace: "initial" }}
                               >
-                                Вбейте в стену молотком крючек, который будет
+                                Вбейте в стену молотком крючок, который будет
                                 держать картину
                               </p>
                             </div>
@@ -482,14 +483,3 @@ export const ShopItem = (props: ShopItemProps) => {
     </>
   );
 };
-
-// <select
-// className="form-select js-sizes mb-1"
-// data-customclass="bg-white rounded-0 border-2 text-uppercase border-gray-200"
-// >
-// {sizes.map((i) => (
-//   <option value={i.id} key={i.id}>
-//     {i.width}x{i.heigth}{" "}
-//   </option>
-// ))}
-// </select>

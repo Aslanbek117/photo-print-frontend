@@ -1,9 +1,9 @@
 {
-  "short_name": "База знаний",
-  "name": "Create React App Sample",
+  "short_name": "print-shop.kz",
+  "name": "print-shop.kz картины, модульные картины",
   "icons": [
     {
-      "src": "zaebal.png",
+      "src": "site-image.png",
       "sizes": "144x144 64x64 32x32 16x16",
       "type": "image/x-icon", 
       "purpose": "any"

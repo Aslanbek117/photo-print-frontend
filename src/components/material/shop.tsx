@@ -76,53 +76,58 @@ export const Shop = () => {
       }
 
       if (perPage === null  || perPage === false) {
-        setCurrentPerpage("50");
+        setCurrentPerpage("15");
       } else {
-        setCurrentPerpage("5")
+        setCurrentPerpage("15")
       }
 
       if (perPage === null || perPage === false  || page === null || page === false) {
         if (!category) {
-          response = await GetPhotoPrints("some_token", "1", "100", "");  
+          response = await GetPhotoPrints("some_token", "1", "15", "");  
         } else {
-          response = await GetPhotoPrints("some_token", "1", "100", category);
+          response = await GetPhotoPrints("some_token", "1", "15", category);
         }
         
       } else {
         if (!category) {
-          response = await GetPhotoPrints("some_token", page.toString(), "100", "");  
+          response = await GetPhotoPrints("some_token", page.toString(), "15", "");  
         } else {
-          response = await GetPhotoPrints("some_token", page.toString(), "100", category);
+          response = await GetPhotoPrints("some_token", page.toString(), "15", category);
         }
       }
       setCategory(category.toString());
       setData(response.result.merchants);
-      let count = response.result.rows_count / 5;
-      let page_count =  Math.floor(count);
+      let count = response.result.rows_count / 15;
+      console.log("COUNT", Math.ceil(count));
+      let page_count =  Math.ceil(count);
       let pages: Number[] = [];
-      if (!page || page == '' ) {
-        if (count > 10 ) {
-          for (var i=0; i < 10; i++) {
-            pages.push(i+1)
-          }  
-        } else {
-          for (var i=0; i < count; i++) {
-            pages.push(i+1)
-          }
-        }
-      } else {
 
-        if (count > 10 ) {
-          for (var i=0; i < parseInt(page.toString(), 10) + 10; i++) {
-            pages.push(i+1)
-          }  
-        } else {
-          for (var i=0; i < count; i++) {
-            pages.push(i+1)
-          }
-        }
-        
+      for (var i =1; i <= page_count; i++) {
+        pages.push(i);
       }
+      // if (!page || page == '' ) {
+      //   if (count > 10 ) {
+      //     for (var i=0; i < 10; i++) {
+      //       pages.push(i+1)
+      //     }  
+      //   } else {
+      //     for (var i=0; i < count; i++) {
+      //       pages.push(i+1)
+      //     }
+      //   }
+      // } else {
+
+      //   if (count > 10 ) {
+      //     for (var i=0; i < parseInt(page.toString(), 10) + 10; i++) {
+      //       pages.push(i+1)
+      //     }  
+      //   } else {
+      //     for (var i=0; i < count; i++) {
+      //       pages.push(i+1)
+      //     }
+      //   }
+        
+      // }
 
 
       let user = JSON.parse(localStorage.getItem("user")!);
@@ -163,7 +168,7 @@ export const Shop = () => {
                 <div className="col-lg-9">
                   <Nav toShow={false} title="" firstTitle="Картины" firstTitleHref="/"/>
                   <h3 className="h4 text-uppercase mb-1 text-center">
-                  Модульные картины
+                   Картины
                   </h3>
                   <div className="row gy-5 align-items-stretch">
                     {data.map((d) => (
@@ -171,7 +176,7 @@ export const Shop = () => {
                         <Link to={"/item?id=" + d.id}>
                         <Card
                           title={d.title}
-                          src={"https://photo-print.fra1.digitaloceanspaces.com/" + d.directory_name + "/module_2/complex_2.jpg"}
+                          src={"https://photo-print.fra1.digitaloceanspaces.com/"+ d.category_dir + "/" + d.directory_name  + "/complex_2_resized.jpg"}
                           price={d.price}
                           isDiscountEnable={false}
                         />

@@ -68,7 +68,7 @@ export const CustomSwiper = (props: Props) => {
             onClick={() => toggleClass(1)}
           >
             <span className={isActive?.get(1) ? 'sepia-active': 'sepia'} >
-            <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-1.png"} />
+            <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-3.png"} />
             </span>
           </SwiperSlide>
           <SwiperSlide
@@ -78,7 +78,7 @@ export const CustomSwiper = (props: Props) => {
             }}
           >
             <span className={isActive?.get(2) ? 'sepia-active': 'sepia'}>
-            <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-2.png"} />
+            <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-5.png"} />
 
             </span>
           </SwiperSlide>
@@ -89,7 +89,7 @@ export const CustomSwiper = (props: Props) => {
             }}
           >
             <span className={isActive?.get(3) ? 'sepia-active': 'sepia'}>
-            <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-3.png"} />
+            <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-6.png"} />
 
             </span>
           </SwiperSlide>
@@ -100,7 +100,7 @@ export const CustomSwiper = (props: Props) => {
             }}
           >
             <span className={isActive?.get(4) ? 'sepia-active': 'sepia'}>
-            <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-4.png"} />
+            <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-40.png"} />
             </span>
           </SwiperSlide>
           <SwiperSlide
@@ -110,17 +110,18 @@ export const CustomSwiper = (props: Props) => {
             }}
           >
             <span className={isActive?.get(5) ? 'sepia-active': 'sepia'}>
-            <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-5.png"} />
+            <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-41.png"} />
             </span>
           </SwiperSlide>
           <SwiperSlide
             onClick={() => {
-              toggleClass(6);
-              props.onClick(6);
+              toggleClass(37);
+              props.onClick(37);
             }}
+            
           >
-            <span className={isActive?.get(6) ? 'sepia-active': 'sepia'}>
-            <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-6.png"} />
+            <span className={isActive?.get(37) ? 'sepia-active': 'sepia'}>
+            <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-37.png"} />
             </span>
           </SwiperSlide>
           
@@ -351,7 +352,7 @@ export const CustomSwiper = (props: Props) => {
             }}
           >
                  <span className={isActive?.get(29) ? 'sepia-active': 'sepia'}>
-              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-29.png"} />
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-31.png"} />
             </span>
           </SwiperSlide>
 
@@ -374,11 +375,11 @@ export const CustomSwiper = (props: Props) => {
             }}
           >
                  <span className={isActive?.get(31) ? 'sepia-active': 'sepia'}>
-              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-31.png"} />
+              <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-29.png"} />
             </span>
           </SwiperSlide>
 
-
+{/* 
           <SwiperSlide
             onClick={() => {
               toggleClass(32);
@@ -449,7 +450,7 @@ export const CustomSwiper = (props: Props) => {
                  <span className={isActive?.get(37) ? 'sepia-active': 'sepia'}>
               <img src={"https://photo-print.fra1.digitaloceanspaces.com/static/slide-37.png"} />
             </span>
-          </SwiperSlide>
+          </SwiperSlide> */}
 
         </Swiper>
       </div>
