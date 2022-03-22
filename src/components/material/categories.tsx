@@ -10,6 +10,8 @@ interface Props {
 }
 
 export const Categories = (props: Props) => {
+  const host = window.location.protocol + "//" + window.location.host;
+
   const [data, setData] = React.useState<Category[]>([]);
 
   const [loading, setLoading] = React.useState(true);
@@ -24,6 +26,7 @@ export const Categories = (props: Props) => {
     fetch();
   }, []);
 
+  
   return (
     <>
       {loading ? (
@@ -34,7 +37,7 @@ export const Categories = (props: Props) => {
           <ul className="nav flex-column nav-pills mb-4">
             {data.map((d) => (
               <li className="nav-item" key={d.name}>
-                <a className="nav-link" href={"http://localhost:3000?page=1&per_page=50&category=" + d.name}>
+                <a className="nav-link" href={host + "/?page=1&per_page=50&category=" + d.name}>
                   <div className="d-flex align-items-center justify-content-between">
                     <span className="fw-bold text-uppercase">{d.name}</span>
                     <div className="badge bg-warning">{d.count}  </div>
