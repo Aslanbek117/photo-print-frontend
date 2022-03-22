@@ -45,6 +45,8 @@ export const ShopCategoriesPage = () => {
 
   const [loading, setLoading] = useState(true);
 
+  
+
   useEffect(() => {
     async function fetch() {
       setLoading(false);
@@ -53,7 +55,9 @@ export const ShopCategoriesPage = () => {
     fetch();
   }, [location.pathname]);
 
+  const host = window.location.protocol + "//" + window.location.host;
   return (
+    
     <>
       {loading ? (
         <Loader />
@@ -74,7 +78,7 @@ export const ShopCategoriesPage = () => {
                   <div className="row gy-5 align-items-stretch">
                     {data.map((d) => (
                       <div className="col-lg-6 col-md-6 col-xs-6 col-6">
-                        <Link to={"/?page=1&per_page=100&category=Мосты"}>
+                        <Link to={host + "/?page=1&per_page=100&category=Мосты"}>
                         <CategoryCard
                           title={d.title}
                           src={d.url}
