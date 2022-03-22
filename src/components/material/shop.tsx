@@ -64,14 +64,16 @@ export const Shop = () => {
       let page = getQueryVariable('page')
       let perPage =  getQueryVariable('per_page');   
       let category = getQueryVariable('category')
-      
+      let page_formatted = 1;
       if (!category) {
         category = ""
       } 
 
       if (page === null || page === false) {
+        page_formatted = 1
         setCurrentPage("1")
       } else {
+        page_formatted = parseInt(page)
         setCurrentPage(page.toString());
       }
 
@@ -98,12 +100,23 @@ export const Shop = () => {
       setCategory(category.toString());
       setData(response.result.merchants);
       let count = response.result.rows_count / 15;
-      console.log("COUNT", Math.ceil(count));
       let page_count =  Math.ceil(count);
       let pages: Number[] = [];
 
-      for (var i =1; i <= page_count; i++) {
+
+      var index = 1; 
+
+      if (page_formatted > 3) {
+        index = page_formatted - 3
+      } 
+
+      
+      for (var i =index; i <= page_count; i++) {
         pages.push(i);
+        if (pages.length >=7) {
+          pages.push(page_count)
+          break;
+        }
       }
       // if (!page || page == '' ) {
       //   if (count > 10 ) {
