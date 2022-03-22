@@ -23,7 +23,6 @@ function getQueryVariable(variable)
         var vars = query.split("&");
         for (var i=0;i<vars.length;i++) {
                     var pair = vars[i].split("=");
-                    // console.log(pair)//[ 'app', 'article' ][ 'act', 'news_content' ][ 'aid', '160990' ] 
         if(pair[0] == variable){return pair[1];}
          }
          return(false);
@@ -68,6 +67,12 @@ export const Shop = () => {
       if (!category) {
         category = ""
       } 
+      if (category) {
+        document.title = decodeURI(category)
+      } else {
+        document.title = "Картины - print-shop.kz"
+      }
+      
 
       if (page === null || page === false) {
         page_formatted = 1
@@ -186,7 +191,7 @@ export const Shop = () => {
                   <div className="row gy-5 align-items-stretch">
                     {data.map((d) => (
                       <div className="col-lg-4 col-md-4 col-xs-6 col-6">
-                        <Link to={"/item?id=" + d.id}>
+                        <Link to={"/" + d.category_dir.replace("_dir", "") +"/" + d.id}>
                         <Card
                           title={d.title}
                           src={"https://photo-print.fra1.digitaloceanspaces.com/"+ d.category_dir + "/" + d.directory_name  + "/complex_2_resized.jpg"}

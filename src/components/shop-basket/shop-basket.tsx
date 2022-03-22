@@ -264,7 +264,7 @@ export const ShopBasket = () => {
                             <>
                               <tr className="text-sm">
                                 <td className="align-middle border-gray-300 py-3">
-                                  <Link to={"/item?id=" + c.picture_id}>
+                                  <Link to={"/" + c.category_dir.replace("_dir", "") + "/" + c.picture_id}>
                                     <img
                                       className="img-fluid flex-shrink-0"
                                       src={c.img_path}
@@ -277,7 +277,7 @@ export const ShopBasket = () => {
                                   </Link>
                                 </td>
                                 <td className="align-middle border-gray-300 py-3">
-                                  <Link to={"/item?id=" + c.picture_id}>
+                                <Link to={"/" + c.category_dir.replace("_dir", "") + "/" + c.picture_id}>
                                     {c.title}
                                   </Link>
                                 </td>

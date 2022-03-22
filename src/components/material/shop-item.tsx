@@ -88,23 +88,11 @@ export const ShopItem = (props: ShopItemProps) => {
   const [loadingButton, setLoadingButton] = React.useState(false);
 
 
-
-  // const onSelect = (id: number) => {
-  //   console.log(id);
-  //   setSelected(id);
-  // };
-
   const onSlideChange = (index: number) => {
     return index;
   };
 
   const imagePath = (id) => {
-    console.log("PATH", "https://photo-print.fra1.digitaloceanspaces.com/" +
-    item?.category_dir.trim() + "/" +
-    item?.directory_name.trim() + "/" +
-    "/complex_" +
-    id + "_resized"+
-    ".jpg")
     return (
       "https://photo-print.fra1.digitaloceanspaces.com/" +
       item?.category_dir.trim() + "/" +
@@ -199,10 +187,12 @@ export const ShopItem = (props: ShopItemProps) => {
 
   React.useEffect(() => {
     async function fetch() {
+      
       let response: any;
-      let item_id = getQueryVariable("id");
+      let item_id = window.location.pathname.split("/").pop()
       if (item_id) {
         response = await GetItem("token", parseInt(item_id, 10));
+        
         setPictureID(parseInt(item_id));
       } else {
         setPictureID(0);
@@ -229,6 +219,8 @@ export const ShopItem = (props: ShopItemProps) => {
       setOrigImage(
         "https://photo-print.fra1.digitaloceanspaces.com/Bambuk/parrot-3601194_1920.jpg"
       );
+
+      document.title=response.result.title + " модульная картина - print-shop.kz"
     }
     fetch();
   }, []);

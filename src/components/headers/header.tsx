@@ -62,7 +62,7 @@ export const SiteHeader = (props: Props) => {
 
   async function onSearch() {
     history.push({
-      pathname: "/search/pictures?search=" + searchText,
+      pathname: "/search?search=" + searchText,
       state: { searchValue: searchText },
     });
     window.location.reload();
@@ -71,7 +71,7 @@ export const SiteHeader = (props: Props) => {
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       history.push({
-        pathname: "/search/pictures?search=" + searchText,
+        pathname: "/search?search=" + searchText,
         state: { searchValue: searchText },
       });
       window.location.reload();

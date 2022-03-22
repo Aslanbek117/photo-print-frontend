@@ -40,10 +40,8 @@ export const OrderHistory = () => {
   React.useEffect(() => {
     let user = JSON.parse(localStorage.getItem("user")!);
     if (user === null) {
-      console.log("NULL USER");
     } else if (user != null) {
       if (parseInt(user.id) != 0) {
-        console.log(user.id);
         setUserID(parseInt(user.id));
         fetch(parseInt(user.id, 10));
       }

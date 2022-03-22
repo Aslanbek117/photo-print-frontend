@@ -53,7 +53,6 @@ export const Account = () => {
     setId(user.id);
 
     if (user === null) {
-      console.log("NULL USER");
     } else if (user != null) {
       setName(user.name);
       setLastName(user!.lastname);

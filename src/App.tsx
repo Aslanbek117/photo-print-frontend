@@ -22,7 +22,7 @@ export default function Index() {
   return (
     <BrowserRouter>
     <Switch>
-      <Route exact path='/item' component={ShopItem}/>
+      <Route exact path='/:category/:id' component={ShopItem}/>
       <Route exact path='/delivery' component={Delivery}/>
       <Route exact path='/warranty' component={Warranty}/>
       <Route exact path='/contacts' component={Contacts}/>
@@ -35,7 +35,7 @@ export default function Index() {
       <Route exact path='/login' component={LoginComponent}/>
       {/* <Route exact path='/categories' component={ShopCategoriesPage}/> */}
       <Route exact path='/' component={Shop}/>
-      <Route  path='/search/pictures' component={ShopSearch}/>
+      <Route  path='/search' component={ShopSearch}/>
     </Switch>
   </BrowserRouter>
   );

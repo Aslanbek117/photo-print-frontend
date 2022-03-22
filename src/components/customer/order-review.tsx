@@ -57,7 +57,6 @@ export const OrderReview = () => {
   React.useEffect(() => {
     let user = JSON.parse(localStorage.getItem("user")!);
     if (user === null) {
-      console.log("NULL USER");
     } else if (user != null) {
       if (parseInt(user.id) != 0) {
         let id = getQueryVariable("id");
@@ -142,7 +141,7 @@ export const OrderReview = () => {
                                <>
                                <tr className="text-sm">
                                  <td className="align-middle border-gray-300 py-3">
-                                   <Link to={"/item?id=" + c?.picture_id}>
+                                   <Link to={"/" + c?.category_dir?.replace("_dir", "") + "/" + c?.picture_id}>
                                      <img
                                        className="img-fluid flex-shrink-0"
                                        src={
