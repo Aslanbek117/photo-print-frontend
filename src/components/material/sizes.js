@@ -299,5 +299,25 @@ export const sizesFormatted = [
         { id: 4, width: 105, height: 70, sizeString: "105x21, 105x63, 105x21", value: 4, label: "105x70 (105x21, 105x63, 105x21)", price: 34250 },
         { id: 5, width: 120, height: 80, sizeString: "120x24, 120x72, 120x24", value: 5, label: "120x80 (120x24, 120x72, 120x24)", price: 39400 },
     ],
+  },
+  { // done
+    module_id: 37,
+    innerSizes: [
+      { id: 1, width: 60, height: 40, sizeString: "40x18, 40x42", value: 1, label: "60x40 (40x18, 40x42)", price: 16700 },
+      { id: 2, width: 75, height: 50, sizeString: "35x75, 15x75", value: 2, label: "75x50 (50x23, 50x53)", price: 19400 },
+      { id: 3, width: 90, height: 60, sizeString: "48x90, 12x90", value: 3, label: "90x60 (60x27, 60x63)", price: 21500 },
+      { id: 4, width: 105, height: 70, sizeString: "105x49, 105x21", value: 4, label: "105x70 (70x32, 70x74)", price: 24450 },
+      { id: 5, width: 120, height: 80, sizeString: "120x56, 120x24", value: 5, label: "120x80 (80x36, 80x84)", price: 27600 },
+      ],
+  },
+  { // done
+    module_id: 38,
+    innerSizes: [
+      { id: 1, width: 60, height: 40, sizeString: "18x40, 42x40", value: 1, label: "60x40 (42x40, 18x40)", price: 16700 },
+      { id: 2, width: 75, height: 50, sizeString: "75x35, 75x15", value: 2, label: "75x50 (53x50, 23x50)", price: 19400 },
+      { id: 3, width: 90, height: 60, sizeString: "90x48, 90x12", value: 3, label: "90x60 (63x60, 27x60)", price: 21500 },
+      { id: 4, width: 105, height: 70, sizeString: "105x49, 105x21", value: 4, label: "105x70 (74x70, 32x70)", price: 24450 },
+      { id: 5, width: 120, height: 80, sizeString: "120x56, 120x24", value: 5, label: "120x80 (84x80, 36x80)", price: 27600 },
+      ],
   }
   ];

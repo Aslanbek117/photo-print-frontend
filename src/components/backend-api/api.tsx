@@ -1,7 +1,7 @@
 import { UserPost } from "models/search/Search";
 import { httpClient } from "../../http/http";
-// const baseUrl ="https://backend.jcloud.kz/pub/v1"
-const baseUrl ="http://localhost:8080/pub/v1"
+const baseUrl ="https://backend.jcloud.kz/pub/v1"
+// const baseUrl ="http://localhost:8080/pub/v1"
 export const GetPhotoPrints= async (token: string, page: string, perPage: string, category: string): Promise<any> => {
     try {
         const response = await (await httpClient(token)).get(baseUrl+"/merchants?page=" + page + "&per_page=" +perPage +"&category=" + category)

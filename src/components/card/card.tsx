@@ -35,7 +35,7 @@ export const Card = (props: CardProps) => {
           <h3 className="h5 text-uppercase mb-1" style={{wordWrap: 'break-word'}}>
               {props.title}
           </h3>
-          <p className="mb-0">12 000</p>
+          {/* <p className="mb-0">12 000</p> */}
         </div>
         <ul className="list-unstyled p-0 ribbon-holder mb-0"></ul>
         {props.isDiscountEnable ? <Discount /> : null}

@@ -26,32 +26,24 @@ export default function Contacts() {
           </header>
 
          <div class="row gy-5 mb-5">
-            <div class="col-lg-4 block-icon-hover text-center">
-              <div class="icon icon-outlined icon-outlined-primary icon-thin mx-auto mb-3"><i class="fab fa-whatsapp" style={{color:"#25D366"}}></i></div>
-              <h4 class="text-uppercase mb-3">WhatsApp</h4>
-              <p class="text-gray-600 text-sm">Свяжитесь с нами по данному номеру в текстовом виде (для контроля работы менеджеров)</p>
+            <div class="col-lg-6 block-icon-hover text-center">
+              <div class="icon icon-outlined icon-outlined-primary icon-thin mx-auto mb-3">
+                <i class="fab fa-whatsapp" style={{color:"#25D366"}}></i>
+                </div>
+              
               <ul class="list-unstyled text-sm mb-0">
-                <li><strong><a href="mailto:">info@fakeemail.com</a></strong></li>
-                <li><strong><a href="/">Ticketio</a></strong> - our ticketing support platform</li>
+                <li><strong><a target="_blank" href="https://wa.me/77473865301" style={{fontSize: 20}}>WhatsApp</a></strong></li>
               </ul>
+              <p class="text-gray-600 text-sm">Свяжитесь с нами в текстовом виде</p>
+              
             </div>
-            <div class="col-lg-4 block-icon-hover text-center">
+            <div class="col-lg-6 block-icon-hover text-center">
               <div class="icon icon-outlined icon-outlined-primary icon-thin mx-auto mb-3"><i class="fab fa-instagram" style={{color: '#fb3958'}}></i></div>
-              <h4 class="text-uppercase mb-3">Instagram</h4>
-              <p class="text-gray-600 text-sm">Свяжитесь с нами по данному номеру в текстовом виде (для контроля работы менеджеров)</p>
               <ul class="list-unstyled text-sm mb-0">
-                <li><strong><a href="mailto:">info@fakeemail.com</a></strong></li>
-                <li><strong><a href="/">Ticketio</a></strong> - our ticketing support platform</li>
+                <li><strong><a target="_blank" href="https://www.instagram.com/print_shop.kz" style={{fontSize: 20}}>Instagram</a></strong></li>
               </ul>
-            </div>
-            <div class="col-lg-4 block-icon-hover text-center">
-              <div class="icon icon-outlined icon-outlined-primary icon-thin mx-auto mb-3"><i class="fab fa-telegram-plane" style={{color:"#0088cc"}}></i></div>
-              <h4 class="text-uppercase mb-3">Telegram</h4>
-              <p class="text-gray-600 text-sm">Свяжитесь с нами по данному номеру в текстовом виде (для контроля работы менеджеров)</p>
-              <ul class="list-unstyled text-sm mb-0">
-                <li><strong><a href="mailto:">info@fakeemail.com</a></strong></li>
-                <li><strong><a href="/">Ticketio</a></strong> - our ticketing support platform</li>
-              </ul>
+              <p class="text-gray-600 text-sm">Свяжитесь с нами в текстовом виде</p>
+              
             </div>
           </div>
           
