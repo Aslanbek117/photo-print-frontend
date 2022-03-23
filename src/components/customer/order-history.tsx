@@ -73,7 +73,7 @@ export const OrderHistory = () => {
                   <div className="col-lg-9">
                     <p className="text-muted lead mb-5">
                       Если у вас есть какие-то вопросы то, пожалуйста,
-                      <a href="contact.html"> обращайтесь </a> к нашим
+                      <a href="/contacts"> обращайтесь </a> к нашим
                       менеджерам
                     </p>
 

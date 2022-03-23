@@ -91,8 +91,9 @@ export default function TopBar() {
                   <li className="list-inline-item text-gray-600" key={132243}>
                     <a
                       className="text-xs social-link-hover"
-                      href="#"
+                      href="https://www.instagram.com/print_shop.kz/"
                       title="Instargam"
+                      target="_blank"
                     >
                       <i className="fab fa-instagram fa-2x"></i>
                     </a>
@@ -100,8 +101,9 @@ export default function TopBar() {
                   <li className="list-inline-item text-gray-600" key={535423}>
                     <a
                       className="text-xs social-link-hover"
-                      href="#"
+                      href="https://wa.me/77473865301"
                       title="Whatsapp"
+                      target="_blank"
                     >
                       <i className="fab fa-whatsapp fa-2x"></i>
                     </a>
