@@ -15,6 +15,7 @@ import { Nav } from "./nav";
 import { SiteHeader } from "../headers/header";
 import { useLocation } from 'react-router-dom';
 import "../../styles//app.css";
+import { Footer } from "footer/footer";
 
 
 function getQueryVariable(variable)
@@ -172,45 +173,43 @@ export const Shop = () => {
 
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
         <div className="wide">
           <TopBar />
           <SiteHeader ordersCount={count}/>
           <section className="py-3" style={{backgroundColor: 'white'}}>
             <div className="container py-0">
-              
-              <div className="row">
-              <Categories comments={comments}/>
-                <div className="col-lg-9">
-                  <Nav toShow={false} title="" firstTitle="Картины" firstTitleHref="/"/>
-                  <h3 className="h4 text-uppercase mb-1 text-center">
-                   Картины
-                  </h3>
-                  <div className="row gy-5 align-items-stretch">
-                    {data.map((d) => (
-                      <div className="col-lg-4 col-md-4 col-xs-6 col-6">
-                        <Link to={"/" + d.category_dir.replace("_dir", "") +"/" + d.id}>
-                        <Card
-                          title={d.title}
-                          src={"https://photo-print.fra1.digitaloceanspaces.com/"+ d.category_dir + "/" + d.directory_name  + "/complex_2_resized.jpg"}
-                          price={d.price}
-                          isDiscountEnable={false}
-                        />
-                        </Link>
-                      </div>
-                    ))}
+                  <>
+                  <div className="row">
+                  <Categories comments={comments}/>
+                  <div className="col-lg-9">
+                    <Nav toShow={false} title="" firstTitle="Картины" firstTitleHref="/"/>
+                    <h3 className="h4 text-uppercase mb-1 text-center">
+                     Картины
+                    </h3>
+                    <div className="row gy-5 align-items-stretch">
+                      {data.map((d) => (
+                        <div className="col-lg-4 col-md-4 col-xs-6 col-6">
+                          <Link to={"/" + d.category_dir.replace("_dir", "") +"/" + d.id}>
+                          <Card
+                            title={d.title}
+                            src={"https://photo-print.fra1.digitaloceanspaces.com/"+ d.category_dir + "/" + d.directory_name  + "/complex_2_resized.jpg"}
+                            price={d.price}
+                            isDiscountEnable={false}
+                          />
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+                    <ShopPagination page={currentPage} per_page={currentPerPage} pages={pages as number[]} category={category}/>
                   </div>
-                  <ShopPagination page={currentPage} per_page={currentPerPage} pages={pages as number[]} category={category}/>
                 </div>
-              </div>
+                </>
             </div>
           </section>
 
-          {/* <Footer /> */}
+          <Footer />
         </div>
-      )}
+      )
     </>
   );
 };

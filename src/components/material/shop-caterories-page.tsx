@@ -17,6 +17,7 @@ import { useLocation } from 'react-router-dom';
 import { data } from '../card/data.js';
 import "../../styles//app.css";
 import { CategoryCard } from "components/card/category-card";
+import { Footer } from "footer/footer";
 
 
 function getQueryVariable(variable)
@@ -58,9 +59,7 @@ export const ShopCategoriesPage = () => {
   return (
     
     <>
-      {loading ? (
-        <Loader />
-      ) : (
+    
         <div className="wide">
           <TopBar />
           <SiteHeader ordersCount={0}/>
@@ -93,9 +92,8 @@ export const ShopCategoriesPage = () => {
             </div>
           </section>
 
-          {/* <Footer /> */}
+          <Footer />
         </div>
-      )}
     </>
   );
 };

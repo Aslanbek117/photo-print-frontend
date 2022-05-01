@@ -13,6 +13,7 @@ import {
 import { Nav } from "./nav";
 import { SiteHeader } from "../headers/header";
 import { useLocation } from 'react-router-dom';
+import { Footer } from "footer/footer";
 
 
 function getQueryVariable(variable)
@@ -59,9 +60,7 @@ let location = useLocation();
 
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
+    
         <div className="wide" id="all">
           <TopBar />
           <SiteHeader />
@@ -95,9 +94,8 @@ let location = useLocation();
             </div>
           </section>
 
-          {/* <Footer /> */}
+          <Footer />
         </div>
-      )}
     </>
   );
 };

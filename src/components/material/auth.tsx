@@ -45,9 +45,7 @@ export const Registration = (props: Props) => {
 
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
+   
         <>
           <div className="wide" id="all">
             <TopBar />
@@ -82,7 +80,6 @@ export const Registration = (props: Props) => {
             </section>
           </div>
         </>
-      )}
     </>
   );
 };

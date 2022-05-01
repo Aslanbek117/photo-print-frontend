@@ -67,11 +67,7 @@ export const Account = () => {
 
   return (
     <>
-      {loading ? (
-        <>
-          <Loader />
-        </>
-      ) : (
+     
         <div className="wide">
           <TopBar />
           <SiteHeader ordersCount={0} />
@@ -218,7 +214,6 @@ export const Account = () => {
             </section>
           </section>
         </div>
-      )}
     </>
   );
 };

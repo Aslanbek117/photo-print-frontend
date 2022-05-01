@@ -42,9 +42,6 @@ export  const LoginComponent = (props: Props)  => {
 
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
         <>
           <div className="wide" id="all">
             <TopBar />
@@ -81,7 +78,6 @@ export  const LoginComponent = (props: Props)  => {
             </section>
           </div>
         </>
-      )}
     </>
   );
 };
@@ -92,10 +88,3 @@ export  const LoginComponent = (props: Props)  => {
 
 
 
-
-
-
-
-
-{/* <p className="text-center text-muted small">Еще не зарегистрированы?</p> */}
-            //   <p className="text-center text-muted small"><a href="customer-register.html"><strong>Зарегистрироваться</strong></a>! Это займет не более 5 секунд!</p>

@@ -29,9 +29,7 @@ export const Categories = (props: Props) => {
   
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
+    
         <div className="col-lg-3">
           <h3 className="h4 lined text-uppercase mb-4">Категории</h3>
           <ul className="nav flex-column nav-pills mb-4">
@@ -61,7 +59,7 @@ export const Categories = (props: Props) => {
                       ))}
           </div>
         </div>
-      )}
+      
     </>
   );
 };

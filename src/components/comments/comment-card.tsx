@@ -33,13 +33,13 @@ export const CommentCard = (props: Props) => {
               {/* <h5 className="text-uppercase mb-3">{props.name}</h5> */}
 
               <span className="small text-muted mb-3">
-              <span className="text-uppercase" style={{color:'green'}}>{props.name}</span>
+              <span className="text-uppercase" style={{color:'green'}}>{props?.name}</span>
               
 
-            {"  "} {props.created_at}
+            {"  "} {props?.created_at}
             <i className="far fa-clock me-2" style={{marginLeft: 5}}></i>
               </span>
-              <p className="text-sm mb-3" style={{whiteSpace: 'initial'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed metus ante, fermentum eget cursus at, porttitor a metus. Nunc et enim dapibus, consectetur metus sed, rutrum justo. Integer non justo dui. Integer hendrerit imperdiet libero. Vestibulum facilisis nisl non efficitur congue. Sed non velit accumsan, venenatis nibh in, aliquet nisl. Quisque sit amet felis justo. Maecenas ac molestie nunc. Quisque sed ante vitae neque imperdiet blandit. In ultricies nunc a sapien accumsan egestas. Quisque vel accumsan lorem. Ut diam purus, mollis non risus eget, bibendum rhoncus mi.</p>
+              <p className="text-sm mb-3" style={{whiteSpace: 'initial'}}></p>
             </div>
           </div>
         </>
