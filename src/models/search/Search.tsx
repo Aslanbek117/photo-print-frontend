@@ -13,6 +13,7 @@ export interface PhotoPprint {
 export interface Category {
     name: string; 
     count: number;
+    category_dir: string;
 }
 
 

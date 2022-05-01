@@ -35,7 +35,7 @@ export const Categories = (props: Props) => {
           <ul className="nav flex-column nav-pills mb-4">
             {data.map((d) => (
               <li className="nav-item" key={d.name}>
-                <a className="nav-link" href={host + "/?page=1&per_page=50&category=" + d.name}>
+                <a className="nav-link" href={host + "/?page=1&per_page=50&category=" + d.category_dir}>
                   <div className="d-flex align-items-center justify-content-between">
                     <span className="fw-bold text-uppercase">{d.name}</span>
                     <div className="badge bg-warning">{d.count}  </div>
