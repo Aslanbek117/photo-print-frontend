@@ -20,12 +20,14 @@ export const ShopPagination = (props: ShopPaginationProps) => {
   if (parseInt(props.page, 10) == 1 ) {
     prevDisabled = "disabled";
   }
+  console.log("zaebal", props.category)
   return (
+  
     <>
       <nav aria-label="Page navigation example">
                     <ul className="pagination justify-content-center">
                       <li className={"page-item " + prevDisabled }key={110000} > 
-                        <a className="page-link" href={host + "?page=" +  (parseInt(props.page) - 1) +"&per_page=15" + "&category=" + props.category} aria-label="Previous">
+                        <a className="page-link" href={"/catalog/" +props.category + "/" + "?page=" +  (parseInt(props.page) - 1)} aria-label="Previous">
                           <span aria-hidden="true">«</span>
                         </a>
                       </li>
@@ -44,13 +46,13 @@ export const ShopPagination = (props: ShopPaginationProps) => {
                           <>
                           {p.toString() === props.page ? (
                             <li className="page-item active" key={p}>
-                                <a className="page-link" href={host + "?page=" + p +"&per_page=15" + "&category=" + props.category}>
+                                <a className="page-link" href={"/catalog/" + props.category + "/"  + "?page=" + p}>
                             {p}
                           </a>    
                             </li>
                           ) : (
                             <li className="page-item" key={p}>
-                                <a className="page-link" href={host + "?page=" + p +"&per_page=15" + "&category=" + props.category}>
+                                <a className="page-link" href={"/catalog/" + props.category + "/"  + "?page=" + p}>
                             {p}
                             </a>    
                             </li>

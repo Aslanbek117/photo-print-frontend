@@ -52,6 +52,7 @@ export const Shop = () => {
 
   const [comments, setComments] = React.useState();
 
+  const [catalogCategory, setCatalogCategory] = React.useState("")
   
 
   const [loading, setLoading] = useState(true);
@@ -61,35 +62,40 @@ export const Shop = () => {
    
     async function fetch() {
       let response: any;
-      let page = getQueryVariable('page')
-      let perPage =  getQueryVariable('per_page');   
-      let category = getQueryVariable('category')
-      let page_formatted = 1;
-      if (!category) {
+      let tt = window.location.href
+      let c = tt.split("/").length - 3
+      let category = ""
+      console.log("C", c)
+      if (c == 3) {
+        let catalogIndex = tt.lastIndexOf("catalog/")
+        let lastSlashIndex = tt.lastIndexOf("/")
+        category = tt.substring(catalogIndex + 8 , lastSlashIndex)
+        setCatalogCategory(category)
+      } else if (c == 1) {
         category = ""
-      } 
+        setCatalogCategory("")
+      } else {
+        let catalogIndex = tt.lastIndexOf("catalog/")
+        category = tt.substring(catalogIndex + 8, tt.length)
+        setCatalogCategory(category)
+      }
+
+      let page = getQueryVariable('page')
       if (category) {
         document.title = decodeURI(category)
       } else {
         document.title = "Картины - print-shop.kz"
       }
-      
+      console.log("CATEGORY", category)
 
       if (page === null || page === false) {
-        page_formatted = 1
         setCurrentPage("1")
       } else {
-        page_formatted = parseInt(page)
         setCurrentPage(page.toString());
       }
 
-      if (perPage === null  || perPage === false) {
-        setCurrentPerpage("15");
-      } else {
-        setCurrentPerpage("15")
-      }
 
-      if (perPage === null || perPage === false  || page === null || page === false) {
+      if (page === null || page === false) {
         if (!category) {
           response = await GetPhotoPrints("some_token", "1", "15", "");  
         } else {
@@ -111,10 +117,6 @@ export const Shop = () => {
 
 
       var index = 1; 
-
-      if (page_formatted > 3) {
-        index = page_formatted - 3
-      } 
 
       
       for (var i =index; i <= page_count; i++) {
@@ -200,7 +202,7 @@ export const Shop = () => {
                         </div>
                       ))}
                     </div>
-                    <ShopPagination page={currentPage} per_page={currentPerPage} pages={pages as number[]} category={category}/>
+                    <ShopPagination page={currentPage} per_page={currentPerPage} pages={pages as number[]} category={catalogCategory}/>
                   </div>
                 </div>
                 </>
