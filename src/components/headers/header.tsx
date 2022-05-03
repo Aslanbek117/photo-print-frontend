@@ -1,7 +1,12 @@
+import { InstagramOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import { GetBasketList } from "components/backend-api/api";
 import * as React from "react";
 import { useHistory } from "react-router-dom";
+import {
+  ShoppingCartOutlined,
+} from '@ant-design/icons';
 import "../../styles/app.css";
+
 
 interface Props {
   onAddToBasket?: Function;
@@ -112,10 +117,7 @@ export const SiteHeader = (props: Props) => {
                 whiteSpace: "nowrap",
               }}
             >
-              <i
-                className="fas fa-shopping-cart fa-lg"
-                style={{ color: "#4fbfa8", marginRight: 10 }}
-              />
+                <ShoppingCartOutlined  style={{fontSize: 20, color: 'orange', marginRight: 10}}/>
               {props.ordersCount === 0 && count === 0 && "пусто"}
               {/* {count > 0  ? count : null} */}
               {props.ordersCount != undefined &&
@@ -139,7 +141,7 @@ export const SiteHeader = (props: Props) => {
             onClick={() => setShowCollapse(!showCollapse)}
           >
             <span className="sr-only">Окрыть меню</span>
-            <i className="fas fa-align-justify"></i>
+            <UnorderedListOutlined style={{fontSize: 24, color: 'orange'}}/>
           </button>
 
           <div
@@ -247,10 +249,7 @@ export const SiteHeader = (props: Props) => {
                       whiteSpace: "nowrap",
                     }}
                   >
-                    <i
-                      className="fas fa-shopping-cart fa-lg"
-                      style={{ color: "orange", marginRight: 10 }}
-                    ></i>
+                    <ShoppingCartOutlined  style={{fontSize: 20, color: 'orange', marginRight: 10}}/>
                     {props.ordersCount === 0 && count === 0 && "пусто"}
                     {props.ordersCount != undefined &&
                       props.ordersCount > count &&

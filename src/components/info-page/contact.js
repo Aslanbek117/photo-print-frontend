@@ -2,7 +2,10 @@ import * as React from "react";
 import { SiteHeader } from "../headers/header";
 import TopBar from "../headers/top-bar.js";
 import { Nav } from "../material/nav";
-
+import {
+  InstagramOutlined,
+  WhatsAppOutlined
+} from '@ant-design/icons';
 
 
 export default function Contacts() {
@@ -29,6 +32,7 @@ export default function Contacts() {
             <div class="col-lg-6 block-icon-hover text-center">
               <div class="icon icon-outlined icon-outlined-primary icon-thin mx-auto mb-3">
                 <i class="fab fa-whatsapp" style={{color:"#25D366"}}></i>
+                <WhatsAppOutlined style={{color: "#25D366"}}/>
                 </div>
               
               <ul class="list-unstyled text-sm mb-0">
@@ -38,7 +42,7 @@ export default function Contacts() {
               
             </div>
             <div class="col-lg-6 block-icon-hover text-center">
-              <div class="icon icon-outlined icon-outlined-primary icon-thin mx-auto mb-3"><i class="fab fa-instagram" style={{color: '#fb3958'}}></i></div>
+              <div class="icon icon-outlined icon-outlined-primary icon-thin mx-auto mb-3"><InstagramOutlined style={{color: '#fb3958'}}/></div>
               <ul class="list-unstyled text-sm mb-0">
                 <li><strong><a target="_blank" href="https://www.instagram.com/print_shop.kz" style={{fontSize: 20}}>Instagram</a></strong></li>
               </ul>

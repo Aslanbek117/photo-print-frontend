@@ -1,6 +1,9 @@
 import * as React from "react";
 import "../../styles//app.css";
-
+import {
+  InstagramOutlined,
+  WhatsAppOutlined
+} from '@ant-design/icons';
 
 export default function TopBar() {
 
@@ -95,7 +98,7 @@ export default function TopBar() {
                       title="Instargam"
                       target="_blank"
                     >
-                      <i className="fab fa-instagram fa-2x"></i>
+                      <InstagramOutlined style={{fontSize: 24}} />
                     </a>
                   </li>
                   <li className="list-inline-item text-gray-600" key={535423}>
@@ -105,7 +108,8 @@ export default function TopBar() {
                       title="Whatsapp"
                       target="_blank"
                     >
-                      <i className="fab fa-whatsapp fa-2x"></i>
+                      {/* <i className="<WhatsAppOutlined />"></i> */}
+                      <WhatsAppOutlined style={{fontSize: 24}} />
                     </a>
                   </li>
                 </ul>
