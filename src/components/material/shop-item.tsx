@@ -19,6 +19,7 @@ import { PhotoPprint } from "models/search/Search";
 import { CustomSwiper } from "./swiper";
 import { errorMessage, successMessage } from "utils/Notifications";
 import { sizesFormatted } from './sizes.js'
+import { Helmet } from "react-helmet";
 // Styles must use direct files imports
 // Styles must use direct files imports
 import "swiper/swiper.scss"; // core Swiper
@@ -86,6 +87,10 @@ export const ShopItem = (props: ShopItemProps) => {
   const selectRef = React.useRef<any>(null);
 
   const [loadingButton, setLoadingButton] = React.useState(false);
+
+  const [keyword, setKeyword] = React.useState("");
+
+  const [category, setCategory] = React.useState("");
 
 
   const onSlideChange = (index: number) => {
@@ -213,6 +218,39 @@ export const ShopItem = (props: ShopItemProps) => {
           "complex_2_resized.jpg"
       );
       inform();
+
+
+      // if (response.result.category == "abstraction") {
+      //   setKeyword("Картины бстракции")
+      // } else if (response.result.category == "ship") {
+      //   setKeyword("Картины Корабли")
+      // } else if (response.result.category == "space") {
+      //   setKeyword("Картины космоса")
+      // } else if (response.result.category == "watercolor") {
+      //   setKeyword("Картины акварелью")
+      // } else if (response.result.category == "animal") {
+      //   setKeyword("Картины животных")
+      // } else if (response.result.category == "landscape") {
+      //   setKeyword("Картины пейзажа")
+      // } else if (response.result.category == "architecture") {
+      //   setKeyword("Картины архитектура")
+      // } else if (response.result.category == "black_and_white") {
+      //   setKeyword("Картины черно белые")
+      // } else if (response.result.category == "bridges") {
+      //   setKeyword("Картины мостиков")
+      // } else if (response.result.category == "cities") {
+      //   setKeyword("Картины городов")
+      // } else if (response.result.category =="flowers") {
+      //   setKeyword("Картины цветов")
+      // } else if (response.result.category == "nature") {
+      //   setKeyword("Картины природы")
+      // } else if (response.result.category == "retro") {
+      //   setKeyword("Картины ретро")
+      // } else {
+      //   setKeyword("Картины")
+      // }
+      setCategory(response.result.category)
+      setKeyword(response.result.title);
       setTitle(response.result.title);
       setLoading(false);
       setSelected(1);
@@ -220,7 +258,7 @@ export const ShopItem = (props: ShopItemProps) => {
         "https://photo-print.fra1.digitaloceanspaces.com/" + response.result.path
       );
 
-      document.title=response.result.title + " модульная картина - print-shop.kz"
+      
     }
     fetch();
   }, []);
@@ -230,6 +268,22 @@ export const ShopItem = (props: ShopItemProps) => {
  
         <>
           <div className="wide" id="all">
+          <Helmet>
+            <title>
+              {" Картина " + keyword + " на стену. Купить в интернет-магазине print-shop.kz"}
+            </title>
+            <meta name="keywords" content={keyword} />
+            <meta name="description" content={"Новинки картин на натуральном холсте этого Года. Картина " + keyword +  " на стену – по цене от 690 руб. Купите в интернет магазине недорого. Более 6000 Фото в интерьере из каталога print-shop.kz"} />
+            
+            <meta property="og:title" content={keyword + " - на сайте print-shop.kz"} />
+            
+              <meta property="og:url" content={"https://print-shop.kz/" + category + "/" + item?.id} />  
+            
+            <meta property="og:type" content="website" />
+            <meta property="og:description" content="Картины на Холсте для интерьера недорого. Купите картины на стену в интернет магазине от 5000 тг. Отличное качество, экологичные материалы от print-shop.kz. Изготовление 2-4 дня. Удобная доставка." />
+          
+            
+          </Helmet>
             <TopBar />
             <SiteHeader ordersCount={count} />
            

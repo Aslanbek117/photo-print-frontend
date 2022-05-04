@@ -16,6 +16,8 @@ import { SiteHeader } from "../headers/header";
 import { useLocation } from 'react-router-dom';
 import "../../styles//app.css";
 import { Footer } from "footer/footer";
+import { Helmet } from "react-helmet";
+
 
 
 function getQueryVariable(variable)
@@ -53,9 +55,15 @@ export const Shop = () => {
   const [comments, setComments] = React.useState();
 
   const [catalogCategory, setCatalogCategory] = React.useState("")
+
+  const [title, setTitle] = React.useState("");
+
+  const [categorySelected, setCategorySelected] = React.useState(false);
   
 
   const [loading, setLoading] = useState(true);
+
+  const [keyword, setKeyword] = useState("Картины");
 
   useEffect(() => {
 
@@ -70,18 +78,80 @@ export const Shop = () => {
         let lastSlashIndex = tt.lastIndexOf("/")
         category = tt.substring(catalogIndex + 8 , lastSlashIndex)
         setCatalogCategory(category)
+        setCategorySelected(true);
+
+        if (category == "abstraction") {
+          setKeyword("Картины бстракции")
+        } else if (category == "ship") {
+          setKeyword("Картины Корабли")
+        } else if (category == "space") {
+          setKeyword("Картины космоса")
+        } else if (category == "watercolor") {
+          setKeyword("Картины акварелью")
+        } else if (category == "animal") {
+          setKeyword("Картины животных")
+        } else if (category == "landscape") {
+          setKeyword("Картины пейзажа")
+        } else if (category == "architecture") {
+          setKeyword("Картины архитектура")
+        } else if (category == "black_and_white") {
+          setKeyword("Картины черно белые")
+        } else if (category == "bridges") {
+          setKeyword("Картины мостиков")
+        } else if (category == "cities") {
+          setKeyword("Картины городов")
+        } else if (category =="flowers") {
+          setKeyword("Картины цветов")
+        } else if (category == "nature") {
+          setKeyword("Картины природы")
+        } else if (category == "retro") {
+          setKeyword("Картины ретро")
+        } else {
+          setKeyword("Картины")
+        }
       } else if (c == 1) {
         category = ""
         setCatalogCategory("")
+        setCategorySelected(false);
       } else {
         let catalogIndex = tt.lastIndexOf("catalog/")
         category = tt.substring(catalogIndex + 8, tt.length)
         setCatalogCategory(category)
+        setCategorySelected(true)
+        if (category == "abstraction") {
+          setKeyword("Картины бстракции")
+        } else if (category == "ship") {
+          setKeyword("Картины Корабли")
+        } else if (category == "space") {
+          setKeyword("Картины космоса")
+        } else if (category == "watercolor") {
+          setKeyword("Картины акварелью")
+        } else if (category == "animal") {
+          setKeyword("Картины животных")
+        } else if (category == "landscape") {
+          setKeyword("Картины пейзажа")
+        } else if (category == "architecture") {
+          setKeyword("Картины архитектура")
+        } else if (category == "black_and_white") {
+          setKeyword("Картины черно белые")
+        } else if (category == "bridges") {
+          setKeyword("Картины мостиков")
+        } else if (category == "cities") {
+          setKeyword("Картины городов")
+        } else if (category =="flowers") {
+          setKeyword("Картины цветов")
+        } else if (category == "nature") {
+          setKeyword("Картины природы")
+        } else if (category == "retro") {
+          setKeyword("Картины ретро")
+        } else {
+          setKeyword("Картины")
+        }
       }
 
       let page = getQueryVariable('page')
       if (category) {
-        document.title = decodeURI(category)
+        document.title = decodeURI(category + " - print-shop.kz")
       } else {
         document.title = "Картины - print-shop.kz"
       }
@@ -141,7 +211,13 @@ export const Shop = () => {
         setComments(responseComments.result);
       } else {
       }
+      if (catalogCategory.length == 0) {
+          setTitle( "Картины недорого - Фото и цены | Купить")
+      } else {
+        setTitle("Картины " + catalogCategory + " недорого - Фото и цены | Купить")
+      }
       setLoading(false);
+      
     }
 
     fetch();
@@ -150,6 +226,28 @@ export const Shop = () => {
   return (
     <>
         <div className="wide">
+          <Helmet>
+            <title>
+              {keyword}
+            </title>
+            <meta name="keywords" content={keyword} />
+            {categorySelected ? (
+              <meta name="description" content={"Картины на Холсте для интерьера недорого. Купите  " + keyword +  " на стену в интернет магазине от 5000 тг. Отличное качество, экологичные материалы от print-shop.kz. Изготовление 2-4 дня. Удобная доставка."} />
+            ) : (
+              <meta name="description" content={"Картины на Холсте для интерьера недорого. Купите картины на стену в интернет магазине от 5000 тг. Отличное качество, экологичные материалы от print-shop.kz. Изготовление 2-4 дня. Удобная доставка."} />
+            )}
+  
+            <meta property="og:title" content={keyword + " - на сайте print-shop.kz"} />
+            {keyword == "Картины" ? (
+              <meta property="og:url" content={"https://print-shop.kz" + catalogCategory} />  
+            ) : (
+              <meta property="og:url" content={"https://print-shop.kz/catalog/" + catalogCategory} />
+            ) }
+            <meta property="og:type" content="website" />
+            <meta property="og:description" content="Картины на Холсте для интерьера недорого. Купите картины на стену в интернет магазине от 5000 тг. Отличное качество, экологичные материалы от print-shop.kz. Изготовление 2-4 дня. Удобная доставка." />
+          
+            
+          </Helmet>
           <TopBar />
           <SiteHeader ordersCount={count}/>
           <section className="py-3" style={{backgroundColor: 'white'}}>
