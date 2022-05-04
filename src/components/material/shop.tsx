@@ -119,7 +119,7 @@ export const Shop = () => {
         setCatalogCategory(category)
         setCategorySelected(true)
         if (category == "abstraction") {
-          setKeyword("Картины бстракции")
+          setKeyword("Картины абстракции")
         } else if (category == "ship") {
           setKeyword("Картины Корабли")
         } else if (category == "space") {
