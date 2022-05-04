@@ -65,7 +65,6 @@ export const Shop = () => {
       let tt = window.location.href
       let c = tt.split("/").length - 3
       let category = ""
-      console.log("C", c)
       if (c == 3) {
         let catalogIndex = tt.lastIndexOf("catalog/")
         let lastSlashIndex = tt.lastIndexOf("/")
@@ -86,7 +85,6 @@ export const Shop = () => {
       } else {
         document.title = "Картины - print-shop.kz"
       }
-      console.log("CATEGORY", category)
 
       if (page === null || page === false) {
         setCurrentPage("1")
@@ -126,30 +124,6 @@ export const Shop = () => {
           break;
         }
       }
-      // if (!page || page == '' ) {
-      //   if (count > 10 ) {
-      //     for (var i=0; i < 10; i++) {
-      //       pages.push(i+1)
-      //     }  
-      //   } else {
-      //     for (var i=0; i < count; i++) {
-      //       pages.push(i+1)
-      //     }
-      //   }
-      // } else {
-
-      //   if (count > 10 ) {
-      //     for (var i=0; i < parseInt(page.toString(), 10) + 10; i++) {
-      //       pages.push(i+1)
-      //     }  
-      //   } else {
-      //     for (var i=0; i < count; i++) {
-      //       pages.push(i+1)
-      //     }
-      //   }
-        
-      // }
-
 
       let user = JSON.parse(localStorage.getItem("user")!);
       let user_id;

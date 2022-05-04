@@ -11,7 +11,6 @@ import "../../styles//app.css";
 export const ShopPagination = (props: ShopPaginationProps) => {
   const host = window.location.protocol + "//" + window.location.host;
   let next = (parseInt(props.page) + 1)
-  let prev = parseInt(props.page) - 1
   let prevDisabled = "";
   let nextDisabled = ""
   if (next > props.pages.length) {
@@ -20,7 +19,6 @@ export const ShopPagination = (props: ShopPaginationProps) => {
   if (parseInt(props.page, 10) == 1 ) {
     prevDisabled = "disabled";
   }
-  console.log("zaebal", props.category)
   return (
   
     <>
@@ -33,16 +31,6 @@ export const ShopPagination = (props: ShopPaginationProps) => {
                       </li>
                       {props.pages.map(p => (
                           
-                          // <li className="page-item active" key={p}>
-                          //   {p.toString() === props.page ? (
-                          //   <a className="page-link" href={host + "?page=" + p +"&per_page=15" + "&category=" + props.category}>
-                          //   {p}
-                          // </a>    
-                          //   ) : (
-                          //     <a className="page-link" href={host + "?page=" + p +"&per_page=15" + "&category=" + props.category}>
-                          //   {p}
-                          // </a>
-                          //   )}
                           <>
                           {p.toString() === props.page ? (
                             <li className="page-item active" key={p}>

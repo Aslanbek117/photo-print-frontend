@@ -29,6 +29,7 @@ export const SiteHeader = (props: Props) => {
   const [count, setCount] = React.useState(0);
 
   async function GetCount(user_id: number) {
+    console.log("BASKET")
     if (user_id != 0) {
       
         let response = await GetBasketList("", user_id);
@@ -63,7 +64,7 @@ export const SiteHeader = (props: Props) => {
       setLoading(false);
     }
     fetch();
-  }, [loading]);
+  }, []);
 
   async function onSearch() {
     history.push({
